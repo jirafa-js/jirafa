@@ -1,0 +1,20 @@
+{
+  "name": "@jirafa/jirafa-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@7.1.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "preinstall": "only-allow pnpm -y",
+    "lint": "eslint . "
+  },
+  "devDependencies": {
+    "@jirafa/eslint-config": "^1.1.1",
+    "eslint": "^8.17.0",
+    "only-allow": "^1.1.0",
+    "typescript": "^4.7.3"
+  }
+}
