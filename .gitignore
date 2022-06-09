@@ -8,6 +8,10 @@ yarn-error.log*
 # Module
 node_modules
 
+# Output
+dist/
+lib/
+es/
 
 # IDE
 .idea

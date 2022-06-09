@@ -1,0 +1,25 @@
+{
+  "name": "@jirafa/cli",
+  "version": "0.0.0",
+  "description": "jirafa cli",
+  "license": "MIT",
+  "keywords": [],
+  "bin": {
+    "jirafa": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "pnpm run build --watch",
+    "build": "tsup src/index.ts --format cjs --dts --clean"
+  },
+  "dependencies": {
+    "commander": "^9.3.0",
+    "conventional-changelog": "^3.1.25",
+    "fs-extra": "^10.1.0",
+    "ora": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^17.0.41",
+    "tsup": "^6.1.0"
+  }
+}

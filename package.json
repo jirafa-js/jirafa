@@ -9,9 +9,12 @@
   "keywords": [],
   "scripts": {
     "preinstall": "only-allow pnpm -y",
-    "lint": "eslint . "
+    "prepare": "pnpm -F cli run build",
+    "lint": "eslint . ",
+    "changelog": "jirafa changelog"
   },
   "devDependencies": {
+    "@jirafa/cli": "workspace:*",
     "@jirafa/eslint-config": "^1.1.1",
     "eslint": "^8.17.0",
     "only-allow": "^1.1.0",
