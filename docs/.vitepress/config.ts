@@ -20,7 +20,7 @@ const config: UserConfig<DefaultTheme.Config> = {
     sidebar,
 
     editLink: {
-      pattern: 'https://github.com/jirafa-js/jirafa/docs/:path',
+      pattern: 'https://github.com/jirafa-js/jirafa/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
     lastUpdatedText: 'Last Updated',
