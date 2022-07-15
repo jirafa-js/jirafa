@@ -3,7 +3,7 @@ import ora from 'ora'
 import conventionalChangelog from 'conventional-changelog'
 import { createWriteStream } from 'fs-extra'
 
-import { ROOT_DIR } from '../shared/constant'
+import { DIR_ROOT } from '../shared/paths'
 
 interface ChangelogOptions {
   file?: string
@@ -18,7 +18,7 @@ export const changelog = ({ releaseCount = 0, file = 'CHANGELOG.md' }: Changelog
       preset: 'angular',
       releaseCount,
     })
-      .pipe(createWriteStream(r(ROOT_DIR, file)))
+      .pipe(createWriteStream(r(DIR_ROOT, file)))
       .on('close', () => {
         o.succeed('Changelog generated success!')
         resolve()

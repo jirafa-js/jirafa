@@ -1,0 +1,13 @@
+{
+  "en-US": {
+    "basic": {
+      "text": "Basic",
+      "children": [
+        {
+          "text": "Button",
+          "link": "/component/button"
+        }
+      ]
+    }
+  }
+}

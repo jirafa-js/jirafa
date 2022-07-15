@@ -1,7 +1,7 @@
 // import { execSync } from 'child_process'
 import fg from 'fast-glob'
 
-const scopes = fg.sync('*', { onlyDirectories: true, cwd: 'packages' })
+const scopes = [...fg.sync('*', { onlyDirectories: true, cwd: 'packages' }), 'docs']
 
 // const gitStatus = execSync('git status --porcelain')
 

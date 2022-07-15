@@ -1,0 +1,37 @@
+{
+  "en-US": {
+    "design": {
+      "text": "Design",
+      "children": [
+        {
+          "text": "Layout",
+          "link": "/design/layout"
+        },
+        {
+          "text": "Color",
+          "link": "/design/color"
+        },
+        {
+          "text": "Typography",
+          "link": "/design/typography"
+        },
+        {
+          "text": "Border",
+          "link": "/design/border"
+        },
+        {
+          "text": "Shadow",
+          "link": "/design/shadow"
+        },
+        {
+          "text": "Illustration",
+          "link": "/design/illustration"
+        },
+        {
+          "text": "Animation",
+          "link": "/design/animation"
+        }
+      ]
+    }
+  }
+}

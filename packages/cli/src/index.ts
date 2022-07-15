@@ -6,9 +6,9 @@ import { readJsonSync } from 'fs-extra'
 
 import { changelog } from './commands/changelog'
 
-import { ROOT_DIR } from './shared/constant'
+import { DIR_ROOT } from './shared/paths'
 
-const version = readJsonSync(resolve(ROOT_DIR, 'package.json')).version
+const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
 
 const program = new Command()
 
@@ -21,6 +21,7 @@ program
   .description('generate changelog')
   .action(changelog)
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 program.on('command:*', ([cmd]) => {
   program.outputHelp()
   // logger.error(`\nUnknown command '${cmd}'.\n`)

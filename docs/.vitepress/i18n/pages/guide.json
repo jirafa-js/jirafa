@@ -1,0 +1,17 @@
+{
+  "en-US": {
+    "guide": {
+      "text": "Basic",
+      "children": [
+        {
+          "text": "Installation",
+          "link": "/guide/installation"
+        },
+        {
+          "text": "Quick Start",
+          "link": "/guide/quickstart"
+        }
+      ]
+    }
+  }
+}
