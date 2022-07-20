@@ -16,7 +16,10 @@
     "preinstall": "only-allow pnpm -y",
     "prepare": "husky install & pnpm -F cli run build",
     "changelog": "jirafa changelog",
-    "docs:dev": "pnpm run -F docs dev"
+    "docs:dev": "pnpm run -F docs dev",
+    "docs:serve": "pnpm run -F docs serve",
+    "docs:build": "pnpm run -F docs build",
+    "docs:gen-locale": "pnpm run -F docs gen-locale"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

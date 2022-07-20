@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "pnpm run gen:locale && vitepress dev .",
+    "build": "cross-env NODE_ENV=production && vitepress build .",
+    "serve": "cross-env NODE_ENV=production && vitepress serve .",
     "gen:locale": "rimraf .vitepress/i18n && tsx .vitepress/build/metadata-generate.ts"
   },
   "dependencies": {
@@ -15,6 +17,7 @@
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "chalk": "^5.0.1",
     "consola": "^2.15.3",
+    "cross-env": "^7.0.3",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
     "rimraf": "^3.0.2",

@@ -20,7 +20,5 @@ const [open, toggleSidebar] = useToggle(false)
     <SiteMenuBar v-if="hasSidebar" @open-menu="toggleSidebar(true)" />
     <SiteSidebar :open="open" @close="toggleSidebar(false)" />
     <SiteContent />
-
-    <Debug />
   </div>
 </template>
