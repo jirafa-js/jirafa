@@ -1,0 +1,120 @@
+@use '../mixins.scss' as *;
+
+.site-content {
+  @include point-to('lg') {
+    padding-top: var(--site-header-height);
+  }
+  &.has-sidebar {
+    @include point-to('lg') {
+      padding-left: calc(var(--site-sidebar-width) + 10px);
+    }
+
+    @include point-to('xxl') {
+      padding-left: calc($sidebar-stretch + var(--site-sidebar-width));
+    }
+  }
+}
+
+.site-doc {
+  width: 100%;
+  display: flex;
+  padding: 32px 24px 96px;
+
+  @include point-to(lg) {
+    padding: 64px 64px 96px;
+  }
+
+  @include point-to(xl) {
+    padding: 64px 32px 96px 64px;
+  }
+
+  &-container {
+    width: 100%;
+    // width: 800px;
+    // display: flex;
+
+    @include point-to('xl') {
+      width: 800px;
+    }
+  }
+
+  &-aside {
+    display: none;
+    padding: 32px 0 96px 64px;
+
+    @include point-to('xl') {
+      display: block;
+    }
+
+    &-content {
+      width: 200px;
+
+      position: sticky;
+      top: calc(var(--site-header-height) + 32px);
+    }
+  }
+
+  &-content {
+    width: 100%;
+
+    @include hd {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .header-anchor {
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.site-doc {
+  p,
+  summary {
+    margin: 16px 0;
+  }
+
+  p {
+    line-height: 28px;
+  }
+
+  blockquote {
+    margin: 16px 0;
+    border-left: 2px solid var(--site-c-divider);
+    padding-left: 16px;
+    transition: border-color 0.5s;
+
+    > p {
+      margin: 0;
+      font-size: 16px;
+      color: var(--site-c-text-2);
+      transition: color 0.5s;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  th {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 0.6em 1em;
+    border-top: 1px solid var(--site-c-divider);
+    border-bottom: 1px solid var(--site-c-divider);
+  }
+
+  hr {
+    margin: 16px 0;
+    border: none;
+    border-top: 1px solid var(--site-c-divider-light);
+  }
+}

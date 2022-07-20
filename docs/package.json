@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev .",
+    "dev": "pnpm run gen:locale && vitepress dev .",
     "gen:locale": "rimraf .vitepress/i18n && tsx .vitepress/build/metadata-generate.ts"
+  },
+  "dependencies": {
+    "@vueuse/core": "^8.9.3"
   },
   "devDependencies": {
     "@jirafa/cli": "workspace:^0.0.0",
@@ -15,6 +18,7 @@
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
     "rimraf": "^3.0.2",
+    "sass": "^1.53.0",
     "tsx": "^3.8.0",
     "unplugin-vue-components": "^0.21.1",
     "unplugin-vue-define-options": "^0.6.2",

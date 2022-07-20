@@ -1,0 +1,14 @@
+{
+  "en-US": [
+    {
+      "text": "Guide",
+      "link": "/guide/installation",
+      "activeMatch": "/guide/|/design/"
+    },
+    {
+      "text": "Component",
+      "link": "/component/button",
+      "activeMatch": "/component/|/token/"
+    }
+  ]
+}

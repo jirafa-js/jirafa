@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
+@use './variables.scss' as *;
+
+$breakpoints: (
+  sm: #{$breakpoint-sm},
+  md: #{$breakpoint-md},
+  lg: #{$breakpoint-lg},
+  xl: #{$breakpoint-xl},
+  xxl: #{$breakpoint-xxl},
+  max: #{$breakpoint-max},
+) !default;
+
+$sidebar-stretch: calc((100% - var(--site-layout-max-width)) / 2);
+
+@mixin point-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: #{map.get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+}
+
+@mixin hd {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @content;
+  }
+}
+
+@mixin with-bd {
+  border-bottom: 1px solid var(--site-c-divider-light);
+}
+
+@mixin with-bg {
+  color: var(--site-c-text-1);
+  background-color: var(--site-c-bg);
+
+  @include with-transition(background-color, border-color);
+}
+
+@mixin with-transition($props...) {
+  $trans: ();
+  @each $prop in $props {
+    $trans: list.append($trans, ($prop 0.25s));
+  }
+
+  transition: list.join($trans, (), comma);
+}
+
+@mixin with-transition2($props...) {
+  $trans: ();
+  @each $prop in $props {
+    $trans: list.append($trans, ($prop 0.5s));
+  }
+
+  transition: list.join($trans, (), comma);
+}

@@ -28,11 +28,11 @@ app.mount('#app')
 
 ### On-demand Import
 
-[ ] Todo...
+> Todo...
 
 ### Manually import
 
-[ ] Todo...
+> Todo...
 
 ## Typescript Support
 

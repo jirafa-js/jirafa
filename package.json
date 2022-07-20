@@ -6,6 +6,7 @@
   "description": "jirafa.js monorepo",
   "author": "linco",
   "license": "MIT",
+  "homepage": "https://github.com/jirafa-js/jirafa",
   "keywords": [],
   "engines": {
     "node": ">=16"

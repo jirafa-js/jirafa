@@ -51,7 +51,7 @@ $ pnpm install jirafa
 
 ### jsdelivr
 
-```html
+```html{3}
 <head>
   <!-- import style -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/jirafa/index.css" />
@@ -63,3 +63,10 @@ $ pnpm install jirafa
 ```
 
 If you are installing via package manager and want to use it with a packaging tool, please read the next section: [Quick Start](/en-US/guide/quickstart).
+
+### `useROute`
+
+sdsd `Usd` `我的` [`dsds`]()
+
+- add
+- babeljs

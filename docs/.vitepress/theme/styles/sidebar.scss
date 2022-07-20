@@ -1,0 +1,61 @@
+@use './mixins.scss' as *;
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 48px 32px 0;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  z-index: var(--site-z-index-sidebar);
+
+  @include with-transition(transform, opacity, top);
+  &.open {
+    transform: translate(0);
+  }
+
+  @include point-to('md') {
+    width: var(--site-sidebar-width);
+  }
+
+  @include point-to('lg') {
+    top: var(--site-header-height);
+    transform: translateX(0);
+  }
+
+  @include point-to('xxl') {
+    padding-left: $sidebar-stretch;
+    width: calc($sidebar-stretch + var(--site-sidebar-width));
+  }
+
+  &-content {
+    padding-bottom: 96px;
+  }
+
+  &-group {
+    &__title {
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    & + & {
+      margin-top: 24px;
+    }
+  }
+
+  &-link {
+    display: block;
+    padding: 8px 16px;
+    line-height: 20px;
+    font-size: 14px;
+    transition: color 0.25s;
+    border-radius: 4px;
+
+    &:not(.active) {
+      color: var(--site-c-text-2);
+    }
+  }
+}

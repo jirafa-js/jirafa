@@ -1,10 +1,11 @@
-import type { DefaultTheme, UserConfig } from 'vitepress'
+import type { UserConfig } from 'vitepress'
 import head from './config/head'
-import nav from './config/nav'
+import { nav } from './config/nav'
 import sidebar from './config/sidebar'
 import lang from './i18n/lang.json'
+import type { ThemConfig } from '~/types/theme-config'
 
-const config: UserConfig<DefaultTheme.Config> = {
+const config: UserConfig<ThemConfig> = {
   title: 'Jirafa UI',
   description: 'a Vue 3 based component library, powered by Material Design',
   lastUpdated: true,
@@ -24,6 +25,9 @@ const config: UserConfig<DefaultTheme.Config> = {
       text: 'Edit this page on GitHub',
     },
     lastUpdatedText: 'Last Updated',
+  },
+  markdown: {
+    lineNumbers: true,
   },
 }
 

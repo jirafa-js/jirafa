@@ -1,0 +1,48 @@
+@use './mixins.scss' as *;
+
+.menu-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--site-z-index-menu-bar);
+  border-bottom: 1px solid var(--site-c-divider);
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+
+  @include with-bg;
+
+  @include point-to(md) {
+    padding: 12px 32px;
+  }
+
+  @include point-to('lg') {
+    display: none;
+  }
+
+  &__sidebar-toggle {
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+
+  &__back-top {
+    opacity: 0;
+    transform: translate(0, 100%);
+    pointer-events: none;
+
+    @include with-transition(opacity, transform);
+
+    &.show {
+      opacity: 1;
+      transform: translate(0, 0);
+      pointer-events: visible;
+      cursor: pointer;
+    }
+  }
+}
