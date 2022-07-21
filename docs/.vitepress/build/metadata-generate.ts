@@ -18,18 +18,26 @@ async function main() {
   const locales = await fg('*', { cwd: dirMetadata, onlyDirectories: true })
 
   await fs.mkdir(localeOutput)
-  await fs.writeFile(resolve(localeOutput, 'lang.json'), JSON.stringify(locales), {})
+  await fs.writeFile(
+    resolve(localeOutput, 'lang.json'),
+    JSON.stringify(locales),
+    {}
+  )
 
   await traverseDir(
     resolve(dirMetadata, 'en-US'),
     locales
       .filter((locale) => locale !== 'en-US')
-      .map((locale) => ({ locale, pathname: resolve(localeOutput, locale) })),
+      .map((locale) => ({ locale, pathname: resolve(dirMetadata, locale) })),
     localeOutput
   )
 }
 
-async function traverseDir(dir: string, paths: { locale: string; pathname: string }[], output: string) {
+async function traverseDir(
+  dir: string,
+  paths: { locale: string; pathname: string }[],
+  output: string
+) {
   const contents = await fs.readdir(dir, { withFileTypes: true })
   await Promise.all(
     contents.map(async (c) => {
@@ -49,13 +57,19 @@ async function traverseDir(dir: string, paths: { locale: string; pathname: strin
 
         await Promise.all(
           paths.map(async ({ locale, pathname }) => {
-            contentToWrite[locale] = await fs.readJSON(resolve(pathname, c.name))
+            contentToWrite[locale] = await fs.readJSON(
+              resolve(pathname, c.name)
+            )
           })
         )
 
-        await fs.writeFile(resolve(output, c.name), `${JSON.stringify(contentToWrite, null, 2)}\n`, {
-          encoding: 'utf-8',
-        })
+        await fs.writeFile(
+          resolve(output, c.name),
+          `${JSON.stringify(contentToWrite, null, 2)}\n`,
+          {
+            encoding: 'utf-8',
+          }
+        )
       }
     })
   )

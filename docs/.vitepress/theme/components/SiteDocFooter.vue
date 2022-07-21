@@ -1,5 +1,9 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import SiteEditLink from './SiteEditLink.vue'
+</script>
 
 <template>
-  <div class="site-doc-footer"></div>
+  <footer class="site-doc-footer">
+    <SiteEditLink />
+  </footer>
 </template>

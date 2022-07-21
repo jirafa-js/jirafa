@@ -1,5 +1,6 @@
 import { useRoute } from 'vitepress'
 import { computed } from 'vue'
+import type { Languages } from '~/constants'
 
 export const useLang = () => {
   const route = useRoute()
@@ -13,6 +14,6 @@ export const useLang = () => {
       lang = path.split('/')[0]
     }
 
-    return lang
+    return lang as Languages
   })
 }
