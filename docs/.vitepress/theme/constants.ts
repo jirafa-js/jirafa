@@ -20,4 +20,4 @@ export const REPO = 'https://github.com/jirafa-js/jirafa'
 
 export const REPO_DOCS = 'https://github.com/jirafa-js/jirafa'
 
-export const REPO_DOCS_BRANCH = 'main'
+export const REPO_DOCS_BRANCH = 'dev'
