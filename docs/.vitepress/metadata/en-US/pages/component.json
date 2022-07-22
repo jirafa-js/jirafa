@@ -7,5 +7,25 @@
         "link": "/component/button"
       }
     ]
+  },
+  "data-input": {
+    "text": "Data Input",
+    "children": []
+  },
+  "data-display": {
+    "text": "Data Display",
+    "children": []
+  },
+  "navigator": {
+    "text": "Navigator",
+    "children": []
+  },
+  "feedback": {
+    "text": "Feedback",
+    "children": []
+  },
+  "others": {
+    "text": "Others",
+    "children": []
   }
 }

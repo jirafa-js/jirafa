@@ -20,12 +20,14 @@ interface Item {
 function getSidebar(...locales: Record<string, { [key: string]: Item }>[]) {
   return locales.reduce<{ [key: string]: any[] }>((sidebars, locale) => {
     Object.entries(locale).forEach(([lang, val]) => {
+      const value = Object.values(val)
+        .filter((item) => !item.children || item.children.length)
+        .map((item) => mapPrefix(item, lang))
+
       if (sidebars[lang]) {
-        sidebars[lang].push(
-          ...Object.values(val).map((item) => mapPrefix(item, lang))
-        )
+        sidebars[lang].push(...value)
       } else {
-        sidebars[lang] = Object.values(val).map((item) => mapPrefix(item, lang))
+        sidebars[lang] = value
       }
     })
     return sidebars

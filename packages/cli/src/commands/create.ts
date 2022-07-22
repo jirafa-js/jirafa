@@ -2,8 +2,9 @@ import { resolve } from 'path'
 import { appendFile, mkdir, pathExists, writeFile } from 'fs-extra'
 import consola from 'consola'
 import chalk from 'chalk'
+import prompt from 'prompts'
 import { camelCase, capitalize, kebabCase } from '../utils'
-import { DIR_COMPS, DIR_HOOKS, PREFIX } from '../../shared'
+import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../../shared'
 interface CreateOptions {
   hook: boolean
 }
@@ -58,6 +59,8 @@ async function createComponent(filename: string) {
     consola.error(`Component ${chalk.green(`'${name}'`)} exists!`)
     process.exit(1)
   }
+
+  await promptComponentMetadata(name)
 
   const { vue, entry, ts, test, doc, example } = componentTemplate(name)
   await mkdir(dirCompTest, { recursive: true })
@@ -177,5 +180,47 @@ ${name}/basic
   </${compName}>
 </template>
 `.trimStart(),
+  }
+}
+
+async function promptComponentMetadata(name: string) {
+  try {
+    const { type } = await prompt(
+      {
+        name: 'type',
+        message: 'Please select the component type',
+        type: 'select',
+        choices: [
+          { title: 'Basic', value: 'basic', description: '' },
+          { title: 'Data Input', value: 'data-input' },
+          { title: 'Data Display', value: 'data-display' },
+          { title: 'Navigator', value: 'navigator' },
+          { title: 'Feedback', value: 'feedback' },
+          { title: 'Others', value: 'others' },
+        ],
+      },
+      {
+        onCancel() {
+          throw new Error('Operation canceled!')
+        },
+      }
+    )
+
+    const metadataPath = resolve(
+      DIR_DOCS,
+      '.vitepress/metadata/en-US/pages/component.json'
+    )
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const compMetadata = require(metadataPath)
+
+    compMetadata[type].children.push({
+      text: capitalize(camelCase(name)),
+      link: `/component/${name}`,
+    })
+
+    await writeFile(metadataPath, JSON.stringify(compMetadata, null, 2))
+  } catch (e) {
+    consola.error((e as Error).message)
+    process.exit(1)
   }
 }
