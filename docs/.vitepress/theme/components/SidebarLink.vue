@@ -11,7 +11,7 @@ const route = useRoute()
 <template>
   <a
     class="sidebar-link"
-    :class="{ active: isActive(route.data.relativePath, item.link) }"
+    :class="{ active: isActive(route.path, item.link) }"
     :href="item.link"
     @click="$emit('close')"
   >

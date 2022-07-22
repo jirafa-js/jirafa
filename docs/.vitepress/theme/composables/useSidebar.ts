@@ -16,7 +16,7 @@ export const useSidebar = () => {
   const sidebar = computed(() => {
     if (page.value.frontmatter.sidebar === false) return []
 
-    return getSidebar(theme.value.sidebar, route.data.relativePath, lang.value)
+    return getSidebar(theme.value.sidebar, route.path, lang.value)
   })
 
   return { hasSidebar: computed(() => sidebar.value.length > 0), sidebar }

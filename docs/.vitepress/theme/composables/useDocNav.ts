@@ -8,7 +8,7 @@ export const useDocNav = () => {
   const { sidebar } = useSidebar()
   const route = useRoute()
 
-  const path = computed(() => normalize(ensureSlash(route.data.relativePath)))
+  const path = computed(() => normalize(ensureSlash(route.path)))
   const flatedSidebar = computed(() => flatSidebar(sidebar.value))
   const index = computed(() =>
     flatedSidebar.value.findIndex((item) => item.link === path.value)

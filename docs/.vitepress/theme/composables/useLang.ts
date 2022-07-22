@@ -8,7 +8,7 @@ export const useLang = () => {
   return computed(() => {
     let lang = 'en-US'
 
-    const path = route.data.relativePath
+    const path = route.path.replace(/^\//, '')
 
     if (path.includes('/')) {
       lang = path.split('/')[0]

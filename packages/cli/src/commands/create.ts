@@ -41,6 +41,8 @@ async function createHook(filename: string) {
     resolve(DIR_HOOKS, 'index.ts'),
     `export * from './${name}'\n`
   )
+
+  consola.success(`Create hook ${chalk.green(name)} success!`)
 }
 
 async function createComponent(filename: string) {
@@ -61,6 +63,7 @@ async function createComponent(filename: string) {
   await mkdir(dirCompTest, { recursive: true })
   await mkdir(dirCompSrc, { recursive: true })
   await mkdir(dirCompDoc, { recursive: true })
+  await mkdir(dirCompExamples, { recursive: true })
 
   await writeFile(resolve(dirCompTest, `${name}.spec.ts`), test)
   await writeFile(resolve(dirCompSrc, `${name}.ts`), ts)
@@ -74,6 +77,8 @@ async function createComponent(filename: string) {
   )
 
   symLinkToDoc(name, dirCompDoc, dirCompExamples)
+
+  consola.success(`Create component ${chalk.green(name)} success!`)
 }
 
 function hookTemplate(name: string) {
@@ -178,6 +183,9 @@ ${name}/basic
 }
 
 function symLinkToDoc(name: string, dirDoc: string, dirExamples: string) {
-  symlink(resolve(dirDoc, 'en-US.md'), resolve(DIR_DOCS, `en-US/${name}.md`))
+  symlink(
+    resolve(dirDoc, 'en-US.md'),
+    resolve(DIR_DOCS, `en-US/component/${name}.md`)
+  )
   symlink(resolve(dirExamples), resolve(DIR_DOCS, `examples/${name}`))
 }

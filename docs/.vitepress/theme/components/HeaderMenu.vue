@@ -16,7 +16,7 @@ const menus = useMenu()
       class="header-menu-link"
       :class="{
         active: isActive(
-          route.data.relativePath,
+          route.path,
           menu.activeMatch ? menu.activeMatch : menu.link,
           !!menu.activeMatch
         ),
