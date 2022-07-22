@@ -1,9 +1,9 @@
 import { resolve } from 'path'
-import { appendFile, mkdir, pathExists, symlink, writeFile } from 'fs-extra'
+import { appendFile, mkdir, pathExists, writeFile } from 'fs-extra'
 import consola from 'consola'
 import chalk from 'chalk'
 import { camelCase, capitalize, kebabCase } from '../utils'
-import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../../shared'
+import { DIR_COMPS, DIR_HOOKS, PREFIX } from '../../shared'
 interface CreateOptions {
   hook: boolean
 }
@@ -75,8 +75,6 @@ async function createComponent(filename: string) {
     resolve(DIR_COMPS, 'index.ts'),
     `export * from './${name}'\n`
   )
-
-  symLinkToDoc(name, dirCompDoc, dirCompExamples)
 
   consola.success(`Create component ${chalk.green(name)} success!`)
 }
@@ -180,12 +178,4 @@ ${name}/basic
 </template>
 `.trimStart(),
   }
-}
-
-function symLinkToDoc(name: string, dirDoc: string, dirExamples: string) {
-  symlink(
-    resolve(dirDoc, 'en-US.md'),
-    resolve(DIR_DOCS, `en-US/component/${name}.md`)
-  )
-  symlink(resolve(dirExamples), resolve(DIR_DOCS, `examples/${name}`))
 }

@@ -1,17 +1,53 @@
 import { resolve } from 'path'
-import { DIR_DOCS } from '@jirafa/cli/dist/shared'
+import { DIR_COMPS, DIR_DOCS } from '@jirafa/cli/dist/shared'
 import fs from 'fs-extra'
 import consola from 'consola'
 import chalk from 'chalk'
 import fg from 'fast-glob'
 
 const dirMetadata = resolve(DIR_DOCS, '.vitepress/metadata')
+const localeOutput = resolve(DIR_DOCS, '.vitepress/i18n')
 
 async function main() {
-  const localeOutput = resolve(DIR_DOCS, '.vitepress/i18n')
-  if (fs.existsSync(localeOutput)) {
-    throw new Error('File already exists.')
+  const locales = await genLocales()
+  await symlinkComponent(locales)
+  await traverseDir(
+    resolve(dirMetadata, 'en-US'),
+    locales
+      .filter((locale) => locale !== 'en-US')
+      .map((locale) => ({ locale, pathname: resolve(dirMetadata, locale) })),
+    localeOutput
+  )
+}
+
+async function symlinkComponent(locales: string[]) {
+  await emptydir([
+    resolve(DIR_DOCS, 'examples'),
+    ...locales.map((locale) => resolve(DIR_DOCS, locale, 'component')),
+  ])
+
+  const comps = await fg('*', { cwd: DIR_COMPS, onlyDirectories: true })
+  for (const comp of comps) {
+    await fs.symlink(
+      resolve(DIR_COMPS, comp, 'examples'),
+      resolve(DIR_DOCS, `examples/${comp}`)
+    )
+
+    for (const locale of locales) {
+      let localeDoc = resolve(DIR_COMPS, comp, `docs/${locale}.md`)
+      if (!fs.pathExistsSync(localeDoc)) {
+        localeDoc = resolve(DIR_COMPS, comp, `docs/en-US.md`)
+      }
+      await fs.symlink(
+        localeDoc,
+        resolve(DIR_DOCS, `${locale}/component/${comp}.md`)
+      )
+    }
   }
+}
+
+async function genLocales() {
+  await emptydir(localeOutput)
 
   consola.trace(chalk.cyan('Starting for build doc for developing.'))
 
@@ -24,13 +60,7 @@ async function main() {
     {}
   )
 
-  await traverseDir(
-    resolve(dirMetadata, 'en-US'),
-    locales
-      .filter((locale) => locale !== 'en-US')
-      .map((locale) => ({ locale, pathname: resolve(dirMetadata, locale) })),
-    localeOutput
-  )
+  return locales
 }
 
 async function traverseDir(
@@ -73,6 +103,14 @@ async function traverseDir(
       }
     })
   )
+}
+
+async function emptydir(paths: string | string[]) {
+  paths = ([] as string[]).concat(paths)
+  for (const p of paths) {
+    await fs.rm(p, { recursive: true })
+    await fs.mkdir(p, { recursive: true })
+  }
 }
 
 main()
