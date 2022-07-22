@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"],
+    "lib": ["ESNext"],
+    "skipLibCheck": true
+  },
+  "include": ["*.ts", "**/packages/cli/**/*"],
+  "exclude": ["node_modules", "**/*.md", "dist"]
+}

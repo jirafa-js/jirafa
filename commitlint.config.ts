@@ -1,9 +1,25 @@
-// import { execSync } from 'child_process'
+import { execSync } from 'child_process'
 import fg from 'fast-glob'
 
-const scopes = [...fg.sync('*', { onlyDirectories: true, cwd: 'packages' }), 'docs']
+const scopes = [
+  ...fg.sync('*', { onlyDirectories: true, cwd: 'packages' }),
+  'docs',
+]
 
-// const gitStatus = execSync('git status --porcelain')
+const gitStatus = execSync('git status --porcelain || true')
+  .toString()
+  .trim()
+  .split('\n')
+
+const scopeComplete = gitStatus
+  .find((r) => ~r.indexOf('M  packages'))
+  ?.replace(/\//g, '%%')
+  ?.match(/packages%%((\w|-)*)/)?.[1]
+
+const subjectComplete = gitStatus
+  .find((r) => ~r.indexOf('M  packages/components'))
+  ?.replace(/\//g, '%%')
+  ?.match(/packages%%components%%((\w|-)*)/)?.[1]
 
 export default {
   rules: {
@@ -33,7 +49,11 @@ export default {
      */
     'header-max-length': [2, 'always', 72],
     'scope-case': [2, 'always', 'lower-case'],
-    'subject-case': [1, 'never', ['sentence-case', 'start-case', 'pascal-case', 'upper-case']],
+    'subject-case': [
+      1,
+      'never',
+      ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
+    ],
     'subject-empty': [2, 'never'],
     'subject-full-stop': [2, 'never', '.'],
     'type-case': [2, 'always', 'lower-case'],
@@ -63,9 +83,9 @@ export default {
     ],
   },
   prompt: {
-    // defaultScope: scopeComplete,
-    // customScopesAlign: !scopeComplete ? 'top' : 'bottom',
-    // defaultSubject: subjectComplete && `[${subjectComplete}] `,
+    defaultScope: scopeComplete,
+    customScopesAlign: !scopeComplete ? 'top' : 'bottom',
+    defaultSubject: subjectComplete && `[${subjectComplete}] `,
     allowCustomIssuePrefixs: false,
     allowEmptyIssuePrefixs: false,
   },

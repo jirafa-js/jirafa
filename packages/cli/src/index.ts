@@ -3,9 +3,9 @@
 import { resolve } from 'path'
 import { Command } from 'commander'
 import { readJsonSync } from 'fs-extra'
-
+import consola from 'consola'
 import { changelog } from './commands/changelog'
-
+import { create } from './commands/create'
 import { DIR_ROOT } from './shared/paths'
 
 const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
@@ -21,10 +21,15 @@ program
   .description('generate changelog')
   .action(changelog)
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+program
+  .command('create <file>')
+  .option('-h, --hook', 'type hook')
+  .description('create a component/composable')
+  .action(create)
+
 program.on('command:*', ([cmd]) => {
   program.outputHelp()
-  // logger.error(`\nUnknown command '${cmd}'.\n`)
+  consola.error(`\nUnknown command '${cmd}'.\n`)
   process.exitCode = 1
 })
 

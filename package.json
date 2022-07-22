@@ -14,30 +14,43 @@
   "scripts": {
     "cz": "czg",
     "preinstall": "only-allow pnpm -y",
-    "prepare": "husky install & pnpm -F cli run build",
+    "prepare": "husky install & pnpm run -F cli build",
     "changelog": "jirafa changelog",
+    "gen": "jirafa create",
     "docs:dev": "pnpm run -F docs dev",
     "docs:serve": "pnpm run -F docs serve",
     "docs:build": "pnpm run -F docs build",
-    "docs:gen-locale": "pnpm run -F docs gen-locale"
+    "docs:gen-locale": "pnpm run -F docs gen-locale",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@esbuild-kit/cjs-loader": "^2.3.1",
     "@jirafa/cli": "workspace:*",
     "@jirafa/eslint-config": "^1.1.1",
     "@types/fs-extra": "^9.0.13",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vitejs/plugin-vue-jsx": "^2.0.0",
+    "@vue/test-utils": "^2.0.2",
     "cz-git": "^1.3.9",
     "czg": "^1.3.9",
     "esbuild": "^0.14.49",
-    "esbuild-register": "^3.3.3",
     "eslint": "^8.17.0",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
     "husky": "^8.0.1",
+    "jsdom": "^20.0.0",
     "lint-staged": "^13.0.3",
     "only-allow": "^1.1.0",
-    "typescript": "^4.7.3"
+    "tsx": "^3.8.0",
+    "typescript": "^4.7.4",
+    "unplugin-vue-define-options": "^0.6.2",
+    "vitest": "^0.18.1",
+    "vue": "^3.2.37"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue,md,json}": [

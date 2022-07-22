@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ESNext",
+    "sourceMap": false,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "rootDir": ".",
+    "allowJs": false,
+    "noUnusedLocals": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "types": [],
+    "paths": {
+      "@jirafa/*": ["packages/*"]
+    }
+  }
+}
