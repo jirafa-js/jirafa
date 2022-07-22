@@ -4,9 +4,9 @@ import { resolve } from 'path'
 import { Command } from 'commander'
 import { readJsonSync } from 'fs-extra'
 import consola from 'consola'
+import { DIR_ROOT } from '../shared'
 import { changelog } from './commands/changelog'
 import { create } from './commands/create'
-import { DIR_ROOT } from './shared/paths'
 
 const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
 

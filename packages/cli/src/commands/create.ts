@@ -3,7 +3,7 @@ import { appendFile, mkdir, pathExists, symlink, writeFile } from 'fs-extra'
 import consola from 'consola'
 import chalk from 'chalk'
 import { camelCase, capitalize, kebabCase } from '../utils'
-import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../shared'
+import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../../shared'
 interface CreateOptions {
   hook: boolean
 }

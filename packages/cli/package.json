@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "pnpm run build --watch",
-    "build": "tsup src/index.ts src/shared --format cjs --dts --clean"
+    "build": "tsup"
   },
   "dependencies": {
     "commander": "^9.3.0",

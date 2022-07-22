@@ -17,7 +17,7 @@ async function main() {
 
   const locales = await fg('*', { cwd: dirMetadata, onlyDirectories: true })
 
-  await fs.mkdir(localeOutput)
+  await fs.mkdir(localeOutput, { recursive: true })
   await fs.writeFile(
     resolve(localeOutput, 'lang.json'),
     JSON.stringify(locales),

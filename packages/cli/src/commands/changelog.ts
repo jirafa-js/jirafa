@@ -3,7 +3,7 @@ import ora from 'ora'
 import conventionalChangelog from 'conventional-changelog'
 import { createWriteStream } from 'fs-extra'
 
-import { DIR_ROOT } from '../shared/paths'
+import { DIR_ROOT } from '../../shared/paths'
 
 interface ChangelogOptions {
   file?: string
