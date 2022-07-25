@@ -88,6 +88,14 @@ li > div[class*='language-'] {
     margin: 0;
     overflow-x: auto;
   }
+
+  .copy {
+    opacity: 0;
+  }
+
+  &:hover .copy {
+    opacity: 1;
+  }
 }
 
 /* Line highlighting */

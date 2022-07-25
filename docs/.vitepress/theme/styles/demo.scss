@@ -1,0 +1,70 @@
+@use './mixins.scss' as *;
+
+.demo {
+  &-content {
+    border: 1px solid var(--site-c-divider-light);
+    border-radius: 8px;
+  }
+
+  &-showcase {
+    padding: 20px;
+
+    @include with-bd;
+  }
+
+  &-btns {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &-btn {
+    font-size: 14px;
+    margin: 0 8px;
+    cursor: pointer;
+    color: var(--site-c-text-2);
+
+    &:hover {
+      color: var(--site-c-text-1);
+    }
+  }
+
+  &-source {
+    max-height: 0;
+    overflow: hidden;
+    @include with-transition(max-height);
+
+    .language-vue {
+      margin: 0;
+      border-radius: 0;
+    }
+
+    &-control {
+      display: none;
+      height: 44px;
+      line-height: 44px;
+      justify-content: center;
+      align-items: center;
+      color: var(--site-c-text-2);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      @include with-transition(opacity);
+
+      > svg {
+        font-size: 22px;
+        margin-right: 4px;
+      }
+
+      &.show {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      &:hover {
+        color: var(--site-c-brand);
+      }
+    }
+  }
+}

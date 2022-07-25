@@ -2,7 +2,7 @@ import { useStorage } from '@vueuse/core'
 import { useRoute, useRouter } from 'vitepress'
 import { computed } from 'vue'
 import translationLocale from '../../i18n/components/translation.json'
-import langs from '../../i18n/lang.json'
+import { languages } from '../../utils/lang'
 import { useLang } from './useLang'
 import type { Languages } from '~/constants'
 import { LANGUAGE_MAP, PREFERRED_LANG_KEY, REPO_DOCS } from '~/constants'
@@ -16,7 +16,7 @@ export const useTranslation = () => {
   const helpTranslate = computed(() => translationLocale[lang.value].help)
 
   const langsRef = computed<Languages[]>(() => {
-    const langset = new Set(langs as Languages[])
+    const langset = new Set(languages as Languages[])
     const hasCn = langset.has('zh-CN')
     if (hasCn) {
       langset.delete('zh-CN')
