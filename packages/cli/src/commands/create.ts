@@ -3,7 +3,7 @@ import { appendFile, mkdir, pathExists, writeFile } from 'fs-extra'
 import consola from 'consola'
 import chalk from 'chalk'
 import prompt from 'prompts'
-import { camelCase, capitalize, kebabCase } from '@jirafa/utils'
+import { camelCase, kebabCase, pascalCase } from '@jirafa/utils'
 import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../../shared'
 interface CreateOptions {
   hook: boolean
@@ -111,8 +111,8 @@ describe('${name}', () => {
 }
 
 function componentTemplate(name: string) {
-  const compName = capitalize(camelCase(`${PREFIX}-${name}`))
-  const typeName = capitalize(camelCase(name))
+  const compName = pascalCase(`${PREFIX}-${name}`)
+  const typeName = pascalCase(name)
   return {
     vue: `
 <script lang="ts" setup>
@@ -221,7 +221,7 @@ async function promptComponentMetadata(name: string) {
     const compMetadata = require(metadataPath)
 
     compMetadata[type].children.push({
-      text: capitalize(camelCase(name)),
+      text: pascalCase(name),
       link: `/component/${name}`,
     })
 

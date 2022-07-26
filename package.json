@@ -21,13 +21,17 @@
     "docs:serve": "pnpm run -F docs serve",
     "docs:build": "pnpm run -F docs build",
     "docs:gen-locale": "pnpm run -F docs gen-locale",
-    "test": "vitest"
+    "test": "vitest",
+    "typecheck": "run-p typecheck:**",
+    "typecheck:web": "vue-tsc -p tsconfig.web.json --composite false --noEmit",
+    "typecheck:node": "vue-tsc -p tsconfig.node.json  --composite false  --noEmit",
+    "typecheck:vitest": "vue-tsc -p tsconfig.vitest.json  --composite false  --noEmit"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
   },
   "dependencies": {
-    "@jirafa/utils": "workspace:^0.0.0",
+    "@jirafa/utils": "workspace:*",
     "cli": "^1.0.1"
   },
   "devDependencies": {
@@ -37,6 +41,7 @@
     "@jirafa/cli": "workspace:*",
     "@jirafa/eslint-config": "^1.1.1",
     "@types/fs-extra": "^9.0.13",
+    "@types/jsdom": "^20.0.0",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/test-utils": "^2.0.2",
@@ -49,12 +54,14 @@
     "husky": "^8.0.1",
     "jsdom": "^20.0.0",
     "lint-staged": "^13.0.3",
+    "npm-run-all": "^4.1.5",
     "only-allow": "^1.1.0",
     "tsx": "^3.8.0",
     "typescript": "^4.7.4",
     "unplugin-vue-define-options": "^0.6.2",
     "vitest": "^0.18.1",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-tsc": "^0.39.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue,md,json}": [
