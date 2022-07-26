@@ -3,7 +3,7 @@ import { appendFile, mkdir, pathExists, writeFile } from 'fs-extra'
 import consola from 'consola'
 import chalk from 'chalk'
 import prompt from 'prompts'
-import { camelCase, capitalize, kebabCase } from '../utils'
+import { camelCase, capitalize, kebabCase } from '@jirafa/utils'
 import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../../shared'
 interface CreateOptions {
   hook: boolean
@@ -116,7 +116,7 @@ function componentTemplate(name: string) {
   return {
     vue: `
 <script lang="ts" setup>
-  defineOptions({ name: '${compName}' })
+defineOptions({ name: '${compName}' })
 </script>
 
 <template>
@@ -127,7 +127,14 @@ function componentTemplate(name: string) {
 `.trimStart(),
 
     entry: `
+import { withInstall } from '@jirafa/utils'
+import ${typeName} from './src/${name}.vue'
+
 export * from './src/${name}'
+
+export const ${compName} = withInstall(${typeName})
+
+export default ${compName}
 `.trimStart(),
 
     ts: `

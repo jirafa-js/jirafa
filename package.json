@@ -14,7 +14,7 @@
   "scripts": {
     "cz": "czg",
     "preinstall": "only-allow pnpm -y",
-    "prepare": "husky install & pnpm run -F cli build",
+    "prepare": "husky install",
     "changelog": "jirafa changelog",
     "gen": "jirafa create",
     "docs:dev": "pnpm run -F docs dev",
@@ -25,6 +25,10 @@
   },
   "peerDependencies": {
     "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@jirafa/utils": "workspace:^0.0.0",
+    "cli": "^1.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

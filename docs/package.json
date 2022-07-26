@@ -9,7 +9,8 @@
     "gen:locale": "tsx .vitepress/build/metadata-generate.ts"
   },
   "dependencies": {
-    "@vueuse/core": "^8.9.3"
+    "@vueuse/core": "^8.9.3",
+    "jirafa": "npm:jirafa@lastest"
   },
   "devDependencies": {
     "@jirafa/cli": "workspace:^0.0.0",

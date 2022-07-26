@@ -14,7 +14,8 @@
     "jsx": "preserve",
     "types": [],
     "paths": {
-      "~/*": ["./.vitepress/theme/*"]
+      "~/*": ["./.vitepress/theme/*"],
+      "jirafa": ["../packages/jirafa"]
     }
   },
   "include": ["**/*", ".vitepress/**/*"],

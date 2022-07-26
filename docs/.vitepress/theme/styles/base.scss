@@ -134,84 +134,8 @@ video {
   height: auto;
 }
 
-button,
-input,
-optgroup,
-select,
-textarea {
-  border: 0;
-  padding: 0;
-  line-height: inherit;
-  color: inherit;
-}
-
-button {
-  padding: 0;
-  font-family: inherit;
-  background-color: transparent;
-  background-image: none;
-}
-
-button,
-[role='button'] {
-  cursor: pointer;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 1px dotted;
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-button:focus:not(:focus-visible) {
-  outline: none !important;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-}
-
 table {
   border-collapse: collapse;
-}
-
-input {
-  background-color: transparent;
-}
-
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  color: var(--site-c-text-3);
-}
-
-input::-ms-input-placeholder,
-textarea::-ms-input-placeholder {
-  color: var(--site-c-text-3);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--site-c-text-3);
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-textarea {
-  resize: vertical;
-}
-
-select {
-  -webkit-appearance: none;
 }
 
 fieldset {
