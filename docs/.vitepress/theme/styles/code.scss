@@ -65,6 +65,38 @@ li > div[class*='language-'] {
   }
 }
 
+$langs: (
+  'md': md,
+  'shell': sh,
+  'bash': sh,
+  'html': html,
+  'ts': 'ts',
+  'typescript': 'ts',
+  'js': 'js',
+  'javascript': 'js',
+  'vue': vue,
+);
+
+@each $lang, $text in $langs {
+  [class*='language-#{$lang}'] {
+    &::before {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: 12px;
+      color: var(--site-c-text-dark-3);
+      display: inline-block;
+      content: '#{$text}';
+      opacity: 1;
+      @include with-transition(opacity, color);
+    }
+
+    &:hover::before {
+      opacity: 0;
+    }
+  }
+}
+
 [class*='language-'] {
   pre,
   code {
@@ -90,7 +122,44 @@ li > div[class*='language-'] {
   }
 
   .copy {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
     opacity: 0;
+    cursor: pointer;
+    background: var(--site-code-block-bg) var(--site-icon-copy) center no-repeat;
+    background-size: 20px;
+    @include with-transition(opacity, color, background-color);
+
+    &:hover {
+      background-color: var(--site-code-copy-code-hover-bg);
+
+      &.copied {
+        background-image: var(--site-icon-copied);
+
+        &::before {
+          position: absolute;
+          right: 41px;
+          display: inline-block;
+          width: 64px;
+          height: 40px;
+          content: 'Copied!';
+          line-height: 40px;
+          text-align: center;
+          font-size: 12px;
+          background-color: var(--site-code-copy-code-hover-bg);
+          color: var(--site-code-copy-code-active-text);
+          border-radius: 4px;
+        }
+      }
+    }
   }
 
   &:hover .copy {

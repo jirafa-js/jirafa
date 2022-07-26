@@ -3,8 +3,10 @@ import { useData } from 'vitepress'
 import SiteDocToc from './SiteDocToc.vue'
 import SiteDocFooter from './SiteDocFooter.vue'
 import SiteDocNav from './SiteDocNav.vue'
+import { useCopyCode } from '~/composables/useCopyCode'
 
 const { page } = useData()
+useCopyCode()
 </script>
 
 <template>
