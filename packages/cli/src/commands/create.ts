@@ -1,13 +1,14 @@
 import { resolve } from 'path'
 import { appendFile, mkdir, pathExists, writeFile } from 'fs-extra'
-import consola from 'consola'
-import chalk from 'chalk'
 import prompt from 'prompts'
-import { camelCase, kebabCase, pascalCase } from '@jirafa/utils'
-import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, PREFIX } from '../../shared'
+import { PREFIX, camelCase, kebabCase, pascalCase } from '@jirafa/utils'
+import { DIR_COMPS, DIR_DOCS, DIR_HOOKS } from '../../shared'
+import { createLogger } from '../utils/logger'
 interface CreateOptions {
   hook: boolean
 }
+
+const logger = createLogger('create')
 
 export const create = async (filename: string, options: CreateOptions) => {
   if (options.hook) {
@@ -19,6 +20,8 @@ export const create = async (filename: string, options: CreateOptions) => {
 }
 
 async function createHook(filename: string) {
+  const log = logger.start('hook', 'Create start')
+
   const name = filename.startsWith('use')
     ? kebabCase(filename)
     : `use-${kebabCase(filename)}`
@@ -29,7 +32,7 @@ async function createHook(filename: string) {
   const exists = await pathExists(hookPath)
 
   if (exists) {
-    consola.error(`Hook ${chalk.green(`'${name}'`)} exists!`)
+    logger.error('hook', `Hook '${name}' exists!`)
     process.exit(1)
   }
 
@@ -43,10 +46,12 @@ async function createHook(filename: string) {
     `export * from './${name}'\n`
   )
 
-  consola.success(`Create hook ${chalk.green(name)} success!`)
+  log(`Create ${name} success`)
 }
 
 async function createComponent(filename: string) {
+  const log = logger.start('comp', 'Create start')
+
   const name = kebabCase(filename)
 
   const dirComp = resolve(DIR_COMPS, name)
@@ -56,7 +61,7 @@ async function createComponent(filename: string) {
   const dirCompExamples = resolve(dirComp, 'examples')
 
   if (await pathExists(dirComp)) {
-    consola.error(`Component ${chalk.green(`'${name}'`)} exists!`)
+    logger.error('comp', `Component '${name}' exists!`)
     process.exit(1)
   }
 
@@ -79,7 +84,7 @@ async function createComponent(filename: string) {
     `export * from './${name}'\n`
   )
 
-  consola.success(`Create component ${chalk.green(name)} success!`)
+  log(`Create ${name} success`)
 }
 
 function hookTemplate(name: string) {
@@ -227,7 +232,7 @@ async function promptComponentMetadata(name: string) {
 
     await writeFile(metadataPath, JSON.stringify(compMetadata, null, 2))
   } catch (e) {
-    consola.error((e as Error).message)
+    logger.error('comp', (e as Error).message)
     process.exit(1)
   }
 }

@@ -7,6 +7,7 @@ import consola from 'consola'
 import { DIR_ROOT } from '../shared'
 import { changelog } from './commands/changelog'
 import { create } from './commands/create'
+import { release } from './commands/build'
 
 const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
 
@@ -26,6 +27,12 @@ program
   .option('-h, --hook', 'type hook')
   .description('create a component/composable')
   .action(create)
+
+program
+  .command('build')
+  .option('-c, --component', 'release project', true)
+  .description('release project')
+  .action(release)
 
 program.on('command:*', ([cmd]) => {
   program.outputHelp()

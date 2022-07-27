@@ -1,5 +1,4 @@
 {
-  "name": "@jirafa/jirafa-monorepo",
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@7.1.0",
@@ -17,6 +16,7 @@
     "prepare": "husky install",
     "changelog": "jirafa changelog",
     "gen": "jirafa create",
+    "build": "jirafa build",
     "docs:dev": "pnpm run -F docs dev",
     "docs:serve": "pnpm run -F docs serve",
     "docs:build": "pnpm run -F docs build",
@@ -31,6 +31,8 @@
     "vue": "^3.2.0"
   },
   "dependencies": {
+    "@jirafa/components": "workspace:*",
+    "@jirafa/hooks": "workspace:*",
     "@jirafa/utils": "workspace:*",
     "cli": "^1.0.1"
   },
@@ -40,6 +42,8 @@
     "@esbuild-kit/cjs-loader": "^2.3.1",
     "@jirafa/cli": "workspace:*",
     "@jirafa/eslint-config": "^1.1.1",
+    "@pnpm/find-workspace-packages": "^4.0.21",
+    "@pnpm/types": "^8.4.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jsdom": "^20.0.0",
     "@vitejs/plugin-vue": "^3.0.1",
