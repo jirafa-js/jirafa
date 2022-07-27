@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@7.1.0",
   "description": "jirafa.js monorepo",
@@ -25,7 +25,8 @@
     "typecheck": "run-p typecheck:**",
     "typecheck:web": "vue-tsc -p tsconfig.web.json --composite false --noEmit",
     "typecheck:node": "vue-tsc -p tsconfig.node.json  --composite false  --noEmit",
-    "typecheck:vitest": "vue-tsc -p tsconfig.vitest.json  --composite false  --noEmit"
+    "typecheck:vitest": "vue-tsc -p tsconfig.vitest.json  --composite false  --noEmit",
+    "bump": "bumpp --execute=\"jirafa bump\" --all"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
@@ -49,6 +50,7 @@
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/test-utils": "^2.0.2",
+    "bumpp": "^8.2.1",
     "cz-git": "^1.3.9",
     "czg": "^1.3.9",
     "esbuild": "^0.14.49",

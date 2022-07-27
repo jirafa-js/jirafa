@@ -8,6 +8,7 @@ import { DIR_ROOT } from '../shared'
 import { changelog } from './commands/changelog'
 import { create } from './commands/create'
 import { release } from './commands/build'
+import { bump } from './commands/bump'
 
 const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
 
@@ -33,6 +34,8 @@ program
   .option('-c, --component', 'release project', true)
   .description('release project')
   .action(release)
+
+program.command('bump').description('bump project version').action(bump)
 
 program.on('command:*', ([cmd]) => {
   program.outputHelp()
