@@ -1,0 +1,7 @@
+@use 'sass:map';
+
+$button: () !default;
+$button: map-merge(
+  (),
+  $button
+);

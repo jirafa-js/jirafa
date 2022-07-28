@@ -14,6 +14,9 @@ export const DIR_COMPS = resolve(DIR_PKGS, 'components')
 /** `/packages/hooks` */
 export const DIR_HOOKS = resolve(DIR_PKGS, 'hooks')
 
+/** `/packages/theme` */
+export const DIR_THEME = resolve(DIR_PKGS, 'theme')
+
 /** `/packages/jirafa` */
 export const DIR_JA = resolve(DIR_PKGS, 'jirafa')
 
@@ -23,8 +26,8 @@ export const DIR_OUTPOT = resolve(DIR_ROOT, 'dist')
 /** `/dist/jirafa` */
 export const DIR_OUTPOT_JA = resolve(DIR_OUTPOT, 'jirafa')
 
-/** `/dist/theme` */
-export const DIR_OUTPOT_THEME = resolve(DIR_OUTPOT, 'theme')
+/** `/dist/jirafa/theme` */
+export const DIR_OUTPOT_THEME = resolve(DIR_OUTPOT_JA, 'theme')
 
 const resolvePkg = (pkg: string) => resolve(pkg, 'package.json')
 

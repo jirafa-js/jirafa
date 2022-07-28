@@ -1,0 +1,10 @@
+@use 'sass:map';
+
+$colors: () !default;
+$colors: map-merge(
+  (
+    'black': #000,
+    'white': #fff,
+  ),
+  $colors
+);

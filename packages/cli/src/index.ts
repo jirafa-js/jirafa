@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 import { resolve } from 'path'
-import { Command } from 'commander'
+import { Command, Option } from 'commander'
 import { readJsonSync } from 'fs-extra'
 import consola from 'consola'
 import { DIR_ROOT } from '../shared'
 import { changelog } from './commands/changelog'
 import { create } from './commands/create'
-import { release } from './commands/build'
+import { build } from './commands/build'
 import { bump } from './commands/bump'
 
 const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
@@ -31,9 +31,13 @@ program
 
 program
   .command('build')
-  .option('-c, --component', 'release project', true)
+  .addOption(
+    new Option('-t, --type [type]', 'build module')
+      .choices(['all', 'theme'])
+      .default('all')
+  )
   .description('release project')
-  .action(release)
+  .action(build)
 
 program.command('bump').description('bump project version').action(bump)
 

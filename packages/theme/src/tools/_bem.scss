@@ -1,0 +1,26 @@
+@use '../settings/config';
+
+@mixin b($block) {
+  $B: config.$namespace + config.$common-separator + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $E: $element !global;
+
+  @at-root {
+    .#{$B + config.$element-separator + $E} {
+      @content;
+    }
+  }
+}
+
+@mixin m($modifier) {
+  @at-root {
+    &#{config.$modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}

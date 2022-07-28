@@ -5,6 +5,8 @@ import Layout from './components/SiteLayout.vue'
 import NotFound from './components/SiteNotFound.vue'
 import SiteDemo from './components/SiteDemo.vue'
 
+import '../../../packages/theme/src/index.scss'
+
 import './styles/site.scss'
 
 const theme: Theme = {
