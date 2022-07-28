@@ -1,6 +1,5 @@
 {
   "name": "@jirafa/utils",
-  "version": "0.0.0",
   "private": true,
   "main": "index.ts",
   "peerDependencies": {

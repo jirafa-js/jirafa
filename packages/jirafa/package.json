@@ -36,9 +36,6 @@
   "peerDependencies": {
     "vue": "^3.2.0"
   },
-  "dependencies": {
-    "@jirafa/components": "workspace:*"
-  },
   "devDependencies": {
     "vue": "^3.2.37"
   },

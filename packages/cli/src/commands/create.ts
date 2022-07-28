@@ -33,7 +33,7 @@ async function createHook(filename: string) {
 
   if (exists) {
     logger.error('hook', `Hook '${name}' exists!`)
-    process.exit(1)
+    process.exit(0)
   }
 
   await mkdir(hookPath, { recursive: true })
@@ -62,7 +62,7 @@ async function createComponent(filename: string) {
 
   if (await pathExists(dirComp)) {
     logger.error('comp', `Component '${name}' exists!`)
-    process.exit(1)
+    process.exit(0)
   }
 
   await promptComponentMetadata(name)
@@ -233,6 +233,6 @@ async function promptComponentMetadata(name: string) {
     await writeFile(metadataPath, JSON.stringify(compMetadata, null, 2))
   } catch (e) {
     logger.error('comp', (e as Error).message)
-    process.exit(1)
+    process.exit(0)
   }
 }

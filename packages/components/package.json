@@ -1,6 +1,5 @@
 {
   "name": "@jirafa/components",
-  "version": "0.0.0",
   "description": "jirafa library all components",
   "main": "index.ts",
   "module": "index.ts",

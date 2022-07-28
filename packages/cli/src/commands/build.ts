@@ -11,13 +11,7 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import json from '@rollup/plugin-json'
 import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { PROJ_NAME } from '@jirafa/utils'
-import {
-  DIR_JA,
-  DIR_OUTPOT_JA,
-  DIR_OUTPOT_THEME,
-  DIR_PKGS,
-  excludeFiles,
-} from '../../shared'
+import { DIR_JA, DIR_OUTPOT_JA, DIR_OUTPOT_THEME, DIR_PKGS } from '../../shared'
 import { generateExternal } from '../utils/rollup'
 import { createLogger } from '../utils/logger'
 
@@ -52,16 +46,18 @@ const aliasPlugin: () => Plugin = () => ({
 
 async function buildModules() {
   const log = looger.start('Modules', `Build start`)
-  const input = excludeFiles(
-    await fg(
-      ['**/*.{js,ts,vue}', '!**/packages/cli/**/*', '!**/examples/**/*'],
-      {
-        cwd: DIR_PKGS,
-        onlyFiles: true,
-        absolute: true,
-      }
-    )
-  )
+  const input = await fg('**/*.{js,ts}', {
+    cwd: DIR_PKGS,
+    onlyFiles: true,
+    absolute: true,
+    ignore: [
+      '**/cli',
+      '**/examples',
+      '**/__tests__',
+      '**/node_modules',
+      '**/dist',
+    ],
+  })
 
   const bundle = await rollup({
     input,
