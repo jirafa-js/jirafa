@@ -6,6 +6,6 @@
     "types": ["node", "jsdom", "unplugin-vue-define-options", "vitest/globals"],
     "skipLibCheck": true
   },
-  "include": ["packages"],
+  "include": ["packages", "typings/components.d.ts"],
   "exclude": ["node_modules", "dist", "**/*.md"]
 }

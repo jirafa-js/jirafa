@@ -1,9 +1,10 @@
-import {
-  camelize as camelCase,
-  capitalize,
-  hyphenate as kebabCase,
-} from '@vue/shared'
+export const camelCase = (str: string) =>
+  str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
 
-export { capitalize, camelCase, kebabCase }
+export const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1)
 
 export const pascalCase = (str: string) => capitalize(camelCase(str))
+
+export const kebabCase = (str: string) =>
+  str.replace(/\B([A-Z])/g, '-$1').toLowerCase()

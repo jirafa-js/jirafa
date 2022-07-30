@@ -9,6 +9,7 @@ import { changelog } from './commands/changelog'
 import { create } from './commands/create'
 import { build } from './commands/build'
 import { bump } from './commands/bump'
+import { genTypes } from './commands/gen-types'
 
 const version = readJsonSync(resolve(DIR_ROOT, 'package.json')).version
 
@@ -40,6 +41,16 @@ program
   .action(build)
 
 program.command('bump').description('bump project version').action(bump)
+
+program
+  .command('types')
+  .addOption(
+    new Option('-t, --type [type]', 'build module')
+      .choices(['all', 'volar'])
+      .default('all')
+  )
+  .description('generate project typescrit definitions')
+  .action(genTypes)
 
 program.on('command:*', ([cmd]) => {
   program.outputHelp()

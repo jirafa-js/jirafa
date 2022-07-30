@@ -35,8 +35,7 @@
   "dependencies": {
     "@jirafa/components": "workspace:*",
     "@jirafa/hooks": "workspace:*",
-    "@jirafa/utils": "workspace:*",
-    "cli": "^1.0.1"
+    "@jirafa/utils": "workspace:*"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
@@ -48,6 +47,7 @@
     "@pnpm/types": "^8.4.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jsdom": "^20.0.0",
+    "@types/prettier": "^2.6.4",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/test-utils": "^2.0.2",
@@ -66,6 +66,7 @@
     "sass": "^1.53.0",
     "tsx": "^3.8.0",
     "typescript": "^4.7.4",
+    "unplugin-vue-components": "^0.21.1",
     "unplugin-vue-define-options": "^0.6.2",
     "vitest": "^0.18.1",
     "vue": "^3.2.37",

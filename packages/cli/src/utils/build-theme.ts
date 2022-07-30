@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { mkdir, remove } from 'fs-extra'
+import { emptyDir, ensureDir } from 'fs-extra'
 import dartSass from 'sass'
 import type { TaskFunction } from 'gulp'
 import { dest, src } from 'gulp'
@@ -16,10 +16,9 @@ import { createLogger } from './logger'
 const looger = createLogger('build')
 
 export async function buildTheme() {
-  await remove(DIR_OUTPOT_THEME)
-  await mkdir(DIR_OUTPOT_THEME, { recursive: true })
-  copyThemeSource()
-  await buildScss()
+  await ensureDir(DIR_OUTPOT_THEME)
+  await emptyDir(DIR_OUTPOT_THEME)
+  await Promise.all([copyThemeSource(), buildScss()])
 }
 
 function buildScss() {

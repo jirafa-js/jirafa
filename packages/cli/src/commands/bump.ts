@@ -1,4 +1,6 @@
-import { getWorkspacePackages } from '@jirafa/cli/shared'
+import { resolve } from 'path'
+import { writeFile } from 'fs-extra'
+import { DIR_JA, getWorkspacePackages } from '../../shared'
 import { createLogger } from '../utils/logger'
 
 const logger = createLogger()
@@ -12,8 +14,15 @@ export const bump = async () => {
   const project = pkgsMap['@jirafa/monorepo']
   const jirafa = pkgsMap.jirafa
 
+  const version = project.manifest.version
   await jirafa.writeProjectManifest({
     ...jirafa.manifest,
-    version: project.manifest.version,
+    version,
   })
+
+  await writeFile(
+    resolve(DIR_JA, 'index.ts'),
+    `export const version = ${version}\n`,
+    'utf-8'
+  )
 }

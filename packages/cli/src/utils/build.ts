@@ -1,5 +1,5 @@
 import { join, resolve } from 'path'
-import { copyFile, mkdir, remove } from 'fs-extra'
+import { copy, copyFile, emptyDir, ensureDir } from 'fs-extra'
 import fg from 'fast-glob'
 import type { OutputOptions, Plugin, RollupBuild } from 'rollup'
 import { rollup } from 'rollup'
@@ -14,6 +14,7 @@ import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { PROJ_NAME } from '@jirafa/utils'
 import {
   DIR_JA,
+  DIR_OUTPOT,
   DIR_OUTPOT_JA,
   DIR_OUTPOT_THEME,
   DIR_PKGS,
@@ -23,19 +24,23 @@ import {
 import { generateExternal } from './rollup'
 import { createLogger } from './logger'
 import { buildTheme } from './build-theme'
+import { run } from './precess'
 
 const looger = createLogger('build')
 
 export async function buildComponents() {
   const log = looger.start('component', `Build start`)
-  await remove(DIR_OUTPOT_JA)
-  await mkdir(DIR_OUTPOT_JA, { recursive: true })
-  buildModules()
-  buildFullBundle(true)
-  buildFullBundle(false)
-  await buildTheme()
-  copyFullStyle()
-  copyFiles()
+  await ensureDir(DIR_OUTPOT_JA)
+  await emptyDir(DIR_OUTPOT_JA)
+  await Promise.all([
+    buildModules(),
+    buildFullBundle(true),
+    buildFullBundle(false),
+    buildTheme(),
+    run('jirafa types'),
+  ])
+  await Promise.all([copyFullStyle, copyFiles(), copyTypeDefinitions()])
+
   log('Build success')
 }
 
@@ -183,7 +188,7 @@ function writeBundle(bundle: RollupBuild, options: OutputOptions[]) {
 async function copyFullStyle() {
   looger.info('full', 'Copy full style')
 
-  await mkdir(resolve(DIR_OUTPOT_JA, 'dist'), { recursive: true })
+  await ensureDir(resolve(DIR_OUTPOT_JA, 'dist'))
   await copyFile(
     resolve(DIR_OUTPOT_THEME, 'index.css'),
     resolve(DIR_OUTPOT_JA, 'dist/index.css')
@@ -198,9 +203,34 @@ function copyFiles() {
       resolve(DIR_ROOT, 'README.md'),
       resolve(DIR_OUTPOT_JA, 'README.md')
     ),
-    // copyFile(
-    //   resolve(DIR_ROOT, 'global.d.ts'),
-    //   resolve(DIR_OUTPOT_JA, 'global.d.ts')
-    // ),
+    copyFile(
+      resolve(DIR_ROOT, 'global.d.ts'),
+      resolve(DIR_OUTPOT_JA, 'global.d.ts')
+    ),
   ])
+}
+
+async function copyTypeDefinitions() {
+  const copyTypes = async (type: 'esm' | 'cjs') => {
+    looger.info('component', `Copy definition: ${type}`)
+    const map: { [k in typeof type]: string } = {
+      esm: 'es',
+      cjs: 'lib',
+    }
+
+    await Promise.all([
+      copy(
+        resolve(DIR_OUTPOT, 'types', 'packages'),
+        resolve(DIR_OUTPOT_JA, map[type]),
+        { recursive: true, filter: (src) => !src.includes('jirafa') }
+      ),
+
+      copy(
+        resolve(DIR_OUTPOT, 'types', 'packages', 'jirafa'),
+        resolve(DIR_OUTPOT_JA, map[type])
+      ),
+    ])
+  }
+
+  await Promise.all([copyTypes('esm'), copyTypes('cjs')])
 }
