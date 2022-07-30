@@ -4,6 +4,7 @@ import fg from 'fast-glob'
 const scopes = [
   ...fg.sync('*', { onlyDirectories: true, cwd: 'packages' }),
   'docs',
+  'cli',
 ]
 
 const gitStatus = execSync('git status --porcelain || true')

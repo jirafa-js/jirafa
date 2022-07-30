@@ -48,7 +48,7 @@ importers:
       '@commitlint/cli': 17.0.3
       '@commitlint/config-conventional': 17.0.3
       '@esbuild-kit/cjs-loader': 2.3.1
-      '@jirafa/cli': link:packages/cli
+      '@jirafa/cli': link:cli
       '@jirafa/eslint-config': 1.1.1_n4lrrl552kqf5nk4rgej5xdcha
       '@pnpm/find-workspace-packages': 4.0.21_@pnpm+logger@4.0.0
       '@pnpm/types': 8.4.0
@@ -79,52 +79,7 @@ importers:
       vue: 3.2.37
       vue-tsc: 0.39.0_typescript@4.7.4
 
-  docs:
-    specifiers:
-      '@jirafa/cli': workspace:^0.0.0
-      '@types/fs-extra': ^9.0.13
-      '@types/markdown-it': ^12.2.3
-      '@types/markdown-it-container': ^2.0.5
-      '@vitejs/plugin-vue-jsx': ^2.0.0
-      '@vueuse/core': ^8.9.3
-      chalk: ^5.0.1
-      consola: ^2.15.3
-      cross-env: ^7.0.3
-      fast-glob: ^3.2.11
-      fs-extra: ^10.1.0
-      jirafa: npm:jirafa@lastest
-      markdown-it-container: ^3.0.0
-      sass: ^1.53.0
-      shiki: ^0.10.1
-      tsx: ^3.8.0
-      unplugin-vue-components: ^0.21.1
-      unplugin-vue-define-options: ^0.6.2
-      vite: ^3.0.0
-      vitepress: 1.0.0-alpha.4
-    dependencies:
-      '@vueuse/core': 8.9.4_vue@3.2.37
-      jirafa: link:../packages/jirafa
-    devDependencies:
-      '@jirafa/cli': link:../packages/cli
-      '@types/fs-extra': 9.0.13
-      '@types/markdown-it': 12.2.3
-      '@types/markdown-it-container': 2.0.5
-      '@vitejs/plugin-vue-jsx': 2.0.0_vite@3.0.0+vue@3.2.37
-      chalk: 5.0.1
-      consola: 2.15.3
-      cross-env: 7.0.3
-      fast-glob: 3.2.11
-      fs-extra: 10.1.0
-      markdown-it-container: 3.0.0
-      sass: 1.53.0
-      shiki: 0.10.1
-      tsx: 3.8.0
-      unplugin-vue-components: 0.21.1_vite@3.0.0+vue@3.2.37
-      unplugin-vue-define-options: 0.6.2_vite@3.0.0+vue@3.2.37
-      vite: 3.0.0_sass@1.53.0
-      vitepress: 1.0.0-alpha.4_ol53x7s6uhlxam2sb645qijgr4
-
-  packages/cli:
+  cli:
     specifiers:
       '@rollup/plugin-commonjs': ^22.0.1
       '@rollup/plugin-json': ^4.1.0
@@ -190,6 +145,51 @@ importers:
       '@types/node': 17.0.41
       '@types/prompts': 2.0.14
       tsup: 6.1.3_postcss@8.4.14
+
+  docs:
+    specifiers:
+      '@jirafa/cli': workspace:^0.0.0
+      '@types/fs-extra': ^9.0.13
+      '@types/markdown-it': ^12.2.3
+      '@types/markdown-it-container': ^2.0.5
+      '@vitejs/plugin-vue-jsx': ^2.0.0
+      '@vueuse/core': ^8.9.3
+      chalk: ^5.0.1
+      consola: ^2.15.3
+      cross-env: ^7.0.3
+      fast-glob: ^3.2.11
+      fs-extra: ^10.1.0
+      jirafa: npm:jirafa@lastest
+      markdown-it-container: ^3.0.0
+      sass: ^1.53.0
+      shiki: ^0.10.1
+      tsx: ^3.8.0
+      unplugin-vue-components: ^0.21.1
+      unplugin-vue-define-options: ^0.6.2
+      vite: ^3.0.0
+      vitepress: 1.0.0-alpha.4
+    dependencies:
+      '@vueuse/core': 8.9.4_vue@3.2.37
+      jirafa: link:../packages/jirafa
+    devDependencies:
+      '@jirafa/cli': link:../cli
+      '@types/fs-extra': 9.0.13
+      '@types/markdown-it': 12.2.3
+      '@types/markdown-it-container': 2.0.5
+      '@vitejs/plugin-vue-jsx': 2.0.0_vite@3.0.0+vue@3.2.37
+      chalk: 5.0.1
+      consola: 2.15.3
+      cross-env: 7.0.3
+      fast-glob: 3.2.11
+      fs-extra: 10.1.0
+      markdown-it-container: 3.0.0
+      sass: 1.53.0
+      shiki: 0.10.1
+      tsx: 3.8.0
+      unplugin-vue-components: 0.21.1_vite@3.0.0+vue@3.2.37
+      unplugin-vue-define-options: 0.6.2_vite@3.0.0+vue@3.2.37
+      vite: 3.0.0_sass@1.53.0
+      vitepress: 1.0.0-alpha.4_ol53x7s6uhlxam2sb645qijgr4
 
   packages/components:
     specifiers: {}

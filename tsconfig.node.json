@@ -9,6 +9,6 @@
     "lib": ["ESNext"],
     "skipLibCheck": true
   },
-  "include": ["packages/cli/**/*"],
+  "include": ["cli"],
   "exclude": ["node_modules", "**/*.md", "dist"]
 }

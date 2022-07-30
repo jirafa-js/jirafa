@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 
-export const DIR_ROOT = resolve(__dirname, '..', '..', '..')
+export const DIR_ROOT = resolve(__dirname, '..', '..')
 
 /** `/packages` */
 export const DIR_PKGS = resolve(DIR_ROOT, 'packages')

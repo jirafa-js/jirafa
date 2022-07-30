@@ -52,7 +52,7 @@ export const genTypesVolar = async () => {
 const addSourceFiles = async (project: Project) => {
   const files = await fg('**/*.{js?(x),ts?(x),vue}', {
     cwd: DIR_PKGS,
-    ignore: ['cli/**/*', '**/node_modules', '**/__tests__', '**/examples'],
+    ignore: ['**/node_modules', '**/__tests__', '**/examples'],
     onlyFiles: true,
     absolute: true,
   })
