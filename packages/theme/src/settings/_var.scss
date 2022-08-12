@@ -1,10 +1,31 @@
 @use 'sass:map';
+@use 'sass:meta';
 
-$colors: () !default;
-$colors: map-merge(
-  (
-    'black': #000,
-    'white': #fff,
-  ),
-  $colors
-);
+$spacer: 4px !default;
+$spacer-steps: 16 !default;
+
+$spacers: () !default;
+@if meta.type-of($spacers) == list {
+  @for $i from 0 through $spacer-steps {
+    $spacers: map-merge(
+      $spacers,
+      (
+        $i: $spacer * $i,
+      )
+    );
+  }
+}
+
+$negative-spacers: () !default;
+@if meta.type-of($negative-spacers) == list {
+  @for $i from 0 through $spacer-steps {
+    $negative-spacers: map-merge(
+      $negative-spacers,
+      (
+        $i: -$spacer * $i,
+      )
+    );
+  }
+}
+
+$border-width-root: 1px !default;

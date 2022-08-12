@@ -1,7 +1,7 @@
-@use '../settings/config';
+@use '../settings';
 
 @mixin b($block) {
-  $B: config.$namespace + config.$common-separator + $block !global;
+  $B: settings.$namespace + settings.$common-separator + $block !global;
   .#{$B} {
     @content;
   }
@@ -11,7 +11,7 @@
   $E: $element !global;
 
   @at-root {
-    .#{$B + config.$element-separator + $E} {
+    .#{$B + settings.$element-separator + $E} {
       @content;
     }
   }
@@ -19,7 +19,15 @@
 
 @mixin m($modifier) {
   @at-root {
-    &#{config.$modifier-separator + $modifier} {
+    &#{settings.$modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+
+@mixin is($state) {
+  @at-root {
+    &.#{settings.$state-prefix + $state} {
       @content;
     }
   }

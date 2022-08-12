@@ -8,6 +8,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     JButton: typeof import('../packages/jirafa')['JButton']
+    JButtonGroup: typeof import('../packages/jirafa')['JButtonGroup']
   }
 }
 

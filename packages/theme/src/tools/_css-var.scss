@@ -1,0 +1,49 @@
+@use '../settings';
+
+// @include set-css-var-by-map('button', ('text-color': #141414, 'bg-color': '#f2f2f2'))
+// --j-button-text-color: #141414;
+// --j-button-bg-color: #f2f2f2;
+@mixin set-css-var-by-map($name, $map) {
+  @each $key, $value in $map {
+    @if $key == 'default' {
+      #{get-css-var-name($name)}: #{$value};
+    } @else {
+      #{get-css-var-name($name, $key)}: #{$value};
+    }
+  }
+}
+
+// @include set-css-var-from-global(('button', 'text-color'), ('text-color'))
+// => --j-button-text-color: var(--j-text-color)
+@mixin set-css-var-from-global($var, $global-var) {
+  $var-name: join-css-var-name($var);
+  $global-var-name: join-css-var-name($global-var);
+  #{$var-name}: var(#{$global-var-name});
+}
+
+// join-var-name(('button', 'text-color')) => '--el-button-text-color'
+@function join-css-var-name($pathList) {
+  $name: '--' + settings.$namespace;
+  @each $path in $pathList {
+    @if $path != '' {
+      $name: $name + '-' + $path;
+    }
+  }
+
+  @return $name;
+}
+
+// get-css-var-name('button', 'text-color') => '--j-button-text-color'
+@function get-css-var-name($pathList...) {
+  @return join-css-var-name(($pathList));
+}
+
+// get-css-var('button', 'text-color') => var(--j-button-text-color)
+@function get-css-var($pathList...) {
+  @return var(#{join-css-var-name($pathList)});
+}
+
+// get-css-var-with-default(('button', 'text-color'), '#141414') => var(--j-button-text-color, #141414)
+@function get-css-var-with-default($pathList, $default) {
+  @return var(#{join-css-var-name($pathList)}, $default);
+}

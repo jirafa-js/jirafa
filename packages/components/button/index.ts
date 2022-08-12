@@ -1,8 +1,11 @@
-import { withInstall } from '@jirafa/utils'
+import { withInstall, withNoopInstall } from '@jirafa/utils'
+import ButtonGroup from './src/button-group.vue'
 import Button from './src/button.vue'
 
 export * from './src/button'
 
-export const JButton = withInstall(Button)
+export const JButton = withInstall(Button, { ButtonGroup })
+
+export const JButtonGroup = withNoopInstall(ButtonGroup)
 
 export default JButton

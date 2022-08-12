@@ -1,6 +1,44 @@
 @use './settings' as *;
 @use './tools' as *;
 
-@include b(button) {
+$button: () !default;
+$button: map-merge(
+  (
+    'text-color': getCssVar('text-color'),
+    'bg-color': getCssVar('text-color'),
+    'border-color': getCssVar('text-color'),
+    'hover-text-color': getCssVar('text-color'),
+    'hover-bg-color': getCssVar('text-color'),
+    'hover-border-color': getCssVar('text-color'),
+    'disabled-text-color': getCssVar('text-color'),
+    'disabled-bg-color': getCssVar('text-color'),
+    'disabled-border-color': getCssVar('text-color'),
+  ),
+  $button
+);
 
+$button-border-width: $border-width-root;
+
+@include b(button) {
+  @include set-css-var-by-map('button', $button);
+}
+
+@include b(button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  -webkit-appearance: none;
+
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  cursor: pointer;
+
+  border: get-css-var('border');
+
+  & + & {
+    margin-left: 12px;
+  }
 }

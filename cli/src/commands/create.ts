@@ -206,10 +206,10 @@ lang: en-US
 ${name}/basic
 :::
 
-## Attributes
-| Name       | Description  | Type  | Default | Required |
-| ---------- | ------------ | ----- | ------- | -------- |
-|            |              |       |         |          |
+## ${typeName} Props
+| Name       | Description  | Type  | Default |
+| ---------- | ------------ | ----- | ------- |
+|            |              |       |         |
 `.trimStart(),
 
     example: `

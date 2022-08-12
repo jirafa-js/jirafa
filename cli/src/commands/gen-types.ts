@@ -10,5 +10,5 @@ export const genTypes = async (opts: Options) => {
     return
   }
 
-  await Promise.all([genTypesAll() /* genTypesVolar() */])
+  await Promise.all([genTypesAll(), genTypesVolar()])
 }
