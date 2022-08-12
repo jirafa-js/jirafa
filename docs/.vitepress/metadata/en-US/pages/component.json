@@ -14,7 +14,12 @@
   },
   "data-display": {
     "text": "Data Display",
-    "children": []
+    "children": [
+      {
+        "text": "Tag",
+        "link": "/component/tag"
+      }
+    ]
   },
   "navigator": {
     "text": "Navigator",
