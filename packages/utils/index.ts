@@ -1,5 +1,6 @@
 export * from './vue'
 export * from './constants'
+export * from './dom'
 export * from './functions'
 export * from './objects'
 export * from './random'

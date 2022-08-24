@@ -9,7 +9,9 @@
     "gen:locale": "tsx .vitepress/build/metadata-generate.ts"
   },
   "dependencies": {
+    "@jirafa/icons": "npm:@jirafa/icons@lastest",
     "@vueuse/core": "^8.9.3",
+    "clipboard-copy": "^4.0.1",
     "jirafa": "npm:jirafa@lastest"
   },
   "devDependencies": {

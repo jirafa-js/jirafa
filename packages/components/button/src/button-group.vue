@@ -2,7 +2,7 @@
 import { buttonGroupProps } from './button-group'
 
 defineProps(buttonGroupProps)
-defineOptions({ name: 'JButtonProps' })
+defineOptions({ name: 'JButtonGroup' })
 </script>
 
 <template>

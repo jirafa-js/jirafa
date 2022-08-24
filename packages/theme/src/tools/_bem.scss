@@ -27,7 +27,7 @@
 
 @mixin is($state) {
   @at-root {
-    &.#{settings.$state-prefix + $state} {
+    &.#{settings.$is-prefix + $state} {
       @content;
     }
   }

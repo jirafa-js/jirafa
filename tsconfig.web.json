@@ -8,5 +8,12 @@
     "skipLibCheck": true
   },
   "include": ["packages", "typings/components.d.ts", "typings/env.d.ts"],
-  "exclude": ["node_modules", "cli", "**/dist", "**/__tests__", "**/*.md"]
+  "exclude": [
+    "node_modules",
+    "cli",
+    "**/dist",
+    "**/__tests__",
+    "**/*.md",
+    "packages/icons"
+  ]
 }

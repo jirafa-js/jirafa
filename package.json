@@ -35,6 +35,7 @@
   "dependencies": {
     "@jirafa/components": "workspace:*",
     "@jirafa/hooks": "workspace:*",
+    "@jirafa/icons": "npm:@jirafa/icons@lastest",
     "@jirafa/utils": "workspace:*"
   },
   "devDependencies": {

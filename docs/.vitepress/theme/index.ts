@@ -4,6 +4,7 @@ import Jirafa from 'jirafa'
 import Layout from './components/SiteLayout.vue'
 import NotFound from './components/SiteNotFound.vue'
 import SiteDemo from './components/SiteDemo.vue'
+import IconsList from './components/globals/IconsList.vue'
 
 import '../../../packages/theme/src/index.scss'
 
@@ -15,6 +16,7 @@ const theme: Theme = {
   enhanceApp({ app }) {
     app.use(Jirafa)
     app.component('SiteDemo', SiteDemo)
+    app.component('IconList', IconsList)
   },
 }
 

@@ -8,5 +8,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Home: typeof import('./.vitepress/theme/components/globals/Home.vue')['default']
+    IconsList: typeof import('./.vitepress/theme/components/globals/IconsList.vue')['default']
   }
 }

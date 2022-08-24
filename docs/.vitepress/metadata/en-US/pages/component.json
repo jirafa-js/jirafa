@@ -5,6 +5,10 @@
       {
         "text": "Button",
         "link": "/component/button"
+      },
+      {
+        "text": "Icon",
+        "link": "/component/icon"
       }
     ]
   },
