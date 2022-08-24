@@ -1,16 +1,22 @@
 import { buildComponents } from '../utils/build'
 import { buildTheme } from '../utils/build-theme'
+import { run } from '../utils/precess'
 
 interface Options {
-  type: 'theme' | 'all'
+  type: 'icons' | 'theme' | 'all'
 }
 
 export const build = async (opts: Options) => {
-  if (opts.type === 'theme') {
-    buildTheme()
-  } else {
-    buildComponents()
+  switch (opts.type) {
+    case 'theme':
+      buildTheme()
+      break
+    case 'icons':
+      run('pnpm -F icons run build')
+      break
+    case 'all':
+    default:
+      buildComponents()
+      break
   }
 }
-
-// build({ type: 'all' })

@@ -1,0 +1,7 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <path fill="currentColor" d="M576 64a64 64 0 0 1 64 64v128h-64v-128h-128v128h-64v-128a64 64 0 0 1 64-64z" />
+  <path fill="currentColor"
+    d="M192 320v128h640v-128zm0 -64h640a64 64 0 0 1 64 64v128a64 64 0 0 1-64 64h-640a64 64 0 0 1-64-64v-128a64 64 0 0 1 64-64z" />
+  <path fill="currentColor"
+    d="M192 512h64l-64 320h128v-128h64v128h96v-128h64v128h96v-128h64v128h128l-64-320h64l64 320a64 64 0 0 1 -64 64h-640a64 64 0 0 1-64-64z" />
+</svg>

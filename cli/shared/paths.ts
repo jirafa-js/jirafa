@@ -20,6 +20,9 @@ export const DIR_THEME = resolve(DIR_PKGS, 'theme')
 /** `/packages/jirafa` */
 export const DIR_JA = resolve(DIR_PKGS, 'jirafa')
 
+/** `/packages/jirafa` */
+export const DIR_ICONS = resolve(DIR_PKGS, 'icons')
+
 /** `/dist` */
 export const DIR_OUTPOT = resolve(DIR_ROOT, 'dist')
 

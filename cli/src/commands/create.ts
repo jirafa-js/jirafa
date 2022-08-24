@@ -121,8 +121,11 @@ describe('${name}', () => {
 }
 
 function componentTemplate(name: string) {
+  /** eg. `JButtonGroup` */
   const compName = pascalCase(`${PREFIX}-${name}`)
+  /** eg. `ButtonGroup` */
   const typeName = pascalCase(name)
+  /** eg. `buttonGroup` */
   const camelName = camelCase(name)
   return {
     vue: `
@@ -177,7 +180,7 @@ $${name}: map-merge(
 
     test: `
 import { mount } from '@vue/test-utils'
-import ${compName} from '../src/button.vue'
+import ${compName} from '../src/${name}.vue'
 
 const JIRAFA = 'J I R A FA'
 

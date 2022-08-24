@@ -34,7 +34,7 @@ program
   .command('build')
   .addOption(
     new Option('-t, --type [type]', 'build module')
-      .choices(['all', 'theme'])
+      .choices(['all', 'theme', 'icons'])
       .default('all')
   )
   .description('release project')
