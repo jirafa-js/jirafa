@@ -1,14 +1,15 @@
 import { resolve } from 'path'
-import { appendFile, mkdir, pathExists, writeFile } from 'fs-extra'
+import { appendFile, ensureDir, pathExists, writeFile } from 'fs-extra'
 import prompt from 'prompts'
 import { PREFIX, camelCase, kebabCase, pascalCase } from '@jirafa/utils'
 import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, DIR_THEME } from '../../shared'
 import { createLogger } from '../utils/logger'
+import { formatCode } from '../utils/formatCode'
 interface CreateOptions {
   hook: boolean
 }
 
-const logger = createLogger('create')
+const logger = createLogger()
 
 export const create = async (filename: string, options: CreateOptions) => {
   if (options.hook) {
@@ -20,8 +21,6 @@ export const create = async (filename: string, options: CreateOptions) => {
 }
 
 async function createHook(filename: string) {
-  const log = logger.start('hook', 'Create start')
-
   const name = filename.startsWith('use')
     ? kebabCase(filename)
     : `use-${kebabCase(filename)}`
@@ -32,170 +31,168 @@ async function createHook(filename: string) {
   const exists = await pathExists(hookPath)
 
   if (exists) {
-    logger.error('hook', `Hook '${name}' exists!`)
+    logger.error('gen', `Hook '${name}' exists!`)
     process.exit(0)
   }
+  const hookName = camelCase(name)
 
-  await mkdir(hookPath, { recursive: true })
-  await mkdir(hookTestPath, { recursive: true })
-  const { template, test } = hookTemplate(name)
-  await writeFile(resolve(hookPath, 'index.ts'), template)
-  await writeFile(resolve(hookTestPath, `${name}.spec.ts`), test)
-  await appendFile(
-    resolve(DIR_HOOKS, 'index.ts'),
-    `export * from './${name}'\n`
-  )
+  await Promise.all([ensureDir(hookPath), ensureDir(hookTestPath)])
+  await Promise.all([
+    // ts
+    writeFile(
+      resolve(hookPath, 'index.ts'),
+      formatCode(
+        `export const ${hookName} = () => {
+          // inner code
+        }`,
+        'typescript'
+      )
+    ),
+    // test
+    writeFile(
+      resolve(hookTestPath, `${name}.spec.ts`),
+      formatCode(
+        `import { defineComponent } from 'vue'
+        import { mount } from '@vue/test-utils'
+        import { ${hookName} } from '..'
 
-  log(`Create ${name} success`)
+        const TestComp = defineComponent({
+          setup() {
+            ${hookName}()
+          }
+        })
+
+        describe('${name}', () => {
+          it('should work', () => {
+            const wrapper = mount(TestComp)
+            // test code here
+            expect(wrapper).toBeDefined()
+          })
+        })`,
+        'typescript'
+      )
+    ),
+    // export
+    appendFile(resolve(DIR_HOOKS, 'index.ts'), `export * from './${name}'\n`),
+  ])
+
+  logger.success('gen', `Create hook ${name} success`)
 }
 
 async function createComponent(filename: string) {
-  const log = logger.start('comp', 'Create start')
-
   const name = kebabCase(filename)
 
+  const dirComp = resolve(DIR_COMPS, name)
+
+  if (await pathExists(dirComp)) {
+    logger.error('gen', `Component '${name}' exists!`)
+    process.exit(0)
+  }
+
+  await promptComponentMetadata(name)
+  await Promise.all([createPackage(name), createTheme(name)])
+
+  logger.success('gen', `Create component ${name} success`)
+}
+
+function getNames(name: string) {
+  return {
+    /** eg. `JButtonGroup` */
+    compName: pascalCase(`${PREFIX}-${name}`),
+    /** eg. `ButtonGroup` */
+    typeName: pascalCase(name),
+    /** eg. `buttonGroup` */
+    camelName: camelCase(name),
+  }
+}
+
+async function createTheme(name: string) {
+  await Promise.all([
+    // style
+    writeFile(
+      resolve(DIR_THEME, `src/${name}.scss`),
+      formatCode(
+        `
+      @use './settings' as *;
+      @use './tools' as *;
+
+      @include b(${name}) {
+        //
+      }
+    `,
+        'scss'
+      )
+    ),
+    // style variable
+    appendFile(
+      resolve(DIR_THEME, 'src/settings/_components.scss'),
+      `\n$${name}: () !default;\n$${name}: map-merge(\n(),\n$${name}\n);\n`
+    ),
+    // export
+    appendFile(
+      resolve(DIR_THEME, 'src/index.scss'),
+      `@use './${name}.scss';\n`
+    ),
+  ])
+}
+
+async function createPackage(name: string) {
+  const { typeName, camelName, compName } = getNames(name)
   const dirComp = resolve(DIR_COMPS, name)
   const dirCompTest = resolve(dirComp, '__tests__')
   const dirCompSrc = resolve(dirComp, 'src')
   const dirCompDoc = resolve(dirComp, 'docs')
   const dirCompExamples = resolve(dirComp, 'examples')
-  const pathCss = resolve(DIR_THEME, `src/${name}.scss`)
-  const pathCssVar = resolve(DIR_THEME, 'src/settings/_components.scss')
 
-  if (await pathExists(dirComp)) {
-    logger.error('comp', `Component '${name}' exists!`)
-    process.exit(0)
-  }
+  await Promise.all([
+    ensureDir(dirCompTest),
+    ensureDir(dirCompSrc),
+    ensureDir(dirCompDoc),
+    ensureDir(dirCompExamples),
+  ])
 
-  await promptComponentMetadata(name)
+  await Promise.all([
+    // ts
+    writeFile(
+      resolve(dirCompSrc, `${name}.ts`),
+      formatCode(
+        `import { buildProps } from '@jirafa/utils'
+        import type { ExtractPropTypes } from 'vue'
+        import type ${typeName} from './${name}.vue'
 
-  const { vue, entry, ts, test, doc, example, css, cssVar } =
-    componentTemplate(name)
-  await mkdir(dirCompTest, { recursive: true })
-  await mkdir(dirCompSrc, { recursive: true })
-  await mkdir(dirCompDoc, { recursive: true })
-  await mkdir(dirCompExamples, { recursive: true })
+        export type ${typeName}Instance = InstanceType<typeof ${typeName}>
+        export const ${camelName}Props = buildProps({})
+        export type ${typeName}Props = ExtractPropTypes<typeof ${camelName}Props>`,
+        'typescript'
+      )
+    ),
+    // vue
+    writeFile(
+      resolve(dirCompSrc, `${name}.vue`),
+      formatCode(
+        `<script lang="ts" setup>
+          import { useNamespace } from '@jirafa/hooks'
+          import { ${camelName}Props } from './${name}'
 
-  await writeFile(resolve(dirCompTest, `${name}.spec.ts`), test)
-  await writeFile(resolve(dirCompSrc, `${name}.ts`), ts)
-  await writeFile(resolve(dirCompSrc, `${name}.vue`), vue)
-  await writeFile(resolve(dirCompDoc, `en-US.md`), doc)
-  await writeFile(resolve(dirCompExamples, `basic.vue`), example)
-  await writeFile(resolve(dirComp, 'index.ts'), entry)
-  await writeFile(pathCss, css)
-  await appendFile(
-    resolve(DIR_COMPS, 'index.ts'),
-    `export * from './${name}'\n`
-  )
-  await appendFile(pathCssVar, cssVar)
+          defineProps(${camelName}Props)
+          defineOptions({ name: '${compName}' })
 
-  log(`Create ${name} success`)
-}
+          const ns = useNamespace('${name}')
+        </script>
 
-function hookTemplate(name: string) {
-  const exportName = camelCase(name)
-  return {
-    template: `
-export const ${camelCase(name)} = () => {
-  // inner code
-}\n`.trimStart(),
-    test: `
-import { defineComponent } from 'vue'
-import { mount } from '@vue/test-utils'
-import { ${exportName} } from '..'
-
-const TestComp = defineComponent({
-  setup() {
-    ${exportName}()
-  }
-})
-
-describe('${name}', () => {
-  it('should work', () => {
-    const wrapper = mount(TestComp)
-    // test code here
-    expect(wrapper).toBeDefined()
-  })
-})\n`.trimStart(),
-  }
-}
-
-function componentTemplate(name: string) {
-  /** eg. `JButtonGroup` */
-  const compName = pascalCase(`${PREFIX}-${name}`)
-  /** eg. `ButtonGroup` */
-  const typeName = pascalCase(name)
-  /** eg. `buttonGroup` */
-  const camelName = camelCase(name)
-  return {
-    vue: `
-<script lang="ts" setup>
-import { ${camelName}Props } from './${name}'
-
-defineProps(${camelName}Props)
-defineOptions({ name: '${compName}' })
-</script>
-
-<template>
-  <div>
-    <slot></slot>
-  </div>
-</template>
-`.trimStart(),
-
-    entry: `
-import { withInstall } from '@jirafa/utils'
-import ${typeName} from './src/${name}.vue'
-
-export * from './src/${name}'
-
-export const ${compName} = withInstall(${typeName})
-
-export default ${compName}
-`.trimStart(),
-
-    ts: `
-import type { ExtractPropTypes } from 'vue'
-import type ${typeName} from './${name}.vue'
-
-export type ${typeName}Instance = InstanceType<typeof ${typeName}>
-export const ${camelName}Props = {}
-export type ${typeName}Props = ExtractPropTypes<typeof ${camelName}Props>
-`.trimStart(),
-
-    css: `
-@use './settings' as *;
-@use './tools' as *;
-
-@include b(${name}) {
-
-}
-`.trimStart(),
-    cssVar: `\n$${name}: () !default;
-$${name}: map-merge(
-  (),
-  $${name}
-);
-`,
-
-    test: `
-import { mount } from '@vue/test-utils'
-import ${compName} from '../src/${name}.vue'
-
-const JIRAFA = 'J I R A FA'
-
-describe('${compName}.vue', () => {
-  it('render test', () => {
-    const wrapper = mount(${compName}, {
-      slots: { default: JIRAFA },
-    })
-
-    expect(wrapper.text()).toEqual(JIRAFA)
-  })
-})
-`.trimStart(),
-
-    doc: `
+        <template>
+          <div :class="[ns.b()]">
+            <slot></slot>
+          </div>
+        </template>`,
+        'vue'
+      )
+    ),
+    // doc
+    writeFile(
+      resolve(dirCompDoc, 'en-US.md'),
+      formatCode(
+        `
 ---
 title: ${typeName}
 lang: en-US
@@ -212,17 +209,62 @@ ${name}/basic
 ## ${typeName} Props
 | Name       | Description  | Type  | Default |
 | ---------- | ------------ | ----- | ------- |
-|            |              |       |         |
-`.trimStart(),
+|            |              |       |         |`,
+        'markdown'
+      )
+    ),
+    // example
+    writeFile(
+      resolve(dirCompExamples, 'basic.vue'),
+      formatCode(
+        `<template>
+          <${compName}>
+            ${compName}
+          </${compName}>
+        </template>`,
+        'vue'
+      )
+    ),
+    // test
+    writeFile(
+      resolve(dirCompTest, `${name}.spec.ts`),
+      formatCode(
+        `
+        import { mount } from '@vue/test-utils'
+        import ${compName} from '../src/${name}.vue'
 
-    example: `
-<template>
-  <${compName}>
-    ${compName}
-  </${compName}>
-</template>
-`.trimStart(),
-  }
+        const JIRAFA = 'J I R A F A'
+
+        describe('${compName}.vue', () => {
+          it('render test', () => {
+            const wrapper = mount(${compName}, {
+              slots: { default: JIRAFA },
+            })
+
+            expect(wrapper.text()).toEqual(JIRAFA)
+          })
+        })`,
+        'typescript'
+      )
+    ),
+    // entry
+    writeFile(
+      resolve(dirComp, 'index.ts'),
+      formatCode(
+        `import { withInstall } from '@jirafa/utils'
+        import ${typeName} from './src/${name}.vue'
+
+        export * from './src/${name}'
+
+        export const ${compName} = withInstall(${typeName})
+
+        export default ${compName}`,
+        'typescript'
+      )
+    ),
+    // export
+    appendFile(resolve(DIR_COMPS, 'index.ts'), `export * from './${name}'\n`),
+  ])
 }
 
 async function promptComponentMetadata(name: string) {
