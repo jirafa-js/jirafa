@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import { CheckCircleFilled } from '@jirafa/icons'
+</script>
+
 <template>
-  <JTag> JTag </JTag>
+  <JSpace>
+    <JTag>Tag</JTag>
+    <JTag>Default</JTag>
+    <JTag>
+      <JIcon><CheckCircleFilled /></JIcon>Done
+    </JTag>
+  </JSpace>
 </template>

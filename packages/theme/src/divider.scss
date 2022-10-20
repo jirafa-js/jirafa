@@ -1,0 +1,45 @@
+@use './settings' as *;
+@use './tools' as *;
+@use './components/divider' as *;
+
+@include b(divider) {
+  position: relative;
+
+  @include border($divider-border...);
+
+  @include m(horizontal) {
+    width: 100%;
+    clear: both;
+    min-width: 100%;
+    margin-block: get-css-var(divider-space);
+  }
+
+  @include m(vertical) {
+    display: inline-block;
+    height: 1em;
+    border-width: $divider-vertical-border-width;
+    margin-inline: get-css-var(divider-space);
+    vertical-align: middle;
+  }
+
+  @include e(text) {
+    position: absolute;
+    padding: 0 map-get($spacers, 3);
+    font-weight: 500;
+    font-size: 14px;
+    background-color: get-css-var(color, bg);
+
+    @include is(left) {
+      left: map-get($spacers, 5);
+      transform: translateY(-50%);
+    }
+    @include is(center) {
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+    @include is(right) {
+      right: map-get($spacers, 5);
+      transform: translateY(-50%);
+    }
+  }
+}

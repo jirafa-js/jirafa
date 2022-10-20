@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../settings' as *;
+@use '../tools' as *;
+
+$divider-border-color: $border-color-root !default;
+$divider-border-style: get-css-var('divider', 'border', 'style') !default;
+$divider-border-width: 1px 0 0 0 !default;
+$divider-vertical-border-width: 0 1px 0 0 !default;
+
+$divider-border: (
+  $divider-border-color,
+  $divider-border-style,
+  $divider-border-width
+) !default;

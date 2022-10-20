@@ -1,0 +1,15 @@
+// Break-point
+$breakpoint-sm: 576px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-lg: 992px !default;
+$breakpoint-xl: 1200px !default;
+$breakpoint-max: 1920px !default;
+
+$breakpoints: (
+  'xs': '(max-width: #{$breakpoint-sm})',
+  'sm': '(min-width: #{$breakpoint-sm})',
+  'md': '(min-width: #{$breakpoint-md})',
+  'lg': '(min-width: #{$breakpoint-lg})',
+  'xl': '(min-width: #{$breakpoint-xl})',
+  'max': '(min-width: #{$breakpoint-xl})',
+) !default;

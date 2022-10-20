@@ -1,4 +1,21 @@
 {
+  "layout": {
+    "text": "Layout",
+    "children": [
+      {
+        "text": "Space",
+        "link": "/component/space"
+      },
+      {
+        "text": "Grid",
+        "link": "/component/grid"
+      },
+      {
+        "text": "Divider",
+        "link": "/component/divider"
+      }
+    ]
+  },
   "basic": {
     "text": "Basic",
     "children": [

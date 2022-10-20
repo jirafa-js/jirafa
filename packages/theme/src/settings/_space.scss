@@ -1,0 +1,38 @@
+@use 'sass:map';
+@use 'sass:meta';
+
+$spacer: 4px !default;
+$spacer-steps: 16 !default;
+
+$spacers: () !default;
+$spacers: map.merge(
+  (
+    'mini': $spacer,
+    'small': $spacer * 2,
+    'base': $spacer * 4,
+    'large': $spacer * 6,
+  ),
+  $spacers
+);
+@if meta.type-of($spacers) == map {
+  @for $i from 0 through $spacer-steps {
+    $spacers: map.merge(
+      (
+        $i: $spacer * $i,
+      ),
+      $spacers
+    );
+  }
+}
+
+$negative-spacers: () !default;
+@if meta.type-of($negative-spacers) == map {
+  @for $i from 0 through $spacer-steps {
+    $negative-spacers: map.merge(
+      (
+        $i: -$spacer * $i,
+      ),
+      $negative-spacers
+    );
+  }
+}

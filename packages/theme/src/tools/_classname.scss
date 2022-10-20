@@ -1,0 +1,25 @@
+@use '../settings/config' as *;
+
+@function b($block) {
+  @return $namespace + $common-separator + $block;
+}
+
+@function be($block, $element) {
+  @return b($block) + $element-separator + $element;
+}
+
+@function bm($block, $modifier) {
+  @return b($block) + $modifier-separator + $modifier;
+}
+
+@function is($state) {
+  @return $is-prefix + $state;
+}
+
+@function cls($paths...) {
+  $cls: $namespace;
+  @each $var in paths {
+    $cls: $cls + $common-separator + $var;
+  }
+  @return $cls;
+}

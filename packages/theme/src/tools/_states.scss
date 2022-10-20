@@ -1,0 +1,44 @@
+@use 'sass:map';
+@use 'sass:string';
+@use '../settings';
+@use './css-var' as *;
+
+@mixin states($name, $focusable: true, $activeSelector: null) {
+  &:hover {
+    @include set-css-var($name, map.get(settings.$states, 'hover'));
+  }
+
+  @if ($focusable) {
+    &:focus {
+      @include set-css-var($name, map.get(settings.$states, 'focus'));
+    }
+  }
+
+  @if ($activeSelector) {
+    #{$activeSelector} {
+      @include states-active($name, $focusable);
+    }
+  }
+}
+
+@mixin states-active($name, $focusable: true) {
+  @include set-css-var($name, map.get(settings.$states, 'activated'));
+
+  &:hover {
+    @include set-css-var(
+      $name,
+      map.get(settings.$states, 'activated') +
+        map.get(settings.$states, 'hover')
+    );
+  }
+
+  @if ($focusable) {
+    &:focus {
+      @include set-css-var(
+        $name,
+        map.get(settings.$states, 'activated') +
+          map.get(settings.$states, 'focus')
+      );
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@use './settings' as *;
+@use './tools' as *;
+@use 'sass:math';
+
+@mixin _col($size: null) {
+  $prefix: if($size, '&-#{$size}', '&');
+
+  #{$prefix}-0 {
+    display: none;
+  }
+
+  @for $i from 0 through 24 {
+    #{$prefix}-#{$i} {
+      max-width: math.div($i, 24) * 100%;
+      flex: 0 0 math.div($i, 24) * 100%;
+    }
+
+    #{$prefix}-offset-#{$i} {
+      margin-left: math.div($i, 24) * 100%;
+    }
+
+    #{$prefix}-pull-#{$i} {
+      position: relative;
+      right: math.div($i, 24) * 100%;
+    }
+
+    #{$prefix}-push-#{$i} {
+      position: relative;
+      left: math.div($i, 24) * 100%;
+    }
+  }
+}
+
+$_sizes: (xs, sm, md, lg, xl, max);
+
+@include b(col) {
+  box-sizing: border-box;
+
+  @include _col();
+
+  @each $size in $_sizes {
+    @include at-screen($size) {
+      @include _col($size);
+    }
+  }
+}

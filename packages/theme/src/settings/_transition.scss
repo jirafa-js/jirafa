@@ -1,0 +1,33 @@
+@use 'sass:map';
+
+// Mapping from transition to easings:
+// fast-out-slow-in -> standard
+// linear-out-slow-in -> decelerated
+// fast-out-linear-in -> accelerated
+// ease-in-out -> standard or accelerated depending on usage
+// fast-in-fast-out -> accelerated
+// swing -> standard
+$transition-easing: () !default;
+$transition-easing: map.deep-merge(
+  (
+    'standard': cubic-bezier(0.4, 0, 0.2, 1),
+    // Entering
+    'decelerated': cubic-bezier(0, 0, 0.2, 1),
+    // Leaving
+    'accelerated': cubic-bezier(0.4, 0, 1, 1),
+  ),
+  $transition-easing
+);
+
+$transition-duration: () !default;
+$transition-duration: map.deep-merge(
+  (
+    'fast': 0.1s,
+    'base': 0.3s,
+    'slow': 0.6s,
+  ),
+  $transition-duration
+);
+
+$transition-delay: 0.04s !default;
+$transition-move-distance: 50px !default;

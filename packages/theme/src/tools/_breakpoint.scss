@@ -1,0 +1,13 @@
+@use '../settings/breakpoint' as *;
+@use 'sass:map';
+@use 'sass:string';
+
+@mixin at-screen($key, $map: $breakpoints) {
+  @if map.has-key($map, $key) {
+    @media only screen and #{string.unquote(map.get($map, $key))} {
+      @content;
+    }
+  } @else {
+    @warn "Undefined point: `#{$key}` in points `#{$map}`";
+  }
+}

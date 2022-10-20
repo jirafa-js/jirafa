@@ -1,0 +1,110 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../settings' as *;
+@use '../tools' as *;
+
+$button-height: 32px !default;
+$button-font-size: 14px !default;
+$button-width-ratio: 2 !default;
+$button-padding-ratio: 2.25 !default;
+
+$button-sizes: () !default;
+$button-sizes: map.merge(
+  (
+    'height': $button-height,
+    'font-size': $button-font-size,
+    'width-ratio': $button-width-ratio,
+    'padding-ratio': $button-padding-ratio,
+  ),
+  $button-sizes
+);
+$button-font-weight: map.get($font-weights, 'regular');
+
+$button-border-radius: $border-radius-root;
+$button-border-color: currentColor !default;
+$button-border-style: solid !default;
+$button-border-width: 0 !default;
+$button-border: (
+  $button-border-color,
+  $button-border-style,
+  $button-border-width
+) !default;
+
+$button-status: () !default;
+$button-status: map.merge(
+  (
+    'success': (
+      get-css-var('color', 'success'),
+    ),
+    'warning': (
+      get-css-var('color', 'warning'),
+    ),
+    'danger': (
+      get-css-var('color', 'danger'),
+    ),
+    'default': (
+      get-css-var('color', 'primary'),
+      true,
+    ),
+  ),
+  $button-status
+);
+
+$button: () !default;
+$button: map.merge(
+  (
+    'overlay-opacity': 0,
+  ),
+  $button
+);
+
+@mixin button-size($map: $button-sizes) {
+  @each $sizeName, $multiplier in $size-scales {
+    $size: roundEven(map.get($map, 'font-size') + $multiplier);
+    $height: map.get($map, 'height') + (4 * $multiplier);
+
+    @include m(if($sizeName == 'default', '', $sizeName)) {
+      --j-button-font-size: #{$size};
+      --j-button-height: #{$height};
+      min-width: roundEven($height * map.get($map, 'width-ratio'));
+      padding: 0 roundEven(math.div($height, map.get($map, 'padding-ratio')));
+    }
+  }
+}
+
+@mixin button-variant($color, $inherit: false) {
+  &.#{b('button')} {
+    @include m('outline', 'text', 'secondary', 'dashed') {
+      background-color: transparent;
+    }
+
+    @include m('primary') {
+      background-color: $color;
+      color: #fff;
+    }
+
+    @include m('secondary', 'dashed') {
+      color: if($inherit, inherit, $color);
+    }
+
+    @include m('outline', 'dashed') {
+      border-width: $border-width-root;
+    }
+
+    @include m('outline', 'text') {
+      color: $color;
+    }
+
+    @include m('dashed') {
+      border-style: dashed;
+    }
+  }
+}
+
+@mixin button-status($status: $button-status) {
+  @each $type, $values in $status {
+    #{if($type == 'default', "&" , "&.#{bm('button', $type)}")} {
+      @include button-variant($values...);
+    }
+  }
+}

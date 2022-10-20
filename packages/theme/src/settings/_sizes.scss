@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use './space';
+
+$sizes: ('mini', 'small', 'default', 'large') !default;
+
+$size-scale: space.$spacer !default;
+
+$size-scales: () !default;
+$size-scales: map.merge(
+  (
+    'default': 0,
+    'mini': -2,
+    'small': -1,
+    'large': 1,
+  ),
+  $size-scales
+);

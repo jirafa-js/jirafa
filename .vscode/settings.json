@@ -25,5 +25,6 @@
     "markdown",
     "json",
     "jsonc"
-  ]
+  ],
+  "testing.automaticallyOpenPeekView": "never"
 }

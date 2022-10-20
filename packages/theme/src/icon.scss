@@ -1,5 +1,5 @@
-@use './settings' as *;
 @use './tools' as *;
+@use './settings' as *;
 
 @include b(icon) {
   --color: inherit;
@@ -16,6 +16,14 @@
   svg {
     width: 1em;
     height: 1em;
+  }
+
+  @include m(right) {
+    margin-left: map-get($spacers, 'mini');
+  }
+
+  @include m(left) {
+    margin-right: map-get($spacers, 'mini');
   }
 
   @include is('loading') {

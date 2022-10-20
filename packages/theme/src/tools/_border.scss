@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use '../settings';
+
+@mixin border($color: null, $style: null, $width: null, $important: false) {
+  border-color: $color if($important, !important, null);
+  border-style: $style if($important, !important, null);
+  border-width: $width if($important, !important, null);
+}
+
+@mixin radius($r, $important: false) {
+  @if (map.has-key($border-radiuses, $r)) {
+    border-radius: map.get($border-radiuses, $r)
+      if($important, !important, null);
+  } @else {
+    border-radius: $r if($important, !important, null);
+  }
+}

@@ -1,1 +1,13 @@
-@use '../settings';
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:list';
+
+// roundEven(3) => 4, roundEven(4) => 4
+@function roundEven($val) {
+  @return math.round($val * 0.5) * 2;
+}
+
+@function with-important($val, $important) {
+  @return #{$val if($important, !important, null)};
+}

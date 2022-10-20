@@ -1,12 +1,21 @@
 <script lang="ts" setup>
+import { useNamespace } from '@jirafa/hooks'
+import { ButtonGroupContextInjectKey } from '@jirafa/token'
+import { provide, reactive, toRefs } from 'vue'
 import { buttonGroupProps } from './button-group'
 
-defineProps(buttonGroupProps)
+const props = defineProps(buttonGroupProps)
 defineOptions({ name: 'JButtonGroup' })
+const ns = useNamespace('button-group')
+const { size, type, shape, status, disabled } = toRefs(props)
+provide(
+  ButtonGroupContextInjectKey,
+  reactive({ size, type, shape, status, disabled })
+)
 </script>
 
 <template>
-  <div class="j-button-group">
+  <div :class="[ns.b()]">
     <slot></slot>
   </div>
 </template>

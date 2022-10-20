@@ -40,7 +40,7 @@ function buildScss() {
       )
       .pipe(
         rename((path) => {
-          if (!/index/.test(path.basename)) {
+          if (!/index|base/.test(path.basename)) {
             path.basename = `${PREFIX}-${path.basename}`
           }
         })

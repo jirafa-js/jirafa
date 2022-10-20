@@ -36,6 +36,9 @@
   "peerDependencies": {
     "vue": "^3.2.0"
   },
+  "dependencies": {
+    "@vueuse/core": "^8.9.3"
+  },
   "devDependencies": {
     "vue": "^3.2.37"
   },

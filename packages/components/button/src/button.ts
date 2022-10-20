@@ -1,4 +1,10 @@
-import { buildProps, definePropType } from '@jirafa/utils'
+import {
+  buildProps,
+  componentSizes,
+  componentStatus,
+  definePropType,
+} from '@jirafa/utils'
+import { Loading } from '@jirafa/icons'
 import type { Component, ExtractPropTypes } from 'vue'
 import type Button from './button.vue'
 
@@ -6,23 +12,22 @@ const iconProp = definePropType<string | Component>([String, Object, Function])
 
 export type ButtonInstance = InstanceType<typeof Button>
 export const buttonProps = buildProps({
-  variant: {
+  type: {
     type: String,
-    values: ['block', 'solid', 'outline', 'text'],
-    default: 'outline',
+    values: ['primary', 'secondary', 'outline', 'dashed', 'text'] as const,
   },
-  color: {
+  status: {
     type: String,
-    values: ['primary', 'warning', 'danger', 'info', 'success', ''],
-    default: '',
+    values: componentStatus,
   },
-  size: { type: String, values: ['xs', 'sm', 'md', 'lg', ''], default: 'md' },
-  shape: { values: ['round', 'circle', ''], default: '' },
-  icon: { type: iconProp, default: '' },
-  loadingIcon: { type: iconProp, default: '' },
+  size: { type: String, values: componentSizes },
+  shape: { values: ['round', 'circle'] },
+  block: Boolean,
+  icon: { type: iconProp },
+  loadingIcon: { type: iconProp, default: () => Loading },
   disabled: Boolean,
   loading: Boolean,
-  type: {
+  htmlType: {
     type: String,
     values: ['button', 'submit', 'reset'],
     default: 'button',

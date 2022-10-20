@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use '../tools/css-var' as *;
+@use '../tools/functions' as *;
+@use './color' as *;
+
+$border-width-root: 1px !default;
+$border-style-root: solid !default;
+$border-color-root: get-css-var('border', 'color') !default;
+$border-radius-root: 4px !default;
+
+$borders: () !default;
+$borders: map.deep-merge(
+  (
+    'none': 0,
+    'base': $border-width-root,
+    'medium': $border-width-root * 2,
+    'large': $border-width-root * 4,
+  ),
+  $borders
+);
+@each $key, $border in $borders {
+  $borders: map.deep-merge(
+    $borders,
+    (
+      $key: $border $border-style-root $border-color-root,
+    )
+  );
+}
+$border-radiuses: () !default;
+$border-radiuses: map.deep-merge(
+  (
+    'none': 0,
+    'small': $border-radius-root * 0.5,
+    'base': $border-radius-root,
+    'medium': $border-radius-root * 2,
+    'large': $border-radius-root * 4,
+    'round': 1999px,
+    'circle': 100%,
+  ),
+  $border-radiuses
+);
+
+$border-colores: () !default;
+$border-colores: map.deep-merge(
+  (
+    '': rgba(0, 0, 0, 0.12),
+  ),
+  $border-colores
+);

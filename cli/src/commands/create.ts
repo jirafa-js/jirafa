@@ -1,14 +1,15 @@
 import { resolve } from 'path'
 import { appendFile, ensureDir, pathExists, writeFile } from 'fs-extra'
 import prompt from 'prompts'
-import { PREFIX, camelCase, kebabCase, pascalCase } from '@jirafa/utils'
+import { camelCase, kebabCase, pascalCase } from '../utils/strings'
 import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, DIR_THEME } from '../../shared'
 import { createLogger } from '../utils/logger'
 import { formatCode } from '../utils/formatCode'
+
 interface CreateOptions {
   hook: boolean
 }
-
+const PREFIX = 'j'
 const logger = createLogger()
 
 export const create = async (filename: string, options: CreateOptions) => {
@@ -161,7 +162,7 @@ async function createPackage(name: string) {
         import type ${typeName} from './${name}.vue'
 
         export type ${typeName}Instance = InstanceType<typeof ${typeName}>
-        export const ${camelName}Props = buildProps({})
+        export const ${camelName}Props = buildProps({} as const)
         export type ${typeName}Props = ExtractPropTypes<typeof ${camelName}Props>`,
         'typescript'
       )
@@ -209,7 +210,14 @@ ${name}/basic
 ## ${typeName} Props
 | Name       | Description  | Type  | Default |
 | ---------- | ------------ | ----- | ------- |
-|            |              |       |         |`,
+|            |              |       |         |
+
+## ${typeName} Slots
+
+| Name | Description               |
+| ---- | ------------------------- |
+| -    | customize default content |
+`,
         'markdown'
       )
     ),
@@ -227,7 +235,7 @@ ${name}/basic
     ),
     // test
     writeFile(
-      resolve(dirCompTest, `${name}.spec.ts`),
+      resolve(dirCompTest, `${name}.spec.tsx`),
       formatCode(
         `
         import { mount } from '@vue/test-utils'
@@ -237,9 +245,7 @@ ${name}/basic
 
         describe('${compName}.vue', () => {
           it('render test', () => {
-            const wrapper = mount(${compName}, {
-              slots: { default: JIRAFA },
-            })
+            const wrapper = mount(() => <${compName} v-slots={{ default: JIRAFA }} />)
 
             expect(wrapper.text()).toEqual(JIRAFA)
           })
@@ -275,6 +281,7 @@ async function promptComponentMetadata(name: string) {
         message: 'Please select the component type',
         type: 'select',
         choices: [
+          { title: 'Layout', value: 'layout', description: '' },
           { title: 'Basic', value: 'basic', description: '' },
           { title: 'Data Input', value: 'data-input' },
           { title: 'Data Display', value: 'data-display' },

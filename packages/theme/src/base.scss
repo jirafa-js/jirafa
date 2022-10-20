@@ -1,0 +1,56 @@
+@use './tools' as *;
+@use './settings' as *;
+@use 'sass:map';
+
+:root {
+  // Colors
+  @each $type in map.keys($colors) {
+    $color: map.get($colors, $type, 'base');
+
+    @if ($color != null) {
+      @include set-css-var(
+        ('color', $type, 'rgb'),
+        #{red($color),
+        green($color),
+        blue($color)}
+      );
+      @include set-css-var(('color', $type), $color);
+    }
+
+    // @each $i in ('1', '4', '6', '8') {
+    //   @include set-css-var(('color', $type, $i), map.get($colors, $type, $i));
+    // }
+  }
+  @include set-css-var-by-map(color, $colors);
+
+  @include set-css-var-by-map(
+    'color',
+    (
+      'transparent': transparent,
+
+      'bg': (
+        '': map.get($shades, 'white'),
+        'page': get-css-var('color', 'fill', 'base'),
+        'overlay': map.get($shades, 'white'),
+      ),
+    )
+  );
+
+  // Borders
+  @include set-css-var-by-map(
+    border,
+    (
+      '': $borders,
+      'radius': $border-radiuses,
+      'color': $border-colores,
+    )
+  );
+
+  // Texts
+  // @include set-css-var-by-map(
+  //   'text',
+  //   (
+  //     color: $text-color,
+  //   )
+  // );
+}

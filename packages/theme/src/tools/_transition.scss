@@ -1,0 +1,14 @@
+@use './css-var' as *;
+@use './bem' as *;
+
+@mixin transition(
+  $property: all,
+  $duration: get-css-var('transition', 'duration', 'base'),
+  $easing: get-css-var('transition', 'easing', 'standard'),
+  $delay: null
+) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $easing;
+  transition-delay: $delay;
+}

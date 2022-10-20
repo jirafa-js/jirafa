@@ -1,4 +1,5 @@
 import { PREFIX as namespace } from '@jirafa/utils'
+import type { CSSProperties } from '@vue/runtime-dom'
 
 export const COMMON_SEPARATOR = '-'
 export const ELEMENT_SEPARATOR = '__'
@@ -37,9 +38,9 @@ const _bem = ({
   return className
 }
 
-const _cssVar = (keyGen: (key: string) => string) => {
+const _cssVar = (keyGen: (key: string) => `--${string}`) => {
   return (object: Record<string, string>) => {
-    const styles: Record<string, string> = {}
+    const styles: CSSProperties = {}
     for (const key in object) {
       styles[keyGen(key)] = object[key]
     }
@@ -75,7 +76,7 @@ export const useNamespace = (block: string) => {
   const is = (name: string, state = true) =>
     name && state ? IS_PREFIX + name : ''
 
-  const cssVarName = (name: string) => `--${namespace}${name}`
+  const cssVarName = (name: string): `--${string}` => `--${namespace}-${name}`
 
   const cssVarBlockName = (name: string) =>
     cssVarName(block + COMMON_SEPARATOR + name)

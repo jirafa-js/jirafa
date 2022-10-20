@@ -1,0 +1,39 @@
+@use './settings/config' as *;
+@use './tools' as *;
+
+@mixin transition-default() {
+  &-enter-active {
+    @include transition(
+      null,
+      get-css-var('transition', 'duration-base'),
+      get-css-var(transition, 'easing-decelerated')
+    );
+  }
+
+  &-leave-active {
+    @include transition(
+      null,
+      get-css-var('transition', 'duration-base'),
+      get-css-var('transition', 'easing-accelerated')
+    );
+  }
+}
+
+@include b(slide-x) {
+  @include transition-default();
+  @include set-css-var(
+    'slide-x-distance',
+    get-css-var('transition', 'move-distance')
+  );
+
+  &-enter-form,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(get-css-var('slide-distance'));
+  }
+
+  &-enter-active,
+  &-leave-active {
+    @include transition((opacity, transform), null, null);
+  }
+}

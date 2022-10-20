@@ -26,8 +26,14 @@ async function symlinkComponent(locales: string[]) {
     ...locales.map((locale) => resolve(DIR_DOCS, locale, 'component')),
   ])
 
-  const comps = await fg('*', { cwd: DIR_COMPS, onlyDirectories: true })
-  for (const comp of comps) {
+  const comps = await fg('*/index.ts', {
+    cwd: DIR_COMPS,
+    onlyFiles: true,
+  })
+
+  const compDirs = comps.map((comp) => comp.slice(0, -'/index.ts'.length))
+
+  for (const comp of compDirs) {
     await fs.symlink(
       resolve(DIR_COMPS, comp, 'examples'),
       resolve(DIR_DOCS, `examples/${comp}`)

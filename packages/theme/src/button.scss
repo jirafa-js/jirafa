@@ -1,44 +1,110 @@
+@use 'sass:math';
+@use 'sass:map';
 @use './settings' as *;
 @use './tools' as *;
+@use './components/buttons' as *;
 
-$button: () !default;
-$button: map-merge(
-  (
-    'text-color': getCssVar('text-color'),
-    'bg-color': getCssVar('text-color'),
-    'border-color': getCssVar('text-color'),
-    'hover-text-color': getCssVar('text-color'),
-    'hover-bg-color': getCssVar('text-color'),
-    'hover-border-color': getCssVar('text-color'),
-    'disabled-text-color': getCssVar('text-color'),
-    'disabled-bg-color': getCssVar('text-color'),
-    'disabled-border-color': getCssVar('text-color'),
-  ),
-  $button
-);
-
-$button-border-width: $border-width-root;
-
-@include b(button) {
+@include b('button') {
   @include set-css-var-by-map('button', $button);
 }
 
-@include b(button) {
+@include b('button') {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   outline: none;
   -webkit-appearance: none;
+  border-radius: $button-border-radius;
+  height: get-css-var('button', 'height');
+  font-size: get-css-var('button', 'font-size');
+  font-weight: $button-font-weight;
 
   white-space: nowrap;
   text-align: center;
   vertical-align: middle;
+
   user-select: none;
   cursor: pointer;
 
-  border: get-css-var('border');
+  @include e(text) {
+    display: inline-flex;
+    text-align: center;
+  }
 
-  & + & {
-    margin-left: 12px;
+  @include e(overlay) {
+    @include absolute();
+    background-color: currentColor;
+    opacity: get-css-var('button', 'overlay-opacity');
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  @include e(underlay) {
+    @include absolute();
+    background-color: currentColor;
+    opacity: get-css-var('button', 'overlay-opacity');
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  @include m('secondary', 'dashed') {
+    > .#{be('button', 'underlay')} {
+      opacity: map.get($states, 'activated');
+    }
+  }
+
+  [class*='#{b(icon)}'] + .#{be(button, text)} {
+    margin-left: map.get($spacers, 2);
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  @include border($button-border...);
+  @include states(('button', 'overlay-opacity'));
+  @include button-size();
+  @include button-status();
+
+  @supports selector(:focus-visible) {
+    &::after {
+      @include absolute(true);
+      pointer-events: none;
+      border: 2px solid currentColor;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &:focus-visible::after {
+      opacity: 0.2;
+    }
+  }
+
+  @include m('round') {
+    border-radius: map.get($border-radiuses, 'round');
+  }
+  @include m('circle') {
+    min-width: 0;
+    width: get-css-var('button', 'height');
+    border-radius: map.get($border-radiuses, 'circle');
+  }
+  @include is('only-icon') {
+    min-width: 0;
+    width: get-css-var('button', 'height');
+  }
+
+  @include is('block') {
+    display: flex;
+    min-width: 100%;
+  }
+
+  @include is('disabled') {
+    opacity: 0.54;
+    cursor: not-allowed;
+
+    @include set-css-var(('button', 'overlay-opacity'), 0);
   }
 }

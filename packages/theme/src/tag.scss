@@ -1,6 +1,79 @@
+@use 'sass:map';
 @use './settings' as *;
 @use './tools' as *;
+@use './components/tag' as *;
 
 @include b(tag) {
+  @include set-css-var-by-map('tag', $tag-vars);
+}
 
+@include b(tag) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: map.get($border-radiuses, 'base');
+  color: get-css-var('tag', 'text-color');
+  font-weight: $tag-font-weight;
+  cursor: default;
+  overflow: hidden;
+
+  @include border($tag-border...);
+
+  @include e(overlay) {
+    position: absolute;
+    inset: -1px;
+    background-color: currentColor;
+    opacity: get-css-var('tag', 'overlay-opacity');
+    pointer-events: none;
+  }
+
+  @include e(content) {
+    display: inline-flex;
+    align-items: center;
+
+    + .#{b(icon)} {
+      margin-left: map.get($spacers, 'small');
+    }
+  }
+
+  @include e(close) {
+    position: relative;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background-color: currentColor;
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    &:hover::after {
+      opacity: map.get($states, 'hover') + map.get($states, 'activated');
+    }
+  }
+
+  @include is('checkable') {
+    cursor: pointer;
+    transition: all map.get($transition-duration, 'base')
+      map.get($transition-easing, 'standard');
+
+    @include set-css-var-by-map(
+      'tag',
+      (
+        'text-color': inherit,
+        'overlay-opacity': 0,
+      )
+    );
+    @include states(('tag', 'overlay-opacity'), false, "&.#{is('checked')}");
+  }
+
+  @include is('bordered') {
+    border-color: currentColor;
+  }
+
+  @include tag-size();
+  @include tag-color();
 }

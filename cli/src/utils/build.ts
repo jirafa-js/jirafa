@@ -61,7 +61,13 @@ async function buildModules() {
     cwd: DIR_PKGS,
     onlyFiles: true,
     absolute: true,
-    ignore: ['**/examples', '**/__tests__', '**/node_modules', '**/dist'],
+    ignore: [
+      '**/examples',
+      '**/__tests__',
+      '**/node_modules',
+      '**/dist',
+      'icons',
+    ],
   })
 
   const bundle = await rollup({

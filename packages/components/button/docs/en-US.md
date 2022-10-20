@@ -7,48 +7,74 @@ lang: en-US
 
 ## Basic Usage
 
-::: demo Use `variant`, `color`, `shape` to define Button's style.
+Button is divided into five types: `primary`, `secondary`**(Default)**, `dashed`, `outline`, `text`.
+::: demo
 button/basic
+:::
+
+## Icon Button
+
+Buttons can be embedded with icons. When only icons are set, the width and height of the buttons are equal.
+::: demo
+button/icon
 :::
 
 ## Sizes
 
-::: demo Use attribute size to set additional sizes with `lg`, `md`, `sm`, `xs`, default is `md`.
+Use attribute `size` to set additional sizes with `large`, `small`, `mini`
+::: demo
 button/size
+:::
+
+## Status
+
+The state of button is divided into four types: `success` , `warning` , `danger`.
+::: demo
+button/status
 :::
 
 ## Loading Button
 
-::: demo Set `loading` attribute to `true` to display loading state.
+Set `loading` attribute to `true` to display loading state.
+::: demo
 button/loading
 :::
 
 ## Disabled Button
 
-::: demo Set `loading` attribute to `true` to disabled the button.
+Set `disabled` attribute to `true` to disabled the button.
+::: demo
 button/disabled
+:::
+
+## Block Button
+
+Set `block` attribute to `true` to make the button fit to its parent width.
+::: demo
+button/block
 :::
 
 ## Button-Group
 
-::: demo Displayed as a button group, can be used to group a series of similar operations.
+Displayed as a button group, can be used to group a series of similar operations.
+::: demo
 button/group
 :::
 
 ## Button Props
 
-| Name         | Description                                                                        | Type                                              | Default   |
-| ------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------- | --------- |
-| variant      | button variant                                                                     | `block \| solid \| outline \| text`               | `outline` |
-| color        | button color, if set `variant` to `solid`, its value will be `primary` by default. | `primary \| warning \| danger \| info \| success` | -         |
-| size         | determine whether button's size                                                    | `xs \| sm \| md \| lg`                            | `md`      |
-| shape        | determine whether button's shape                                                   | `round \| circle`                                 | -         |
-| icon         | button prefix Icon                                                                 | `string \| Component`                             | -         |
-| loading-icon | customize loading icon component                                                   | `string \| Component`                             | `Loading` |
-| disabled     | disabled the button                                                                | `boolean`                                         | `false`   |
-| loading      | determine whether it's loading                                                     | `boolean`                                         | `false`   |
-| type         | same as native button's type                                                       | `button \| submit \| reset`                       | `button`  |
-| autofocus    | same as native button's autofocus                                                  | `boolean`                                         | `false`   |
+| Name         | Description                       | Type                                                          | Default     |
+| ------------ | --------------------------------- | ------------------------------------------------------------- | ----------- |
+| type         | button variant                    | `'primary' \| 'secondary' \| 'outline' \| 'dashed' \| 'text'` | `secondary` |
+| status       | button status                     | ` warning \| danger \| success`                               | -           |
+| size         | determine whether button's size   | `mini \| small \| large`                                      | -           |
+| shape        | determine whether button's shape  | `round \| circle`                                             | -           |
+| icon         | button prefix Icon                | `string \| Component`                                         | -           |
+| loading-icon | customize loading icon component  | `string \| Component`                                         | `Loading`   |
+| loading      | determine whether it's loading    | `boolean`                                                     | `false`     |
+| disabled     | disabled the button               | `boolean`                                                     | `false`     |
+| html-type    | same as native button's type      | `button \| submit \| reset`                                   | `button`    |
+| autofocus    | same as native button's autofocus | `boolean`                                                     | `false`     |
 
 ## Button Slots
 
@@ -60,9 +86,13 @@ button/group
 
 ## Button-Group Props
 
-| Name | Description                                      | Type                  | Default |
-| ---- | ------------------------------------------------ | --------------------- | ------- |
-| size | control the size of buttons in this button-group | same as button's size | -       |
+| Name     | Description                                 | Type                                                          | Default     |
+| -------- | ------------------------------------------- | ------------------------------------------------------------- | ----------- |
+| type     | Children button type divided                | `'primary' \| 'secondary' \| 'outline' \| 'dashed' \| 'text'` | `secondary` |
+| status   | Children button status                      | ` warning \| danger \| success`                               | -           |
+| size     | Children button size                        | `mini \| small \| large`                                      | -           |
+| shape    | Button's shape                              | `round \| circle`                                             | -           |
+| disabled | All children whether the button is disabled | `boolean`                                                     | -           |
 
 ## Button-Group Slots
 

@@ -1,3 +1,10 @@
-@forward './colors';
+@forward './border';
+@forward './breakpoint';
+@forward './color';
+@forward './component';
 @forward './config';
-@forward './var';
+@forward './font';
+@forward './sizes';
+@forward './space';
+@forward './states';
+@forward './transition';

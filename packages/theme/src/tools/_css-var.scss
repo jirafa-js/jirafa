@@ -1,14 +1,17 @@
-@use '../settings';
+@use '../settings/config';
+@use '../settings/color';
+@use 'sass:meta';
+@use 'sass:list';
 
 // @include set-css-var-by-map('button', ('text-color': #141414, 'bg-color': '#f2f2f2'))
 // --j-button-text-color: #141414;
 // --j-button-bg-color: #f2f2f2;
 @mixin set-css-var-by-map($name, $map) {
   @each $key, $value in $map {
-    @if $key == 'default' {
-      #{get-css-var-name($name)}: #{$value};
+    @if (meta.type-of($value) == map) {
+      @include set-css-var-by-map(($name, $key), $value);
     } @else {
-      #{get-css-var-name($name, $key)}: #{$value};
+      #{join-css-var-name(list.join($name, $key))}: #{$value};
     }
   }
 }
@@ -21,9 +24,16 @@
   #{$var-name}: var(#{$global-var-name});
 }
 
-// join-var-name(('button', 'text-color')) => '--el-button-text-color'
+// @include set-css-var-value(('color', 'primary'), red);
+// --j-color-primary: red;
+@mixin set-css-var($name, $value) {
+  #{join-css-var-name($name)}: #{$value};
+}
+
+// @include join-var-name(('button', 'text-color'))
+// '--j-button-text-color'
 @function join-css-var-name($pathList) {
-  $name: '--' + settings.$namespace;
+  $name: '--' + config.$namespace;
   @each $path in $pathList {
     @if $path != '' {
       $name: $name + '-' + $path;
@@ -35,7 +45,7 @@
 
 // get-css-var-name('button', 'text-color') => '--j-button-text-color'
 @function get-css-var-name($pathList...) {
-  @return join-css-var-name(($pathList));
+  @return join-css-var-name($pathList);
 }
 
 // get-css-var('button', 'text-color') => var(--j-button-text-color)
@@ -43,7 +53,18 @@
   @return var(#{join-css-var-name($pathList)});
 }
 
-// get-css-var-with-default(('button', 'text-color'), '#141414') => var(--j-button-text-color, #141414)
+// get-css-var-with-default(('button', 'text-color'), '#141414')
+// var(--j-button-text-color, #141414)
 @function get-css-var-with-default($pathList, $default) {
   @return var(#{join-css-var-name($pathList)}, $default);
+}
+
+@mixin set-color-css-var($colors-map: color.$colors, $prefix: '') {
+  @each $name, $color-or-map in $colors-map {
+    @if meta.type-of($color-or-map) == 'map' {
+      @include set-color-css-var($color-or-map, $name);
+    } @else {
+      #{get-css-var-name('color', $prefix, $name)}: #{$color-or-map};
+    }
+  }
 }

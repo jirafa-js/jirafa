@@ -1,3 +1,6 @@
 export * from './button'
 export * from './tag'
 export * from './icon'
+export * from './space'
+export * from './grid'
+export * from './divider'
