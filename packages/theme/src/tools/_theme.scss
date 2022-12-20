@@ -1,0 +1,6 @@
+@use './_css-var.scss' as *;
+
+@mixin set-theme($map, $name: null) {
+  color-scheme: if($name, $name, null);
+  @include set-css-var-by-map('theme', $map);
+}

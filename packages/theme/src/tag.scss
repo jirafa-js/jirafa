@@ -67,7 +67,7 @@
         'overlay-opacity': 0,
       )
     );
-    @include states(('tag', 'overlay-opacity'), false, "&.#{is('checked')}");
+    @include states(('tag', 'overlay-opacity'), 0, false, "&.#{is('checked')}");
   }
 
   @include is('bordered') {

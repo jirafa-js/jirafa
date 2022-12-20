@@ -1,0 +1,38 @@
+@use 'sass:meta';
+@use 'sass:list';
+@use './bem' as *;
+@use './css-var' as *;
+@use './functions' as *;
+@use '../settings/sizes' as *;
+
+// $name: string
+// $map: value or list
+@mixin size($name, $map, $scales: $size-scales) {
+  @each $sizeName, $multiplier in $scales {
+    @include m(if($sizeName == 'default', '', $sizeName)) {
+      @each $key, $list in $map {
+        $is-list: meta.type-of($list) == list;
+        @if (meta.type-of($list) != list or (list.length($list) < 2)) {
+          @error "scale #{$key} must be list and list length greater than 2";
+        }
+
+        $base: list.nth($list, 1);
+        $scale: list.nth($list, 2);
+        $roundEven: if(list.length($list) > 2, list.nth($list, 3), false);
+
+        @include set-css-var(
+          ($name, $key),
+          if(
+            $roundEven,
+            roundEven($base + $multiplier * $scale),
+            $base + $multiplier * $scale
+          )
+        );
+      }
+    }
+  }
+}
+
+@function create-size($base, $radix: 1, $round-even: false) {
+  @return ($base, $radix, $round-even);
+}

@@ -31,7 +31,16 @@
   },
   "data-input": {
     "text": "Data Input",
-    "children": []
+    "children": [
+      {
+        "text": "Form",
+        "link": "/component/form"
+      },
+      {
+        "text": "Input",
+        "link": "/component/input"
+      }
+    ]
   },
   "data-display": {
     "text": "Data Display",

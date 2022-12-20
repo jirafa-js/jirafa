@@ -1,0 +1,156 @@
+@use './settings' as *;
+@use './tools' as *;
+@use './components/form' as *;
+
+@include b(form) {
+  // display: flex;
+  width: 100%;
+
+  @include m('label-right') {
+    .#{be('form-item', 'label-wrap')} {
+      justify-content: flex-end;
+    }
+  }
+
+  @include m('vertical') {
+    .#{b('form-item')} {
+      display: block;
+    }
+  }
+
+  @include m('inline') {
+    .#{b('form-item')} {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-right: $form-item-inline-spacer;
+    }
+  }
+}
+
+@include b(form-item) {
+  display: flex;
+  margin-bottom: 20px;
+
+  @include size(form, $form-sizes);
+
+  @include e('label') {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: get-css-var('form', 'height');
+    font-size: get-css-var('form', 'font-size');
+    padding-right: get-css-var('form', 'padding');
+
+    &-wrap {
+      display: flex;
+    }
+  }
+
+  @include e('content') {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  @include e('help') {
+    font-size: 12px;
+    line-height: 20px;
+    position: absolute;
+    top: 100%;
+
+    $_validating-map: (
+      'error': 'danger',
+      'warning': 'warning',
+      'success': 'success',
+      'validating': 'primary',
+    );
+
+    @each $type, $color in $_validating-map {
+      @at-root .#{b('form-item')}.#{is($type)} & {
+        color: get-css-var('color', $color);
+      }
+    }
+  }
+
+  @include e('extra') {
+    font-size: 12px;
+    line-height: 20px;
+    color: get-css-var('text-color', 'placeholder');
+  }
+
+  @include is('required') {
+    &.asterisk-left {
+      > .#{be('form-item', 'label')},
+      > .#{be('form-item', 'label-wrap')} > .#{be('form-item', 'label')} {
+        &::before {
+          content: '*';
+          margin-right: 4px;
+          color: get-css-var('color', 'danger');
+        }
+      }
+    }
+
+    &.asterisk-right {
+      > .#{be('form-item', 'label')},
+      > .#{be('form-item', 'label-wrap')} > .#{be('form-item', 'label')} {
+        &::after {
+          content: '*';
+          margin-left: 4px;
+          color: get-css-var('color', 'danger');
+        }
+      }
+    }
+  }
+
+  $_validating-input-map: (
+    'error': 'danger',
+    'warning': 'warning',
+  );
+
+  @each $type, $color in $_validating-input-map {
+    @include is($type) {
+      .#{be('input', 'wrapper')}.is-focus {
+        @include set-css-var-from-global(
+          ('input', 'border-color'),
+          ('color', $color)
+        );
+      }
+
+      .#{be('input', 'overlay')} {
+        background-color: get-css-var(color, $color);
+      }
+    }
+  }
+}
+
+.j-zoom-in-top {
+  &-enter-active,
+  &-appear-active {
+    @include transition(unquote('transform,opacity'));
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: center top;
+  }
+}
+
+.j-zoom-in-top-enter-from {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.form-blink-enter-from,
+.form-blink-appear-from {
+  opacity: 0;
+}
+
+.form-blink-enter-to,
+.form-blink-appear-to {
+  opacity: 1;
+}
+
+.form-blink-enter-active,
+.form-blink-appear-active {
+  @include transition(opacity, 3s);
+  @include animation(unquote(b(blink)));
+}

@@ -9,7 +9,7 @@ import ts from 'typescript'
 import chalk from 'chalk'
 import { DIR_COMPS, DIR_OUTPOT, DIR_PKGS, DIR_ROOT } from '../../shared'
 import { createLogger } from './logger'
-import { formatCode } from './formatCode'
+import { formatCode } from './format-code'
 
 const logger = createLogger()
 

@@ -1,3 +1,6 @@
+@use 'sass:selector';
+@use 'sass:list';
+@use 'sass:meta';
 @use '../settings/config';
 
 @mixin b($block) {
@@ -23,7 +26,7 @@
 
   @each $modifier in $modifiers {
     @if ($modifier == '') {
-      $currentSelector: #{$currentSelector + $block};
+      $currentSelector: #{$currentSelector + $block + ','};
     } @else {
       $currentSelector: #{$currentSelector +
         $block +
@@ -43,6 +46,14 @@
 @mixin is($state) {
   @at-root {
     &.#{config.$is-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+@mixin rm($modifiers, $prefix: &) {
+  @at-root #{$prefix} {
+    @include m($modifiers...) {
       @content;
     }
   }

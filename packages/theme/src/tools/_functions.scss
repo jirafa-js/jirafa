@@ -11,3 +11,7 @@
 @function with-important($val, $important) {
   @return #{$val if($important, !important, null)};
 }
+
+@function get-rgb($color) {
+  @return '#{red($color)},#{green($color)},#{blue($color)}';
+}

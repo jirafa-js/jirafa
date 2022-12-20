@@ -2,6 +2,7 @@
 @use 'sass:map';
 @use './settings' as *;
 @use './tools' as *;
+@use './components/buttons' as *;
 
 @include b(button-group) {
   display: inline-block;
@@ -37,19 +38,14 @@
       }
     }
 
-    &:not(:last-child) {
-      margin-right: -1px;
-      &::after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: inline-block;
-        content: '';
-        height: 100%;
-        width: 1px;
-        background-color: currentColor;
-        opacity: 0.16;
-        z-index: 1;
+    &:not(:first-child) {
+      margin-left: -$button-border-width;
+
+      &.#{bm('button', 'primary')} {
+        border-left-color: rgba(
+          map.get($shades, 'white'),
+          calc(get-css-var('opacity', 'activated') * 2)
+        );
       }
     }
   }

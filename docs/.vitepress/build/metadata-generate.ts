@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { dirname, resolve } from 'path'
 import { DIR_COMPS, DIR_DOCS } from '@jirafa/cli/dist/shared'
 import fs from 'fs-extra'
 import consola from 'consola'
@@ -31,7 +31,7 @@ async function symlinkComponent(locales: string[]) {
     onlyFiles: true,
   })
 
-  const compDirs = comps.map((comp) => comp.slice(0, -'/index.ts'.length))
+  const compDirs = comps.map((comp) => dirname(comp))
 
   for (const comp of compDirs) {
     await fs.symlink(

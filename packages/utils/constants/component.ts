@@ -1,4 +1,4 @@
-export const componentSizes = ['mini', 'small', 'large'] as const
+export const componentSizes = ['mini', 'small', 'large', ''] as const
 
 export type ComponentSizes = typeof componentSizes[number]
 

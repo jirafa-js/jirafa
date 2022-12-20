@@ -1,0 +1,165 @@
+@use 'sass:map';
+@use './settings' as *;
+@use './tools' as *;
+@use './components/input' as *;
+
+@include b(input) {
+  @include set-css-var-by-map('input', $input-vars);
+}
+
+@include b(input) {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  height: get-css-var('input', 'height');
+  font-size: get-css-var('input', 'font-size');
+
+  @include size(input, $input-sizes);
+
+  @include e(overlay) {
+    @include overlay(
+      get-css-var('input', 'overlay-opacity'),
+      -$input-border-width
+    );
+    @include transition(opacity, get-css-var('transition-duration', 'fast'));
+  }
+
+  @include e(wrapper) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0 get-css-var('input', 'padding');
+
+    @include border($input-border...);
+    @include states(('input', 'overlay-opacity'), $input-overlay-opacity-base);
+
+    @include is('focus') {
+      @include set-css-var-from-global(
+        ('input', 'border-color'),
+        ('color', 'primary')
+      );
+      @include set-css-var(('input', 'overlay-opacity'), 0);
+
+      @include is('exceed') {
+        @include set-css-var(('input', 'border-color'), ('color', 'danger'));
+      }
+    }
+
+    @include is('exceed') {
+      .#{be('input', 'overlay')} {
+        color: get-css-var('color', 'danger');
+      }
+    }
+  }
+
+  @include e(inner) {
+    width: 100%;
+    display: inline-flex;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: inherit;
+    color: inherit;
+    padding: 0;
+
+    &::placeholder {
+      color: get-css-var('text-color', 'placeholder');
+    }
+  }
+
+  @each $slot in (prepend, append) {
+    @include e($slot) {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $input-bg-color;
+      padding: 0 get-css-var('input', 'padding');
+
+      &::before {
+        @include overlay(
+          $input-overlay-opacity-base + map.get($states, 'hover'),
+          0,
+          true
+        );
+      }
+
+      > * {
+        border-radius: inherit;
+      }
+
+      .#{b('button')} {
+        margin: 0 calc(0px - #{get-css-var('input', 'padding')});
+      }
+
+      [class*='__underlay'] {
+        opacity: 0;
+      }
+    }
+  }
+
+  @each $slot in (prefix, suffix) {
+    @include e($slot) {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      height: 100%;
+
+      > * {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-#{if($slot == 'prefix', 'right', 'left')}: get-css-var(
+          'spacer',
+          'small'
+        );
+      }
+    }
+  }
+
+  > :first-child {
+    border-top-left-radius: $input-border-radius;
+    border-bottom-left-radius: $input-border-radius;
+  }
+
+  > :last-child {
+    border-top-right-radius: $input-border-radius;
+    border-bottom-right-radius: $input-border-radius;
+  }
+
+  @each $suffix in (clear, count, password) {
+    @include e($suffix) {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      margin-left: get-css-var('spacer', 'small');
+    }
+  }
+
+  @include e(count) {
+    font-size: calc(get-css-var('input', 'font-size') - 2px);
+    color: get-css-var('text-color', 'secondary');
+  }
+
+  @include is(disabled) {
+    .#{be('input', 'wrapper')} {
+      cursor: not-allowed;
+      opacity: get-css-var('opacity', 'disabled');
+      @include set-css-var(
+        ('input', 'overlay-opacity'),
+        calc(
+          #{$input-overlay-opacity-base} / #{get-css-var('opacity', 'disabled')}
+        )
+      );
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

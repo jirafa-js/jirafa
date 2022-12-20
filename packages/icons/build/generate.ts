@@ -4,7 +4,7 @@ import { emptyDir, ensureDir, readFile, writeFile } from 'fs-extra'
 
 import { pascalCase } from '@jirafa/utils'
 import { DIR_ICONS } from '../../../cli/shared'
-import { formatCode } from '../../../cli/src/utils/formatCode'
+import { formatCode } from '../../../cli/src/utils/format-code'
 import { createLogger } from '../../../cli/src/utils/logger'
 
 const logger = createLogger()

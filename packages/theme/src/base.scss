@@ -8,12 +8,7 @@
     $color: map.get($colors, $type, 'base');
 
     @if ($color != null) {
-      @include set-css-var(
-        ('color', $type, 'rgb'),
-        #{red($color),
-        green($color),
-        blue($color)}
-      );
+      @include set-css-var(('color', $type, 'rgb'), get-rgb($color));
       @include set-css-var(('color', $type), $color);
     }
 
@@ -22,12 +17,11 @@
     // }
   }
   @include set-css-var-by-map(color, $colors);
+  @include set-css-var-by-map(color, $shades);
 
   @include set-css-var-by-map(
     'color',
     (
-      'transparent': transparent,
-
       'bg': (
         '': map.get($shades, 'white'),
         'page': get-css-var('color', 'fill', 'base'),
@@ -42,15 +36,36 @@
     (
       '': $borders,
       'radius': $border-radiuses,
-      'color': $border-colores,
+      'color': get-rgb(#000),
+      'opacity': 0.12,
+    )
+  );
+
+  // Opacity
+  @include set-css-var-by-map('opacity', $states);
+  // Spaces
+  @include set-css-var-by-map('spacer', $spacers);
+  // Transition
+  @include set-css-var-by-map(
+    'transition',
+    (
+      easing: $transition-easing,
+      duration: $transition-duration,
     )
   );
 
   // Texts
-  // @include set-css-var-by-map(
-  //   'text',
-  //   (
-  //     color: $text-color,
-  //   )
-  // );
+  @include set-css-var-by-map('text-color', $font-colors);
+
+  // Theme
+  @include set-theme(
+    (
+      'light': get-rgb(#fff),
+      'dark': get-rgb(#000),
+      'on': (
+        'light': get-rgb(#000),
+        'dark': get-rgb(#fff),
+      ),
+    )
+  );
 }

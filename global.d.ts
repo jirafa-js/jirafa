@@ -14,8 +14,12 @@ declare module '@vue/runtime-core' {
     JCol: typeof import('jirafa')['JCol']
     JGrid: typeof import('jirafa')['JGrid']
     JGridItem: typeof import('jirafa')['JGridItem']
-    JIcon: typeof import('jirafa')['JIcon']
+    JForm: typeof import('jirafa')['JForm']
+    JFormItem: typeof import('jirafa')['JFormItem']
     JSpace: typeof import('jirafa')['JSpace']
+    JInput: typeof import('jirafa')['JInput']
+    JIcon: typeof import('jirafa')['JIcon']
+    JIconFeedback: typeof import('jirafa')['JIconFeedback']
     JTag: typeof import('jirafa')['JTag']
   }
 }

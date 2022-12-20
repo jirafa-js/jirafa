@@ -4,7 +4,7 @@ import prompt from 'prompts'
 import { camelCase, kebabCase, pascalCase } from '../utils/strings'
 import { DIR_COMPS, DIR_DOCS, DIR_HOOKS, DIR_THEME } from '../../shared'
 import { createLogger } from '../utils/logger'
-import { formatCode } from '../utils/formatCode'
+import { formatCode } from '../utils/format-code'
 
 interface CreateOptions {
   hook: boolean
@@ -126,7 +126,7 @@ async function createTheme(name: string) {
     ),
     // style variable
     appendFile(
-      resolve(DIR_THEME, 'src/settings/_components.scss'),
+      resolve(DIR_THEME, `src/settings/components/_${name}.scss`),
       `\n$${name}: () !default;\n$${name}: map-merge(\n(),\n$${name}\n);\n`
     ),
     // export

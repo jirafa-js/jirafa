@@ -10,5 +10,6 @@ export const iconProps = buildProps({
   color: {
     type: String,
   },
+  spining: Boolean,
 })
 export type IconProps = ExtractPropTypes<typeof iconProps>

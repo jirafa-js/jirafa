@@ -1,17 +1,16 @@
 <script lang="ts" setup>
 import * as Icons from '@jirafa/icons'
 import copy from 'clipboard-copy'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
+const keyword = ref('')
+const style = ref('')
 const copyCode = ref(true)
-const copySvgIcon = async (
-  name: string,
-  refs: { [K: string]: HTMLLIElement[] }
-) => {
+const copySvgIcon = async (name: string) => {
   try {
     const content = copyCode.value
-      ? `<JICon><${name} /></JIcon>`
-      : refs[name]?.[0].querySelector('svg')?.outerHTML || ''
+      ? `<JICon${name === 'Loading' ? ' spining' : ''}><${name} /></JIcon>`
+      : document.getElementById(name)?.outerHTML || ''
 
     await copy(content)
     // TODO alert feedback
@@ -19,6 +18,35 @@ const copySvgIcon = async (
     //
   }
 }
+
+const icons = Object.values(Icons)
+const layoutIons = computed(() => {
+  const k = keyword.value.trim().toLocaleLowerCase()
+  if (!k) return icons
+  return icons.filter((comp) => comp.name.toLocaleLowerCase().includes(k))
+})
+
+// const layoutIons = computed(() => {
+//   return Object.entries(icons)
+//     .map(([type, components]) => {
+//       const comps = components.filter((comp) => {
+//         if (style.value && style.value !== comp.style) return false
+//         if (
+//           keyword.value &&
+//           !comp.name
+//             .toLocaleLowerCase()
+//             .includes(keyword.value.toLocaleLowerCase())
+//         ) {
+//           return false
+//         }
+
+//         return true
+//       })
+
+//       return { type, components: comps }
+//     })
+//     .filter((item) => !!item.components.length)
+// })
 </script>
 
 <template>
@@ -29,20 +57,17 @@ const copySvgIcon = async (
     <label for="check">{{
       copyCode ? 'Copy icon code' : 'Copy SVG content'
     }}</label>
+    <JInput v-model="keyword" />
   </header>
   <ul class="demo-icon-list">
     <li
-      v-for="component in Icons"
+      v-for="component in layoutIons"
       :key="component.name"
-      :ref="component.name"
       class="icon-item"
-      @click="copySvgIcon(component.name, $refs as any)"
+      @click="copySvgIcon(component.name)"
     >
       <span class="demo-svg-icon">
-        <JIcon
-          :size="20"
-          :class="{ 'is-loading': component.name === 'Loading' }"
-        >
+        <JIcon :size="20" :spining="component.name.startsWith('Loading')">
           <component :is="component" />
         </JIcon>
         <span class="icon-name">{{ component.name }}</span>
@@ -66,6 +91,10 @@ const copySvgIcon = async (
   text-align: center;
   font-size: 12px;
   height: 100px;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .demo-svg-icon {

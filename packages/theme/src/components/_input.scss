@@ -1,0 +1,40 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../settings' as *;
+@use '../tools' as *;
+
+$input-border-color: get-css-var('input', 'border-color') !default;
+$input-border-style: solid !default;
+$input-border-width: 2px !default;
+$input-border-radius: map.get($border-radiuses, 'base') !default;
+$input-height: 32px !default;
+$input-font-size: 14px !default;
+$input-padding-inline: 12px - $input-border-width !default;
+
+$input-bg-color: get-css-var('color', 'bg') !default;
+$input-overlay-opacity-base: 0.04 !default;
+
+$input-border: (
+  $input-border-color,
+  $input-border-style,
+  $input-border-width
+) !default;
+
+$input-sizes: () !default;
+$input-sizes: map.merge(
+  (
+    'height': create-size($input-height, 4),
+    'font-size': create-size($input-font-size, 1, true),
+    'padding': create-size($input-padding-inline, 2),
+  ),
+  $input-sizes
+);
+
+$input-vars: () !default;
+$input-vars: map.merge(
+  (
+    'border-color': transparent,
+    'overlay-opacity': $input-overlay-opacity-base,
+  ),
+  $input-vars
+);

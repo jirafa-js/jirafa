@@ -54,6 +54,8 @@ defineExpose({
     :autofocus="autofocus"
     :type="htmlType"
   >
+    <span :class="ns.e('overlay')"></span>
+    <span :class="ns.e('underlay')"></span>
     <template v-if="loading">
       <slot name="loading">
         <JIcon :class="ns.is('loading')">
@@ -68,8 +70,6 @@ defineExpose({
         </slot>
       </JIcon>
     </template>
-    <span :class="ns.e('overlay')"></span>
-    <span :class="ns.e('underlay')"></span>
     <span v-if="$slots.default" :class="ns.e('text')">
       <slot></slot>
     </span>

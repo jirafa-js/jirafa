@@ -5,7 +5,7 @@
 @use './components/buttons' as *;
 
 @include b('button') {
-  @include set-css-var-by-map('button', $button);
+  @include set-css-var-by-map('button', $button-vars);
 }
 
 @include b('button') {
@@ -19,6 +19,8 @@
   height: get-css-var('button', 'height');
   font-size: get-css-var('button', 'font-size');
   font-weight: $button-font-weight;
+  color: get-css-var('button', 'text-color');
+  background-color: get-css-var('button', 'bg-color');
 
   white-space: nowrap;
   text-align: center;
@@ -33,24 +35,19 @@
   }
 
   @include e(overlay) {
-    @include absolute();
-    background-color: currentColor;
-    opacity: get-css-var('button', 'overlay-opacity');
-    pointer-events: none;
-    border-radius: inherit;
+    @include overlay(
+      get-css-var('button', 'overlay-opacity'),
+      -$button-border-width
+    );
   }
 
   @include e(underlay) {
-    @include absolute();
-    background-color: currentColor;
-    opacity: get-css-var('button', 'overlay-opacity');
-    pointer-events: none;
-    border-radius: inherit;
+    @include overlay(0, -$button-border-width);
   }
 
   @include m('secondary', 'dashed') {
     > .#{be('button', 'underlay')} {
-      opacity: map.get($states, 'activated');
+      opacity: get-css-var('opacity', 'activated');
     }
   }
 
@@ -68,18 +65,19 @@
   @include button-size();
   @include button-status();
 
-  @supports selector(:focus-visible) {
-    &::after {
-      @include absolute(true);
-      pointer-events: none;
-      border: 2px solid currentColor;
-      border-radius: inherit;
-      opacity: 0;
-      transition: opacity 0.2s ease-in-out;
-    }
+  &::after {
+    @include absolute(-$button-border-width, true);
+    pointer-events: none;
+    outline: 2px solid get-css-var('button', 'outline-color');
+    outline-offset: 1px;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
 
-    &:focus-visible::after {
-      opacity: 0.2;
+  &:focus-visible {
+    &::after {
+      opacity: 0.5;
     }
   }
 
@@ -102,7 +100,7 @@
   }
 
   @include is('disabled') {
-    opacity: 0.54;
+    opacity: get-css-var('opacity', 'disabled');
     cursor: not-allowed;
 
     @include set-css-var(('button', 'overlay-opacity'), 0);

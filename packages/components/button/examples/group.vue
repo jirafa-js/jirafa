@@ -21,6 +21,79 @@ import {
         <JButton>More</JButton>
         <JButton :icon="More"></JButton>
       </JButtonGroup>
+
+      <JButtonGroup size="large" type="outline">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup size="large" type="dashed">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+    </JSpace>
+    <JSpace>
+      <JButtonGroup status="success">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="success" size="large" type="primary">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="success" size="large" type="outline">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="success" size="large" type="dashed">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+    </JSpace>
+    <JSpace>
+      <JButtonGroup status="warning">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="warning" size="large" type="primary">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="warning" size="large" type="outline">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="warning" size="large" type="dashed">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+    </JSpace>
+    <JSpace>
+      <JButtonGroup status="danger">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="danger" size="large" type="primary">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="danger" size="large" type="outline">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
+
+      <JButtonGroup status="danger" size="large" type="dashed">
+        <JButton>More</JButton>
+        <JButton :icon="More"></JButton>
+      </JButtonGroup>
     </JSpace>
     <JSpace>
       <JButtonGroup type="primary">

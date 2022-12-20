@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../settings' as *;
+@use '../tools' as *;
+
+$form-height: 32px !default;
+$form-font-size: 14px !default;
+$form-label-padding: 12px !default;
+$form-item-margin: 18px !default;
+$form-item-inline-spacer: map.get($spacers, 'large') !default;
+
+$form-sizes: () !default;
+$form-sizes: map.merge(
+  (
+    'height': create-size($form-height, 4),
+    'font-size': create-size($form-font-size, 1, true),
+    'padding': create-size($form-label-padding, 2),
+  ),
+  $form-sizes
+);

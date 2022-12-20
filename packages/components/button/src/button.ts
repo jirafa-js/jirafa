@@ -2,13 +2,11 @@ import {
   buildProps,
   componentSizes,
   componentStatus,
-  definePropType,
+  iconPropType,
 } from '@jirafa/utils'
 import { Loading } from '@jirafa/icons'
-import type { Component, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 import type Button from './button.vue'
-
-const iconProp = definePropType<string | Component>([String, Object, Function])
 
 export type ButtonInstance = InstanceType<typeof Button>
 export const buttonProps = buildProps({
@@ -23,8 +21,8 @@ export const buttonProps = buildProps({
   size: { type: String, values: componentSizes },
   shape: { values: ['round', 'circle'] },
   block: Boolean,
-  icon: { type: iconProp },
-  loadingIcon: { type: iconProp, default: () => Loading },
+  icon: { type: iconPropType },
+  loadingIcon: { type: iconPropType, default: () => Loading },
   disabled: Boolean,
   loading: Boolean,
   htmlType: {

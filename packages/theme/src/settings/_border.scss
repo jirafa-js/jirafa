@@ -39,11 +39,3 @@ $border-radiuses: map.deep-merge(
   ),
   $border-radiuses
 );
-
-$border-colores: () !default;
-$border-colores: map.deep-merge(
-  (
-    '': rgba(0, 0, 0, 0.12),
-  ),
-  $border-colores
-);

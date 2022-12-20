@@ -12,3 +12,13 @@ $font-weights: map.merge(
   ),
   $font-weights
 );
+
+$font-colors: () !default;
+$font-colors: map.merge(
+  (
+    primary: rgba(#000, 0.85),
+    secondary: rgba(#000, 0.65),
+    placeholder: rgba(#000, 0.45),
+  ),
+  $font-colors
+);

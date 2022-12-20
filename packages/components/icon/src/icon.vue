@@ -18,7 +18,11 @@ const style = computed(() => {
 </script>
 
 <template>
-  <i :class="[ns.b()]" :style="style" v-bind="$attrs">
+  <i
+    :class="[ns.b(), ns.is('loading', spining)]"
+    :style="style"
+    v-bind="$attrs"
+  >
     <slot></slot>
   </i>
 </template>

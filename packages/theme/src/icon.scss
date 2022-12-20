@@ -29,6 +29,40 @@
   @include is('loading') {
     animation: rotating 2s linear infinite;
   }
+
+  &[role='button'] {
+    position: relative;
+    cursor: pointer;
+
+    &::after {
+      @include absolute(-3px, true);
+      border-radius: 50%;
+      background-color: currentColor;
+      opacity: 0;
+      @include transition(opacity, 0.1s);
+    }
+    &:hover::after {
+      opacity: get-css-var('opacity', 'hover');
+    }
+  }
+}
+
+@include b(icon-feedback) {
+  @include m('success') {
+    --color: #{get-css-var('color', 'success')};
+  }
+
+  @include m('warning') {
+    --color: #{get-css-var('color', 'warning')};
+  }
+
+  @include m('error') {
+    --color: #{get-css-var('color', 'danger')};
+  }
+
+  @include m('validating', 'loading') {
+    --color: #{get-css-var('color', 'primary')};
+  }
 }
 
 @keyframes rotating {

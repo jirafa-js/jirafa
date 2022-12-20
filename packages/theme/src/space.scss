@@ -8,6 +8,10 @@
     display: flex;
   }
 
+  @include m('vertical') {
+    display: flex;
+  }
+
   @include is(fill) {
     display: flex;
     width: 100%;

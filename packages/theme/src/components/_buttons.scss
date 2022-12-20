@@ -21,9 +21,9 @@ $button-sizes: map.merge(
 $button-font-weight: map.get($font-weights, 'regular');
 
 $button-border-radius: $border-radius-root;
-$button-border-color: currentColor !default;
+$button-border-color: get-css-var('button', 'border-color') !default;
 $button-border-style: solid !default;
-$button-border-width: 0 !default;
+$button-border-width: 1px !default;
 $button-border: (
   $button-border-color,
   $button-border-style,
@@ -33,6 +33,10 @@ $button-border: (
 $button-status: () !default;
 $button-status: map.merge(
   (
+    '': (
+      get-css-var('color', 'primary'),
+      get-css-var('text-color', 'secondary'),
+    ),
     'success': (
       get-css-var('color', 'success'),
     ),
@@ -42,20 +46,17 @@ $button-status: map.merge(
     'danger': (
       get-css-var('color', 'danger'),
     ),
-    'default': (
-      get-css-var('color', 'primary'),
-      true,
-    ),
   ),
   $button-status
 );
 
-$button: () !default;
-$button: map.merge(
+$button-vars: () !default;
+$button-vars: map.merge(
   (
     'overlay-opacity': 0,
+    'outline-color': currentColor,
   ),
-  $button
+  $button-vars
 );
 
 @mixin button-size($map: $button-sizes) {
@@ -72,39 +73,48 @@ $button: map.merge(
   }
 }
 
-@mixin button-variant($color, $inherit: false) {
-  &.#{b('button')} {
-    @include m('outline', 'text', 'secondary', 'dashed') {
-      background-color: transparent;
-    }
-
-    @include m('primary') {
-      background-color: $color;
-      color: #fff;
-    }
-
-    @include m('secondary', 'dashed') {
-      color: if($inherit, inherit, $color);
-    }
-
-    @include m('outline', 'dashed') {
-      border-width: $border-width-root;
-    }
-
-    @include m('outline', 'text') {
-      color: $color;
-    }
-
-    @include m('dashed') {
-      border-style: dashed;
+@mixin button-status($status: $button-status) {
+  @each $type, $colors in $status {
+    @include m($type) {
+      @include button-variant($colors...);
     }
   }
 }
 
-@mixin button-status($status: $button-status) {
-  @each $type, $values in $status {
-    #{if($type == 'default', "&" , "&.#{bm('button', $type)}")} {
-      @include button-variant($values...);
+@mixin button-variant($color1, $color2: $color1) {
+  &.#{b('button')} {
+    @include m('primary') {
+      @include set-css-var(('button', 'outline-color'), $color1);
+      @include set-css-var(('button', 'bg-color'), $color1);
+      @include set-css-var(
+        ('button', 'text-color'),
+        get-css-var('color-white')
+      );
+      @include set-css-var(('button', 'border-color'), $color1);
+    }
+    @include m('outline', 'text', 'secondary', 'dashed') {
+      @include set-css-var(('button', 'bg-color'), transparent);
+    }
+
+    @include m('secondary') {
+      @include set-css-var(('button', 'text-color'), $color2);
+      @include set-css-var(('button', 'border-color'), transparent);
+    }
+
+    @include m('outline') {
+      @include set-css-var(('button', 'text-color'), $color1);
+      @include set-css-var(('button', 'border-color'), $color1);
+    }
+
+    @include m('dashed') {
+      border-style: dashed;
+      @include set-css-var(('button', 'text-color'), $color2);
+      @include set-css-var(('button', 'border-color'), $color2);
+    }
+
+    @include m('text') {
+      @include set-css-var(('button', 'text-color'), $color1);
+      @include set-css-var(('button', 'border-color'), transparent);
     }
   }
 }

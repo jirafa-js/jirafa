@@ -12,3 +12,15 @@
   transition-timing-function: $easing;
   transition-delay: $delay;
 }
+
+@mixin animation(
+  $name,
+  $duration: get-css-var('transition', 'duration', 'base'),
+  $easing: get-css-var('transition', 'easing', 'standard'),
+  $delay: null
+) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-timing-function: $easing;
+  animation-delay: $delay;
+}
