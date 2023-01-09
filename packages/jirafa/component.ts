@@ -9,6 +9,7 @@ import { JInput } from '@jirafa/components/input'
 import { JRadio, JRadioGroup } from '@jirafa/components/radio'
 import { JSpace } from '@jirafa/components/space'
 import { JTag } from '@jirafa/components/tag'
+import { JConfigProvider } from '@jirafa/components/config-provider'
 
 export default [
   JButton,
@@ -27,4 +28,5 @@ export default [
   JInput,
   JRadio,
   JRadioGroup,
+  JConfigProvider,
 ] as Plugin[]

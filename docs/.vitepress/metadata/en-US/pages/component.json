@@ -26,6 +26,10 @@
       {
         "text": "Icon",
         "link": "/component/icon"
+      },
+      {
+        "text": "ConfigProvider",
+        "link": "/component/config-provider"
       }
     ]
   },

@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { useId, useNamespace } from '@jirafa/hooks'
-import type { RadioGroupContext } from '@jirafa/token'
-import { radioGroupInjectKey } from '@jirafa/token'
+import { useForm, useId, useNamespace } from '@jirafa/hooks'
+import type { RadioGroupContext } from '@jirafa/tokens'
+import { radioGroupInjectKey } from '@jirafa/tokens'
 import {
   UPDATE_MODEL_EVENT,
+  debugWarn,
   isFunction,
   isNumber,
   isString,
 } from '@jirafa/utils'
-import { computed, nextTick, provide, reactive, toRefs } from 'vue'
+import { computed, nextTick, provide, reactive, toRefs, watch } from 'vue'
 import type { RadioOption } from './radio-group'
 import { radioGroupEmits, radioGroupProps } from './radio-group'
 import Radio from './radio.vue'
@@ -17,6 +18,7 @@ const props = defineProps(radioGroupProps)
 const emit = defineEmits(radioGroupEmits)
 defineOptions({ name: 'JRadioGroup' })
 
+const { formItem } = useForm()
 const ns = useNamespace('radio-group')
 
 const cls = computed(() => {
@@ -57,6 +59,15 @@ provide(
     handleChange,
   })
 )
+
+watch(
+  () => props.modelValue,
+  () => {
+    if (props.validateEvent) {
+      formItem?.validate('change').catch((err) => debugWarn(err))
+    }
+  }
+)
 </script>
 
 <template>
@@ -67,7 +78,7 @@ provide(
         :key="option.value"
         :value="option.value"
         :disabled="option.disabled"
-        :model-value="modelValue === option.value"
+        :model-value="modelValue"
       >
         <slot name="label" :option="option">
           {{ isFunction(option.label) ? option.label() : option.label }}

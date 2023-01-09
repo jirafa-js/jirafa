@@ -37,7 +37,7 @@
     "@jirafa/hooks": "workspace:*",
     "@jirafa/icons": "workspace:*",
     "@jirafa/theme": "workspace:*",
-    "@jirafa/token": "workspace:*",
+    "@jirafa/tokens": "workspace:*",
     "@jirafa/utils": "workspace:*",
     "@vueuse/core": "^8.9.3",
     "async-validator": "^4.2.5",

@@ -60,25 +60,11 @@ $button-vars: map.merge(
 );
 
 @mixin button-size($map: $button-sizes) {
-  @include sizes();
-  @each $size in $sizes {
-    @include m($size) {
-      min-width: roundEven(
-        get-size-val(null, height, $size) * map.get($map, 'width-ratio')
-      );
-    }
+  @include sizes() using($size) {
+    min-width: roundEven(
+      get-size-val($button-sizes, height, $size) * map.get($map, 'width-ratio')
+    );
   }
-  // @each $sizeName, $multiplier in $size-scales {
-  //   $size: roundEven(map.get($map, 'font-size') + $multiplier);
-  //   $height: map.get($map, 'height') + (4 * $multiplier);
-
-  //   @include m(if($sizeName == 'default', '', $sizeName)) {
-  //     --j-button-font-size: #{$size};
-  //     --j-button-height: #{$height};
-  //     min-width: roundEven($height * map.get($map, 'width-ratio'));
-  //     padding: 0 roundEven(math.div($height, map.get($map, 'padding-ratio')));
-  //   }
-  // }
 }
 
 @mixin button-status($status: $button-status) {

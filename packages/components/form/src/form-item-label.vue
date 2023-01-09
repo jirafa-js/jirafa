@@ -13,7 +13,7 @@ import {
   useSlots,
   watch,
 } from 'vue'
-import { FormContextInjectKey, FormItemContextInjectKey } from '@jirafa/token'
+import { FormContextInjectKey, FormItemContextInjectKey } from '@jirafa/tokens'
 import { useResizeObserver } from '@vueuse/core'
 import { suffixUnit } from '@jirafa/utils'
 

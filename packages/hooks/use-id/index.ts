@@ -1,6 +1,8 @@
 import type { MaybeRef } from '@jirafa/utils'
+import { PREFIX } from '@jirafa/utils'
 import type { InjectionKey } from 'vue'
-import { computed, getCurrentInstance, inject, ref, unref } from 'vue'
+import { computed, getCurrentInstance, inject, unref } from 'vue'
+import { useGlobalConfig } from '../use-global-config'
 
 export interface IdInjectionContext {
   prefix: number
@@ -23,7 +25,7 @@ export const useIdInjection = (): IdInjectionContext => {
 
 export const useId = (offeredId?: MaybeRef<string>) => {
   const idInjection = useIdInjection()
-  const namespace = ref('j')
+  const namespace = useGlobalConfig('namespace', PREFIX)
 
   return computed(() => {
     return (

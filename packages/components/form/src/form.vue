@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { useNamespace } from '@jirafa/hooks'
+import { useNamespace, useSize } from '@jirafa/hooks'
 import type {
   FormContext,
   FormItemContext,
   FormValidateCallback,
   FormValidationResult,
-} from '@jirafa/token'
-import { FormContextInjectKey } from '@jirafa/token'
+} from '@jirafa/tokens'
+import { FormContextInjectKey } from '@jirafa/tokens'
 import type { Arrayable } from '@jirafa/utils'
 import { debugWarn, ensureArray, isFunction } from '@jirafa/utils'
 import type { ValidateFieldsError } from 'async-validator'
@@ -19,9 +19,7 @@ const props = defineProps(formProps)
 const emit = defineEmits(formEmits)
 defineOptions({ name: 'JForm' })
 const ns = useNamespace('form')
-const _size = computed(() => {
-  return props.size ?? ''
-})
+const _size = useSize()
 
 const isValidatable = computed(() => {
   const hasModel = !!props.model

@@ -1,7 +1,7 @@
+import { useSizeProp } from '@jirafa/hooks'
 import type { Arrayable } from '@jirafa/utils'
 import {
   buildProps,
-  componentSizes,
   definePropType,
   isBoolean,
   isObject,
@@ -28,10 +28,7 @@ export const formProps = buildProps({
     values: ['horizontal', 'vertical', 'inline'],
     default: 'horizontal',
   },
-  size: {
-    type: String,
-    values: componentSizes,
-  },
+  size: useSizeProp,
   labelWidth: {
     type: [String, Number],
     default: '',

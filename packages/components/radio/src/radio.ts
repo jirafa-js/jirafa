@@ -1,7 +1,7 @@
+import { useSizeProp } from '@jirafa/hooks'
 import {
   UPDATE_MODEL_EVENT,
   buildProps,
-  componentSizes,
   isBoolean,
   isNumber,
   isString,
@@ -22,10 +22,7 @@ export const radioProps = buildProps({
     default: '',
   },
   disabled: Boolean,
-  size: {
-    type: String,
-    values: componentSizes,
-  },
+  size: useSizeProp,
   type: {
     type: String,
     values: ['radio', 'button'] as const,

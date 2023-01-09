@@ -13,7 +13,7 @@ importers:
       '@jirafa/hooks': workspace:*
       '@jirafa/icons': workspace:*
       '@jirafa/theme': workspace:*
-      '@jirafa/token': workspace:*
+      '@jirafa/tokens': workspace:*
       '@jirafa/utils': workspace:*
       '@pnpm/find-workspace-packages': ^4.0.43
       '@pnpm/types': ^8.7.0
@@ -54,7 +54,7 @@ importers:
       '@jirafa/hooks': link:packages/hooks
       '@jirafa/icons': link:packages/icons
       '@jirafa/theme': link:packages/theme
-      '@jirafa/token': link:packages/token
+      '@jirafa/tokens': link:packages/tokens
       '@jirafa/utils': link:packages/utils
       '@vueuse/core': 8.9.4_vue@3.2.45
       async-validator: 4.2.5
@@ -249,7 +249,7 @@ importers:
   packages/theme:
     specifiers: {}
 
-  packages/token:
+  packages/tokens:
     specifiers: {}
 
   packages/utils:

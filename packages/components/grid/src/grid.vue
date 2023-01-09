@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useNamespace, useResponsiveBreakpoint } from '@jirafa/hooks'
-import type { GridContext } from '@jirafa/token'
-import { GridContextInjectKey } from '@jirafa/token'
+import type { GridContext } from '@jirafa/tokens'
+import { GridContextInjectKey } from '@jirafa/tokens'
 import { isNumber } from '@jirafa/utils'
 import type { CSSProperties } from 'vue'
 import { computed, provide, reactive, watchEffect } from 'vue'

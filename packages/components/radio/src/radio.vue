@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useForm, useNamespace } from '@jirafa/hooks'
-import { radioGroupInjectKey } from '@jirafa/token'
+import { useDisabled, useNamespace, useSize } from '@jirafa/hooks'
+import { radioGroupInjectKey } from '@jirafa/tokens'
 import { UPDATE_MODEL_EVENT } from '@jirafa/utils'
 import { computed, inject, nextTick, ref } from 'vue'
 import type { RadioProps } from './radio'
@@ -11,7 +11,6 @@ const emit = defineEmits(radioEmits)
 defineOptions({ name: 'JRadio' })
 
 const radioGroup = inject(radioGroupInjectKey, undefined)
-const { form, formItem } = useForm()
 
 const radioRef = ref<HTMLInputElement>()
 
@@ -28,12 +27,8 @@ const modelValue = computed<RadioProps['modelValue']>({
     radioRef.value!.checked = props.modelValue === props.value
   },
 })
-const disabled = computed(
-  () => props.disabled || radioGroup?.disabled || form?.disabled || false
-)
-const size = computed(
-  () => props.size || radioGroup?.size || formItem?.size || form?.size || ''
-)
+const disabled = useDisabled(computed(() => radioGroup?.disabled))
+const size = useSize(computed(() => radioGroup?.size))
 const focus = ref(false)
 const checked = computed(() => modelValue.value === props.value)
 const type = computed(() => radioGroup?.type ?? props.type)

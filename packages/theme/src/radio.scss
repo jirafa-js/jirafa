@@ -164,10 +164,10 @@
   @include sizes();
 
   @include e(native) {
-    // position: absolute;
-    // width: 0px;
-    // height: 0px;
-    // opacity: 0;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    opacity: 0;
 
     &:focus-visible + .#{be('radio-button', 'content')} {
       outline: 2px solid get-css-var('color', 'primary');

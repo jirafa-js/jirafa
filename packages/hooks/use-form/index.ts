@@ -1,5 +1,5 @@
-import type { FormContext, FormItemContext } from '@jirafa/token'
-import { FormContextInjectKey, FormItemContextInjectKey } from '@jirafa/token'
+import type { FormContext, FormItemContext } from '@jirafa/tokens'
+import { FormContextInjectKey, FormItemContextInjectKey } from '@jirafa/tokens'
 import type { MaybeRef } from '@jirafa/utils'
 import { uid } from '@jirafa/utils'
 import type { WatchStopHandle } from 'vue'

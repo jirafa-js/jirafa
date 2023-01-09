@@ -1,4 +1,5 @@
-import { buildProps, componentSizes, definePropType } from '@jirafa/utils'
+import { useSizeProp } from '@jirafa/hooks'
+import { buildProps, definePropType } from '@jirafa/utils'
 import type { ExtractPropTypes, RenderFunction } from 'vue'
 import { radioEmits } from './radio'
 import type RadioGroup from './radio-group.vue'
@@ -17,16 +18,14 @@ export const radioGroupProps = buildProps({
   },
   name: String,
   disabled: Boolean,
-  size: {
-    type: String,
-    values: componentSizes,
-  },
+  size: useSizeProp,
   type: {
     type: String,
     values: ['radio', 'button'] as const,
     default: 'radio',
   },
   border: Boolean,
+  validateEvent: { type: Boolean, default: true },
   direction: {
     type: String,
     values: ['horizontal', 'vertical'] as const,

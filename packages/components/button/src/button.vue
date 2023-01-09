@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useNamespace } from '@jirafa/hooks'
-import { ButtonGroupContextInjectKey } from '@jirafa/token'
+import { useDisabled, useNamespace, useSize } from '@jirafa/hooks'
+import { ButtonGroupContextInjectKey } from '@jirafa/tokens'
 import { computed, inject, ref } from 'vue'
 import { buttonProps } from './button'
 
@@ -16,13 +16,11 @@ const _type = computed(
 
 const _status = computed(() => props.status ?? buttonGroupContext?.status)
 
-const _size = computed(() => props.size ?? buttonGroupContext?.size)
+const _size = useSize(computed(() => buttonGroupContext?.size))
 
 const _shape = computed(() => props.shape ?? buttonGroupContext?.shape)
 
-const _disabled = computed(
-  () => props.disabled || buttonGroupContext?.disabled || false
-)
+const _disabled = useDisabled(computed(() => buttonGroupContext?.disabled))
 
 const _ref = ref<HTMLButtonElement>()
 

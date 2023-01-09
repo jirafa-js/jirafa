@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useNamespace } from '@jirafa/hooks'
+import { useNamespace, useSize } from '@jirafa/hooks'
 import { JIcon } from '@jirafa/components/icon'
 import { Close, Loading } from '@jirafa/icons'
 import { computed, ref } from 'vue'
@@ -16,6 +16,8 @@ const _checked = ref(false)
 const _color = computed(
   () => !tagPresetColores.includes(props.color as any) && props.color
 )
+
+const size = useSize()
 
 const computedChecked = computed(() =>
   props.checkable ? props.checked || _checked.value : false

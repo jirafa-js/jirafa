@@ -1,5 +1,6 @@
+import { useSizeProp } from '@jirafa/hooks'
 import type { Arrayable } from '@jirafa/utils'
-import { buildProps, componentSizes, definePropType } from '@jirafa/utils'
+import { buildProps, definePropType } from '@jirafa/utils'
 import type { RuleItem } from 'async-validator'
 import type { ExtractPropTypes } from 'vue'
 import type FormItem from './form-item.vue'
@@ -20,10 +21,7 @@ export type FormItemProp = Arrayable<string>
 
 export type FormItemInstance = InstanceType<typeof FormItem>
 export const formItemProps = buildProps({
-  size: {
-    type: String,
-    values: componentSizes,
-  },
+  size: useSizeProp,
   label: String,
   labelWidth: {
     type: [String, Number],

@@ -1,6 +1,13 @@
 <script lang="ts" setup>
+import type { RadioOption } from '@jirafa/jirafa'
 import { ref } from 'vue'
-
+const options = ref<RadioOption[]>([
+  { label: 'Option A', value: 'A' },
+  { label: 'Option B', value: 'B' },
+  { label: 'Option C', value: 'C' },
+  { label: 'Option D', value: 'D' },
+])
+const value = ref('')
 const value1 = ref('A')
 const value2 = ref('B')
 const value3 = ref('B')
@@ -8,7 +15,8 @@ const value3 = ref('B')
 
 <template>
   <JSpace direction="vertical">
-    <JButton>Buttom</JButton>
+    <JRadioGroup v-model="value" :options="options" type="button"></JRadioGroup>
+
     <JRadioGroup v-model="value1" type="button" size="large">
       <JRadio value="A">Option A</JRadio>
       <JRadio value="B">Option B</JRadio>

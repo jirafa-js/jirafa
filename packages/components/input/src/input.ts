@@ -1,9 +1,5 @@
-import {
-  buildProps,
-  componentSizes,
-  iconPropType,
-  isString,
-} from '@jirafa/utils'
+import { useSizeProp } from '@jirafa/hooks'
+import { buildProps, iconPropType, isString } from '@jirafa/utils'
 import type { ExtractPropTypes } from 'vue'
 import type Input from './input.vue'
 
@@ -18,10 +14,7 @@ export const inputProps = buildProps({
     values: ['text', 'password'],
     default: 'text',
   },
-  size: {
-    type: String,
-    values: componentSizes,
-  },
+  size: useSizeProp,
   containerRole: {
     type: String,
     default: undefined,

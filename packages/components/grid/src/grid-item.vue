@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useNamespace } from '@jirafa/hooks'
-import { GridContextInjectKey } from '@jirafa/token'
+import { GridContextInjectKey } from '@jirafa/tokens'
 import { isNumber } from '@jirafa/utils'
 import type { CSSProperties } from 'vue'
 import { computed, inject } from 'vue'

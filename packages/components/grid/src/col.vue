@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useNamespace } from '@jirafa/hooks'
-import { RowContextInjectKey } from '@jirafa/token'
+import { RowContextInjectKey } from '@jirafa/tokens'
 import { isNumber, isObject, responsiveArray } from '@jirafa/utils'
 import type { CSSProperties } from 'vue'
 import { computed, inject } from 'vue'

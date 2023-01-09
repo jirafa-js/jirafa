@@ -34,6 +34,7 @@
   line-height: 40px;
   text-align: center;
   color: #fff;
+  border-radius: 4px;
 
   &:nth-child(2n) {
     background-color: var(--j-color-primary-lighten-3);

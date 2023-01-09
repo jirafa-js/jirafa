@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import { useAttrs, useForm, useNamespace } from '@jirafa/hooks'
+import {
+  useAttrs,
+  useDisabled,
+  useForm,
+  useNamespace,
+  useSize,
+} from '@jirafa/hooks'
 import {
   StyleValue,
   computed,
@@ -22,9 +28,8 @@ const ns = useNamespace('input')
 
 const { form, formItem } = useForm()
 // const { inputId } = useFormInput(props, { formItemContext: formItem })
-const _size = computed(() => {
-  return props.size ?? formItem?.size ?? form?.size ?? ''
-})
+const _size = useSize()
+const _disabled = useDisabled()
 const attrs = useAttrs()
 const slots = useSlots()
 const input = shallowRef<HTMLInputElement>()
@@ -48,7 +53,7 @@ const inputValue = computed(() => {
 const showClear = computed(() => {
   return (
     props.clearable &&
-    !props.disabled &&
+    !_disabled.value &&
     !props.readonly &&
     !!inputValue.value &&
     (focused.value || hovering.value)
@@ -57,7 +62,7 @@ const showClear = computed(() => {
 const showPswVisible = computed(() => {
   return (
     props.showPassword &&
-    !props.disabled &&
+    !_disabled.value &&
     !props.readonly &&
     (!!inputValue.value || focused.value)
   )
@@ -74,7 +79,7 @@ const showLimitVisible = computed(() => {
     props.showWordLimit &&
     !!props.maxlength &&
     props.type === 'text' &&
-    !props.disabled &&
+    !_disabled.value &&
     !props.readonly
   )
 })
@@ -216,7 +221,7 @@ defineExpose({
     :class="[
       ns.b(),
       ns.m(_size),
-      ns.is('disabled', disabled),
+      ns.is('disabled', _disabled),
       ns.is('readonly', readonly),
       {
         [ns.be('group')]: $slots.append || $slots.prepend,
@@ -254,8 +259,8 @@ defineExpose({
         :placeholder="placeholder"
         :type="inputType"
         :style="inputStyle"
-        :aria-disabled="disabled"
-        :disabled="disabled"
+        :aria-disabled="_disabled"
+        :disabled="_disabled"
         :maxlength="maxlength"
         :readonly="readonly"
         :autocomplete="autocomplete"

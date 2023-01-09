@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useNamespace } from '@jirafa/hooks'
-import { ButtonGroupContextInjectKey } from '@jirafa/token'
+import { ButtonGroupContextInjectKey } from '@jirafa/tokens'
 import { provide, reactive, toRefs } from 'vue'
 import { buttonGroupProps } from './button-group'
 

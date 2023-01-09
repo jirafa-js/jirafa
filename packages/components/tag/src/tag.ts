@@ -1,10 +1,5 @@
-import {
-  buildProps,
-  componentSizes,
-  definePropType,
-  isBoolean,
-  isString,
-} from '@jirafa/utils'
+import { useSizeProp } from '@jirafa/hooks'
+import { buildProps, definePropType, isBoolean, isString } from '@jirafa/utils'
 import type { ExtractPropTypes } from 'vue'
 import type Tag from './tag.vue'
 
@@ -43,10 +38,7 @@ export const tagProps = buildProps({
     values: tagPresetColores,
     validator: (val: unknown): val is TagPresetColor | string => isString(val),
   },
-  size: {
-    type: String,
-    values: componentSizes,
-  },
+  size: useSizeProp,
   closable: Boolean,
   loading: Boolean,
   checkable: Boolean,

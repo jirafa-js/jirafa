@@ -1,11 +1,7 @@
-import {
-  buildProps,
-  componentSizes,
-  componentStatus,
-  iconPropType,
-} from '@jirafa/utils'
+import { buildProps, componentStatus, iconPropType } from '@jirafa/utils'
 import { Loading } from '@jirafa/icons'
 import type { ExtractPropTypes } from 'vue'
+import { useSizeProp } from '@jirafa/hooks'
 import type Button from './button.vue'
 
 export type ButtonInstance = InstanceType<typeof Button>
@@ -18,7 +14,7 @@ export const buttonProps = buildProps({
     type: String,
     values: componentStatus,
   },
-  size: { type: String, values: componentSizes },
+  size: useSizeProp,
   shape: { values: ['round', 'circle'] },
   block: Boolean,
   icon: { type: iconPropType },

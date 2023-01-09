@@ -13,9 +13,9 @@ import {
   useSlots,
 } from 'vue'
 import AsyncValidator from 'async-validator'
-import { useNamespace } from '@jirafa/hooks'
-import type { FormItemContext, FormValidateFailure } from '@jirafa/token'
-import { FormContextInjectKey, FormItemContextInjectKey } from '@jirafa/token'
+import { useNamespace, useSize } from '@jirafa/hooks'
+import type { FormItemContext, FormValidateFailure } from '@jirafa/tokens'
+import { FormContextInjectKey, FormItemContextInjectKey } from '@jirafa/tokens'
 import type { Arrayable } from '@jirafa/utils'
 import { ensureArray, getProp, isArray, isFunction } from '@jirafa/utils'
 import { clone } from 'lodash-unified'
@@ -38,9 +38,7 @@ const formItemRef = ref<HTMLDivElement>()
 const validateStatus = ref<FormItemValidateStatus>('')
 const validateStatusDebounce = refDebounced(validateStatus, 100)
 const validateMessage = ref('')
-const _size = computed(() => {
-  return props.size ?? formContext?.size ?? ''
-})
+const _size = useSize()
 
 const inputId = ref<string>('')
 const labelWidth = computed(() => {
