@@ -1,38 +1,72 @@
 @use 'sass:meta';
 @use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
 @use './bem' as *;
 @use './css-var' as *;
 @use './functions' as *;
 @use '../settings/sizes' as *;
 
-// $name: string
-// $map: value or list
-@mixin size($name, $map, $scales: $size-scales) {
-  @each $sizeName, $multiplier in $scales {
-    @include m(if($sizeName == 'default', '', $sizeName)) {
-      @each $key, $list in $map {
-        $is-list: meta.type-of($list) == list;
-        @if (meta.type-of($list) != list or (list.length($list) < 2)) {
-          @error "scale #{$key} must be list and list length greater than 2";
+@mixin sizes(
+  $sizes-values: null,
+  $sizes-keys: map.keys($sizes-provide),
+  $name: $BN
+) {
+  @each $size in $sizes {
+    @include m($size) {
+      @each $key in $sizes-keys {
+        $value: get-size-val($sizes-values, $key, $size);
+        @if ($value != null) {
+          @include set-css-var(
+            ($name, $key),
+            get-size-val($sizes-values, $key, $size)
+          );
         }
-
-        $base: list.nth($list, 1);
-        $scale: list.nth($list, 2);
-        $roundEven: if(list.length($list) > 2, list.nth($list, 3), false);
-
-        @include set-css-var(
-          ($name, $key),
-          if(
-            $roundEven,
-            roundEven($base + $multiplier * $scale),
-            $base + $multiplier * $scale
-          )
-        );
       }
+      @content ($size);
     }
   }
 }
 
-@function create-size($base, $radix: 1, $round-even: false) {
-  @return ($base, $radix, $round-even);
+@function get-size-val($values, $key, $size) {
+  $value: map.get($sizes-provide, $key, $size);
+  @if (meta.type-of($values) == map) {
+    $p-value: map.get($values, $key, $size);
+    @if ($p-value != null) {
+      $value: $p-value;
+    }
+  }
+
+  @if ($value == null) {
+    @warn 'sizes do not provide the value of key[#{quote($key)}] or size[#{quote($size)}]';
+  }
+
+  @return $value;
+}
+
+@function create-padding-sizes($ratio, $height: $height-sizes) {
+  $sizes: ();
+  @each $size, $value in $height {
+    $sizes: map.merge(
+      (#{$size}: #{roundEven(math.div($value, $ratio))}),
+      $sizes
+    );
+  }
+  @return $sizes;
+}
+
+@function create-sizes($sizes, $base) {
+  $_sizes: ();
+  $_base: map.get($sizes, '');
+
+  @each $size, $height in $sizes {
+    $_sizes: map.merge(
+      (
+        $size: $height - $_base + $base,
+      ),
+      $_sizes
+    );
+  }
+
+  @return $_sizes;
 }

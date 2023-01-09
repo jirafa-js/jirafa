@@ -5,6 +5,7 @@
 
 @mixin b($block) {
   $B: config.$namespace + config.$common-separator + $block !global;
+  $BN: $block !global;
   .#{$B} {
     @content;
   }

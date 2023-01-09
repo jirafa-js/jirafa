@@ -3,45 +3,44 @@
 @use '../settings' as *;
 @use '../tools' as *;
 
-$tag-height: 24px !default;
-$tag-font-size: 12px !default;
 $tag-font-weight: map.get($font-weights, 'medium') !default;
 
 $tag-border-color: transparent !default;
 $tag-border-style: $border-style-root !default;
 $tag-border-width: $border-width-root !default;
 $tag-border: ($tag-border-color, $tag-border-style, $tag-border-width) !default;
+
+$tag-height: 24px !default;
+$tag-sizes: create-sizes($height-sizes, $tag-height) !default;
+
 $tag-padding-ratio: 2 + math.div(2, 3) !default;
+$tag-padding-sizes: create-padding-sizes(
+  $tag-padding-ratio,
+  $tag-sizes
+) !default;
+
+$tag-font-size: 12px !default;
+$tag-font-sizes: create-sizes($font-sizes, $tag-font-size) !default;
 
 $tag-vars: (
-  'text-color': get-css-var('text', 'color', 'regular'),
+  'text-color': get-css-var('text-color', 'regular'),
   'bg-color': get-css-var('color', 'fill', 'rgb'),
   'overlay-opacity': 0.08,
 );
-
-@mixin tag-size {
-  @each $sizeName, $multipier in $size-scales {
-    @include m(if($sizeName == 'default', '', $sizeName)) {
-      $height: $tag-height + $multipier * 4;
-
-      height: $height;
-      padding: 0 roundEven(math.div($height, $tag-padding-ratio));
-      line-height: $height - $tag-border-width * 2;
-      font-size: roundEven($tag-font-size + $multipier);
-    }
-  }
-}
 
 @mixin tag-color {
   @each $color, $v in $colors {
     @include m($color) {
       @include set-css-var(('tag', 'text-color'), map.get($v, 'base'));
-      @include set-css-var(('tag', 'overlay-opacity'), 0.12);
+      @include set-css-var(
+        ('tag', 'overlay-opacity'),
+        map.get($states, 'activated')
+      );
 
       @include is('checkable') {
         @include set-css-var(
           ('tag', 'text-color'),
-          get-css-var('text', 'color', 'regular')
+          get-css-var('text-color', 'regular')
         );
         @include set-css-var(('tag', 'overlay-opacity'), 0);
 

@@ -17,13 +17,18 @@ const _color = computed(
   () => !tagPresetColores.includes(props.color as any) && props.color
 )
 
-const tagStyle = computed(() =>
-  _color.value ? ns.cssVarBlock({ 'text-color': _color.value }) : {}
-)
-
 const computedChecked = computed(() =>
   props.checkable ? props.checked || _checked.value : false
 )
+
+const tagStyle = computed(() => {
+  if (!_color.value) return {}
+  if (!props.checkable || (props.checkable && computedChecked.value)) {
+    return ns.cssVarBlock({ 'text-color': _color.value })
+  }
+
+  return {}
+})
 
 const handleClose = (ev: MouseEvent) => {
   emit('close', ev)

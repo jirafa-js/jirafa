@@ -16,9 +16,10 @@ $font-weights: map.merge(
 $font-colors: () !default;
 $font-colors: map.merge(
   (
-    primary: rgba(#000, 0.85),
-    secondary: rgba(#000, 0.65),
-    placeholder: rgba(#000, 0.45),
+    primary: #1b252c,
+    regular: #27353f,
+    placeholder: rgba(#27353f, 0.45),
+    disabled: rgba(#27353f, 0.25),
   ),
   $font-colors
 );

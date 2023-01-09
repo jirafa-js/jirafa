@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../settings' as *;
+@use '../tools' as *;
+
+$radio-input-border-color: $border-color-root !default;
+$radio-input-border-width: 2px !default;
+$radio-input-border-style: $border-style-root !default;
+
+$radio-border-color: $border-color-root !default;
+$radio-border-width: $border-width-root !default;
+$radio-border-style: $border-style-root !default;
+
+$radio-input-border: (
+  $radio-input-border-color,
+  $radio-input-border-style,
+  $radio-input-border-width
+);
+
+$radio-border: ($radio-border-color, $radio-border-style, $radio-border-width);
+
+$radio-input-sizes: () !default;
+$radio-input-sizes: map.merge(
+  (
+    '': 14px,
+    'mini': 12px,
+    'small': 14px,
+    'large': 14px,
+  ),
+  $radio-input-sizes
+);
+
+$radio-vars: () !default;
+$radio-vars: map.merge(
+  (
+    'text-color': get-css-var('text-color-regular'),
+    'input-overlay-opacity': 0,
+  ),
+  $radio-vars
+);
+
+$radio-button-vars: () !default;
+$radio-button-vars: map.merge(
+  (
+    'text-color': get-css-var('text-color-regular'),
+  ),
+  $radio-button-vars
+);

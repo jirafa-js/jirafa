@@ -9,17 +9,19 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     JButton: typeof import('../packages/jirafa')['JButton']
     JButtonGroup: typeof import('../packages/jirafa')['JButtonGroup']
+    JForm: typeof import('../packages/jirafa')['JForm']
+    JFormItem: typeof import('../packages/jirafa')['JFormItem']
     JDivider: typeof import('../packages/jirafa')['JDivider']
     JRow: typeof import('../packages/jirafa')['JRow']
     JCol: typeof import('../packages/jirafa')['JCol']
     JGrid: typeof import('../packages/jirafa')['JGrid']
     JGridItem: typeof import('../packages/jirafa')['JGridItem']
-    JForm: typeof import('../packages/jirafa')['JForm']
-    JFormItem: typeof import('../packages/jirafa')['JFormItem']
-    JSpace: typeof import('../packages/jirafa')['JSpace']
+    JRadio: typeof import('../packages/jirafa')['JRadio']
+    JRadioGroup: typeof import('../packages/jirafa')['JRadioGroup']
     JInput: typeof import('../packages/jirafa')['JInput']
     JIcon: typeof import('../packages/jirafa')['JIcon']
     JIconFeedback: typeof import('../packages/jirafa')['JIconFeedback']
+    JSpace: typeof import('../packages/jirafa')['JSpace']
     JTag: typeof import('../packages/jirafa')['JTag']
   }
 }

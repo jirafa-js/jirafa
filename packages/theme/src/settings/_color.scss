@@ -118,7 +118,7 @@ $indigo: map.merge(
 $blue: () !default;
 $blue: map.merge(
   (
-    'base': #2196f3,
+    'base': #169bfa,
     'lighten-5': #e3f2fd,
     'lighten-4': #bbdefb,
     'lighten-3': #90caf9,
@@ -394,6 +394,23 @@ $grey: map.merge(
   $grey
 );
 
+$ink-blue: () !default;
+$ink-blue: map.merge(
+  (
+    'base': #627585,
+    'lighten-5': #f3f5f6,
+    'lighten-4': #e2e6e9,
+    'lighten-3': #c6ced2,
+    'lighten-2': #96a6b0,
+    'lighten-1': #738796,
+    'darken-1': #4e6274,
+    'darken-2': #3e5165,
+    'darken-3': #2d3c4d,
+    'darken-4': #212c3b,
+  ),
+  $ink-blue
+);
+
 $colors: () !default;
 $colors: map.merge(
   (
@@ -420,7 +437,8 @@ $colors: map.merge(
     'success': $green,
     'warning': $orange,
     'danger': $red,
-    // 'shades': $shades,,
+    'ink-blue': $ink-blue,
+    // 'shades': $shades,,,
   ),
   $colors
 );

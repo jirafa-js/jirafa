@@ -1,15 +1,10 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { afterEach, describe, expect, test, vi } from 'vitest'
 import { Search } from '@jirafa/icons'
 import type { InputProps } from '@jirafa/jirafa'
 import JInput from '../src/input.vue'
 
 describe('JInput.vue', () => {
-  afterEach(() => {
-    vi.restoreAllMocks()
-  })
-
   test('create', async () => {
     const input = ref('input')
     const handleFocus = vi.fn()
@@ -33,6 +28,7 @@ describe('JInput.vue', () => {
     expect(nativeInput.placeholder).toMatchInlineSnapshot(`"请输入内容"`)
     expect(nativeInput.value).toMatchInlineSnapshot(`"input"`)
     expect(nativeInput.minLength).toMatchInlineSnapshot(`3`)
+    expect(nativeInput.maxLength).toMatchInlineSnapshot(`5`)
 
     input.value = 'text'
     await nextTick()
@@ -311,11 +307,7 @@ describe('JInput.vue', () => {
 
   test('non-emit event such as keyup should work', async () => {
     const handleKeyup = vi.fn()
-    const wrapper = mount(JInput, {
-      attrs: {
-        onKeyup: handleKeyup,
-      },
-    })
+    const wrapper = mount(() => <JInput onkeyup={handleKeyup} />)
 
     await wrapper.find('input').trigger('keyup')
     expect(handleKeyup).toBeCalledTimes(1)

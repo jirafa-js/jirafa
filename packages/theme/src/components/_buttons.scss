@@ -3,8 +3,8 @@
 @use '../settings' as *;
 @use '../tools' as *;
 
-$button-height: 32px !default;
-$button-font-size: 14px !default;
+$button-height: $height-size-base !default;
+$button-font-size: $font-size-base !default;
 $button-width-ratio: 2 !default;
 $button-padding-ratio: 2.25 !default;
 
@@ -35,7 +35,7 @@ $button-status: map.merge(
   (
     '': (
       get-css-var('color', 'primary'),
-      get-css-var('text-color', 'secondary'),
+      get-css-var('text-color', 'regular'),
     ),
     'success': (
       get-css-var('color', 'success'),
@@ -60,17 +60,25 @@ $button-vars: map.merge(
 );
 
 @mixin button-size($map: $button-sizes) {
-  @each $sizeName, $multiplier in $size-scales {
-    $size: roundEven(map.get($map, 'font-size') + $multiplier);
-    $height: map.get($map, 'height') + (4 * $multiplier);
-
-    @include m(if($sizeName == 'default', '', $sizeName)) {
-      --j-button-font-size: #{$size};
-      --j-button-height: #{$height};
-      min-width: roundEven($height * map.get($map, 'width-ratio'));
-      padding: 0 roundEven(math.div($height, map.get($map, 'padding-ratio')));
+  @include sizes();
+  @each $size in $sizes {
+    @include m($size) {
+      min-width: roundEven(
+        get-size-val(null, height, $size) * map.get($map, 'width-ratio')
+      );
     }
   }
+  // @each $sizeName, $multiplier in $size-scales {
+  //   $size: roundEven(map.get($map, 'font-size') + $multiplier);
+  //   $height: map.get($map, 'height') + (4 * $multiplier);
+
+  //   @include m(if($sizeName == 'default', '', $sizeName)) {
+  //     --j-button-font-size: #{$size};
+  //     --j-button-height: #{$height};
+  //     min-width: roundEven($height * map.get($map, 'width-ratio'));
+  //     padding: 0 roundEven(math.div($height, map.get($map, 'padding-ratio')));
+  //   }
+  // }
 }
 
 @mixin button-status($status: $button-status) {

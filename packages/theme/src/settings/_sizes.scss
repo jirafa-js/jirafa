@@ -1,7 +1,9 @@
 @use 'sass:map';
+@use 'sass:math';
 @use './space';
+@use '../tools/functions' as *;
 
-$sizes: ('mini', 'small', 'default', 'large') !default;
+$sizes: ('', 'mini', 'small', 'large') !default;
 
 $size-scale: space.$spacer !default;
 
@@ -26,3 +28,45 @@ $size-scales-radix: map.merge(
   ),
   $size-scales-radix
 );
+
+$height-size-base: 32px !default;
+$font-size-base: 14px !default;
+$padding-ratio: 2.5 !default;
+
+$size-scale: space.$spacer !default;
+
+$height-sizes: () !default;
+$height-sizes: map.merge(
+  (
+    '': $height-size-base,
+    'mini': $height-size-base - 2 * $size-scale,
+    'small': $height-size-base - $size-scale,
+    'large': $height-size-base + $size-scale,
+  ),
+  $height-sizes
+);
+
+$font-sizes: () !default;
+$font-sizes: map.merge(
+  (
+    '': $font-size-base,
+    'mini': $font-size-base - 0.5 * $size-scale,
+    'small': $font-size-base,
+    'large': $font-size-base,
+  ),
+  $font-sizes
+);
+
+$padding-sizes: () !default;
+@each $size, $value in $height-sizes {
+  $padding-sizes: map.merge(
+    (#{$size}: #{roundEven(math.div($value, $padding-ratio))}),
+    $padding-sizes
+  );
+}
+
+$sizes-provide: (
+  height: $height-sizes,
+  font-size: $font-sizes,
+  padding: $padding-sizes,
+) !default;

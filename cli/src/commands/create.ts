@@ -116,6 +116,7 @@ async function createTheme(name: string) {
         `
       @use './settings' as *;
       @use './tools' as *;
+      @use './components/${name}' as *;
 
       @include b(${name}) {
         //
@@ -126,7 +127,7 @@ async function createTheme(name: string) {
     ),
     // style variable
     appendFile(
-      resolve(DIR_THEME, `src/settings/components/_${name}.scss`),
+      resolve(DIR_THEME, `src/components/_${name}.scss`),
       `\n$${name}: () !default;\n$${name}: map-merge(\n(),\n$${name}\n);\n`
     ),
     // export

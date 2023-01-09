@@ -20,16 +20,6 @@ $input-border: (
   $input-border-width
 ) !default;
 
-$input-sizes: () !default;
-$input-sizes: map.merge(
-  (
-    'height': create-size($input-height, 4),
-    'font-size': create-size($input-font-size, 1, true),
-    'padding': create-size($input-padding-inline, 2),
-  ),
-  $input-sizes
-);
-
 $input-vars: () !default;
 $input-vars: map.merge(
   (

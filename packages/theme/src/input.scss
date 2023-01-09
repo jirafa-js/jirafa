@@ -14,7 +14,7 @@
   height: get-css-var('input', 'height');
   font-size: get-css-var('input', 'font-size');
 
-  @include size(input, $input-sizes);
+  @include sizes();
 
   @include e(overlay) {
     @include overlay(
@@ -143,7 +143,7 @@
 
   @include e(count) {
     font-size: calc(get-css-var('input', 'font-size') - 2px);
-    color: get-css-var('text-color', 'secondary');
+    color: get-css-var('text-color', 'regular');
   }
 
   @include is(disabled) {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useAttrs, useForm, useFormInput, useNamespace } from '@jirafa/hooks'
+import { useAttrs, useForm, useNamespace } from '@jirafa/hooks'
 import {
   StyleValue,
   computed,
@@ -13,22 +13,21 @@ import {
 import { JIcon, JIconFeedback } from '@jirafa/components/icon'
 import { UPDATE_MODEL_EVENT, debugWarn, isKorean, isNil } from '@jirafa/utils'
 import { Close, View, ViewOff } from '@jirafa/icons'
-import { inputEmit, inputProps } from './input'
+import { inputEmits, inputProps } from './input'
 
 const props = defineProps(inputProps)
-const emit = defineEmits(inputEmit)
+const emit = defineEmits(inputEmits)
 defineOptions({ name: 'JInput', inheritAttrs: false })
 const ns = useNamespace('input')
 
 const { form, formItem } = useForm()
-const { inputId } = useFormInput(props, { formItemContext: formItem })
+// const { inputId } = useFormInput(props, { formItemContext: formItem })
 const _size = computed(() => {
   return props.size ?? formItem?.size ?? form?.size ?? ''
 })
 const attrs = useAttrs()
 const slots = useSlots()
 const input = shallowRef<HTMLInputElement>()
-// const inputId = computed(() => inputId2.value)
 
 const focused = ref(false)
 const hovering = ref(false)
@@ -177,7 +176,9 @@ const handleFocus = (evt: FocusEvent) => {
 const handleBlur = (evt: FocusEvent) => {
   focused.value = false
   emit('blur', evt)
-  formItem?.validate?.('blur').catch((error) => debugWarn(error))
+  if (props.validateEvent) {
+    formItem?.validate?.('blur').catch((error) => debugWarn(error))
+  }
 }
 const handleChange = (evt: Event) => {
   emit('change', (evt.target as HTMLInputElement).value)
@@ -189,7 +190,9 @@ const handleKeydown = (evt: KeyboardEvent) => {
 watch(
   () => props.modelValue,
   () => {
-    formItem?.validate?.('change').catch((error) => debugWarn(error))
+    if (props.validateEvent) {
+      formItem?.validate?.('change').catch((error) => debugWarn(error))
+    }
   }
 )
 
@@ -245,15 +248,18 @@ defineExpose({
         </JIcon>
       </span>
       <input
-        :id="inputId"
+        :id="id"
         ref="input"
-        placeholder="请输入"
-        v-bind="attrs"
         :class="[ns.e('inner')]"
+        :placeholder="placeholder"
         :type="inputType"
         :style="inputStyle"
         :aria-disabled="disabled"
         :disabled="disabled"
+        :maxlength="maxlength"
+        :readonly="readonly"
+        :autocomplete="autocomplete"
+        v-bind="attrs"
         @compositionstart="handleCompositionStart"
         @compositionupdate="handleCompositionUpdate"
         @compositionend="handleCompositionEnd"

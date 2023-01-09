@@ -1,0 +1,247 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:selector';
+@use './settings' as *;
+@use './tools' as *;
+@use './components/radio' as *;
+
+@include b(radio) {
+  @include set-css-var-by-map('radio', $radio-vars);
+}
+
+@include b(radio) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  height: get-css-var(radio, height);
+  font-size: get-css-var('radio', 'font-size');
+  color: get-css-var('radio-text-color');
+  user-select: none;
+
+  @include sizes() using ($size) {
+    @include set-css-var(
+      ('radio', 'input-height'),
+      map.get($radio-input-sizes, $size)
+    );
+  }
+  @include radius('base');
+
+  @include e(native) {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+
+    &:focus-visible + .#{be('radio', 'input')} {
+      outline: 2px solid get-css-var('color', 'primary');
+      outline-offset: 1px;
+    }
+  }
+
+  @include e(input) {
+    position: relative;
+    width: get-css-var('radio', 'input-height');
+    height: get-css-var('radio', 'input-height');
+    background-color: $radio-input-border-color;
+    @include radius('circle');
+    @include border($radio-input-border...);
+
+    &::before {
+      @include absolute(0, true);
+      border-radius: inherit;
+      background-color: get-css-var('color-bg');
+    }
+
+    &::after {
+      @include overlay(
+        get-css-var('radio-input', 'overlay-opacity'),
+        -7px,
+        true
+      );
+      z-index: -1;
+    }
+  }
+
+  @include e(label) {
+    padding-left: map.get($spacers, 'small');
+  }
+
+  &:not(:last-child) {
+    margin-right: map.get($spacers, 'large');
+  }
+
+  &:hover {
+    @include set-css-var(
+      ('radio-input', 'overlay-opacity'),
+      map.get($states, 'hover')
+    );
+  }
+
+  @include is(bordered) {
+    padding: 0 get-css-var('radio', 'padding');
+    @include border($radio-border...);
+  }
+
+  @include is(checked) {
+    border-color: get-css-var('color', 'primary');
+    @include set-css-var(('radio-input', 'overlay-opacity'), 0);
+
+    .#{be('radio', 'input')} {
+      background-color: get-css-var('color', 'primary');
+      border-color: get-css-var('color', 'primary');
+      &::before {
+        transform: scale(0.4);
+        @include transition(
+          transform,
+          get-css-var('transition', 'duration', 'fast')
+        );
+      }
+    }
+  }
+
+  @include is(disabled) {
+    .#{be('radio', 'input')} {
+      background-color: get-css-var('border', 'color');
+      border-color: get-css-var('border', 'color');
+    }
+
+    @include set-css-var(('radio-input', 'overlay-opacity'), 0);
+
+    border-color: $radio-border-color;
+    color: get-css-var('text-color', 'disabled');
+    cursor: not-allowed;
+  }
+}
+
+@include b(radio-button) {
+  @include set-css-var-by-map('radio-button', $radio-button-vars);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: get-css-var('radio-button-height');
+  font-size: get-css-var('radio-button-font-size');
+  color: get-css-var('radio-button-text-color');
+  cursor: pointer;
+  $_radio-button-gap: 3px;
+
+  &::before {
+    @include overlay(map.get($states, 'activated'), 0, true);
+    z-index: -1;
+  }
+
+  &:first-child {
+    border-radius: map.get($border-radiuses, 'base') 0 0
+      map.get($border-radiuses, 'base');
+    padding-left: $_radio-button-gap;
+  }
+
+  &:last-child {
+    border-radius: 0 map.get($border-radiuses, 'base')
+      map.get($border-radiuses, 'base') 0;
+  }
+
+  &:not(:first-of-type)::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    top: $_radio-button-gap + 2;
+    bottom: $_radio-button-gap + 2;
+    left: -#{roundEven(math.div($_radio-button-gap, 2))};
+    background-color: currentColor;
+    opacity: map.get($states, 'activated');
+    @include transition(all, get-css-var('transition', 'duration', 'fast'));
+  }
+
+  &:hover::after,
+  &.is-checked::after,
+  &:hover + &::after,
+  &.is-checked + &::after {
+    opacity: 0;
+  }
+
+  @include sizes();
+
+  @include e(native) {
+    // position: absolute;
+    // width: 0px;
+    // height: 0px;
+    // opacity: 0;
+
+    &:focus-visible + .#{be('radio-button', 'content')} {
+      outline: 2px solid get-css-var('color', 'primary');
+      outline-offset: 1px;
+    }
+  }
+
+  @include e(content) {
+    align-self: stretch;
+    display: inline-flex;
+    align-items: center;
+    // background-color: #fff;
+    margin: $_radio-button-gap $_radio-button-gap $_radio-button-gap 0;
+    padding: 0 get-css-var('radio-button', 'padding');
+    border-radius: map.get($border-radiuses, 'small');
+    @include transition(all, get-css-var('transition', 'duration', 'fast'));
+  }
+
+  &:hover {
+    .#{be('radio-button', 'content')} {
+      color: get-css-var('text-color-primary');
+      background-color: get-css-var('color-bg');
+    }
+  }
+
+  &.is-checked {
+    .#{be('radio-button', 'content')} {
+      color: get-css-var('color-primary');
+      background-color: get-css-var('color-bg');
+    }
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+
+    .#{be('radio-button', 'content')} {
+      // opacity: 0.26;
+      color: get-css-var('text-color-disabled');
+      background-color: transparent;
+    }
+  }
+
+  &.is-disabled.is-checked {
+    .#{be('radio-button', 'content')} {
+      color: get-css-var('color-primary-lighten-3');
+      background-color: get-css-var('color-bg');
+    }
+  }
+}
+
+@include b(radio-group) {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @include m('vertical') {
+    flex-direction: column;
+    align-items: flex-start;
+    .#{b(radio)}.#{is(bordered)}:not(:last-child) {
+      margin-right: 0;
+      margin-bottom: map.get($spacers, 'base');
+    }
+  }
+
+  &-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    // @include radius('base');
+
+    // &::before {
+    //   @include overlay(map.get($states, 'activated'), 0, true);
+    // }
+  }
+}

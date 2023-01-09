@@ -31,15 +31,15 @@
   display: flex;
   margin-bottom: 20px;
 
-  @include size(form, $form-sizes);
+  @include sizes();
 
   @include e('label') {
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
-    height: get-css-var('form', 'height');
-    font-size: get-css-var('form', 'font-size');
-    padding-right: get-css-var('form', 'padding');
+    height: get-css-var('form-item', 'height');
+    font-size: get-css-var('form-item', 'font-size');
+    padding-right: get-css-var('form-item', 'padding');
 
     &-wrap {
       display: flex;

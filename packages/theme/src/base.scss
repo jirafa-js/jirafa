@@ -24,7 +24,7 @@
     (
       'bg': (
         '': map.get($shades, 'white'),
-        'page': get-css-var('color', 'fill', 'base'),
+        'page': get-css-var('color', 'ink-blue', 'lighten-5'),
         'overlay': map.get($shades, 'white'),
       ),
     )
@@ -36,8 +36,7 @@
     (
       '': $borders,
       'radius': $border-radiuses,
-      'color': get-rgb(#000),
-      'opacity': 0.12,
+      'color': get-css-var('color', 'ink-blue', 'lighten-3'),
     )
   );
 

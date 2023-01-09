@@ -17,8 +17,20 @@
   font-weight: $tag-font-weight;
   cursor: default;
   overflow: hidden;
+  height: get-css-var('tag', 'height');
+  padding: 0 get-css-var('tag', 'padding');
+  font-size: get-css-var('tag', 'font-size');
+  line-height: calc(#{get-css-var('tag', 'height')} - #{2 * $tag-border-width});
 
   @include border($tag-border...);
+  @include sizes(
+    (
+      height: $tag-sizes,
+      padding: $tag-padding-sizes,
+      font-size: $tag-font-sizes,
+    )
+  );
+  @include tag-color();
 
   @include e(overlay) {
     position: absolute;
@@ -73,7 +85,4 @@
   @include is('bordered') {
     border-color: currentColor;
   }
-
-  @include tag-size();
-  @include tag-color();
 }

@@ -39,6 +39,10 @@
       {
         "text": "Input",
         "link": "/component/input"
+      },
+      {
+        "text": "Radio",
+        "link": "/component/radio"
       }
     ]
   },

@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../settings';
+@use '../settings/border' as *;
 
 @mixin border($color: null, $style: null, $width: null, $important: false) {
   border-color: $color if($important, !important, null);

@@ -22,8 +22,21 @@ export const inputProps = buildProps({
     type: String,
     values: componentSizes,
   },
+  containerRole: {
+    type: String,
+    default: undefined,
+  },
+  validateEvent: {
+    type: Boolean,
+    default: true,
+  },
   disabled: Boolean,
+  placeholder: String,
   readonly: Boolean,
+  autocomplete: {
+    type: String,
+    default: 'off',
+  },
   clearable: Boolean,
   showPassword: Boolean,
   showWordLimit: Boolean,
@@ -54,7 +67,7 @@ export const inputProps = buildProps({
 
 export type InputProps = ExtractPropTypes<typeof inputProps>
 
-export const inputEmit = {
+export const inputEmits = {
   'update:modelValue': (val: string) => isString(val),
   blur: (evt: FocusEvent) => evt instanceof FocusEvent,
   focus: (evt: FocusEvent) => evt instanceof FocusEvent,
@@ -70,4 +83,4 @@ export const inputEmit = {
   keydown: (evt: KeyboardEvent) => evt instanceof KeyboardEvent,
 }
 
-export type InputEmit = typeof inputEmit
+export type InputEmit = typeof inputEmits
