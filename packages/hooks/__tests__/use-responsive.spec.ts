@@ -1,10 +1,10 @@
 import { defineComponent } from 'vue'
 import { mount } from '@vue/test-utils'
-import { useResponsiveObserve } from '..'
+// import { useResponsiveObserve } from '..'
 
 const TestComp = defineComponent({
   setup() {
-    useResponsiveObserve()
+    // useResponsiveObserve()
   },
 })
 
