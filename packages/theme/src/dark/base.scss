@@ -1,0 +1,8 @@
+@use '../tools' as *;
+@use './settings.scss' as *;
+
+html.dark {
+  @include set-css-var-by-map('text-color', $text-colors);
+
+  @include set-css-var-by-map('bg-color', $bg-colors);
+}

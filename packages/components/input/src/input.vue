@@ -7,7 +7,6 @@ import {
   useSize,
 } from '@jirafa/hooks'
 import {
-  StyleValue,
   computed,
   nextTick,
   onMounted,
@@ -228,7 +227,7 @@ defineExpose({
       },
       $attrs.class,
     ]"
-    :style="[$attrs.style as StyleValue]"
+    :style="[$attrs.style]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >

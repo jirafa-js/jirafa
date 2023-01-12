@@ -1,0 +1,23 @@
+@use 'sass:map';
+
+$bg-colors: () !default;
+$bg-colors: map.merge(
+  (
+    '': #242424,
+    'page': #1a1a1a,
+    'overlay': #2f2f2f,
+  ),
+  $bg-colors
+);
+
+$text-color-base: #f0f5ff;
+$text-colors: () !default;
+$text-colors: map.merge(
+  (
+    'primary': rgba($text-color-base, 1),
+    'regular': rgba($text-color-base, 0.85),
+    'placeholder': rgba($text-color-base, 0.45),
+    'disabled': rgba($text-color-base, 0.25),
+  ),
+  $text-colors
+);

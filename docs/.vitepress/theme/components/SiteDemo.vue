@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useClipboard, useToggle } from '@vueuse/core'
+import { JIcon } from 'jirafa'
+import { CaretUpFilled } from '@jirafa/icons'
 import demo from '../../i18n/components/demo.json'
 import IconGithubLine from './icons/IconGithubLine.vue'
-import IconCode from './icons/IconCode.vue'
-import IconCopy from './icons/IconCopy.vue'
-import IconArrowUpFill from './icons/IconArrowUpFill.vue'
 import SiteDemoShowcase from './SiteDemoShowcase.vue'
 import { useLocale } from '~/composables/useLocale'
 import { REPO_DOCS, REPO_DOCS_BRANCH } from '~/constants'
@@ -68,29 +67,30 @@ const decodedSource = computed(() => decodeURIComponent(props.source))
       <SiteDemoShowcase :demo="demoComp" />
 
       <div class="demo-btns">
-        <a
-          class="demo-btn"
-          rel="noopener noreferrer"
-          target="_blank"
-          :href="demoUrl"
-          :title="demoLocale['edit-on-github']"
-        >
-          <IconGithubLine />
-        </a>
-        <i
+        <JIcon class="demo-btn">
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            :href="demoUrl"
+            :title="demoLocale['edit-on-github']"
+          >
+            <i-ri-github-line />
+          </a>
+        </JIcon>
+        <JIcon
           :title="demoLocale['copy-source-code']"
           class="demo-btn"
           @click="copyCode"
         >
-          <IconCopy />
-        </i>
-        <i
+          <i-ri-file-copy-line />
+        </JIcon>
+        <JIcon
           :title="demoLocale['view-source-code']"
           class="demo-btn"
           @click="toggleSourceVisible()"
         >
-          <IconCode />
-        </i>
+          <i-ri-code-line />
+        </JIcon>
       </div>
       <div
         class="demo-source"
@@ -103,7 +103,9 @@ const decodedSource = computed(() => decodeURIComponent(props.source))
         :class="{ show: sourceVisible }"
         @click="toggleSourceVisible(false)"
       >
-        <IconArrowUpFill />
+        <JIcon :size="16">
+          <CaretUpFilled />
+        </JIcon>
         <span>{{ demoLocale['hide-source-code'] }}</span>
       </div>
     </div>

@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import IconSun from '../icons/IconSun.vue'
-import IconMoon from '../icons/IconMoon.vue'
 import Switch from './Switch.vue'
 </script>
 
 <template>
   <Switch aria-label="toggle dark mode">
-    <IconSun class="sun" />
-    <IconMoon class="moon" />
+    <i-ri-sun-line class="sun" />
+    <i-ri-moon-line class="moon" />
   </Switch>
 </template>
 

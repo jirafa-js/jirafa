@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { useToggle } from '@vueuse/core'
-
 import HeaderFullscreen from './HeaderFullscreen.vue'
 import HeaderBar from './HeaderBar.vue'
 import { useSidebar } from '~/composables/useSidebar'

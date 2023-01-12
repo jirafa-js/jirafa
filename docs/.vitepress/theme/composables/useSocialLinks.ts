@@ -1,11 +1,11 @@
-import IconGithub from '../components/icons/IconGithub.vue'
+import RiGithubFill from '~icons/ri/github-fill'
 
 export const useSocialLinks = () => {
   return [
     {
       text: 'GitHub',
       link: 'https://github.com/jirafa-js/jirafa',
-      icon: IconGithub,
+      icon: RiGithubFill,
     },
   ]
 }

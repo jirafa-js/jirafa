@@ -24,7 +24,7 @@
   cursor: pointer;
 
   &:hover {
-    border-color: var(--site-c-gray);
+    border-color: var(--site-c-divider);
   }
 
   &__action {
@@ -34,12 +34,11 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: var(--site-c-white);
+    background-color: var(--site-c-bg-soft);
     box-shadow: var(--site-shadow-1);
     transition: background-color 0.25s, transform 0.25s;
 
     .dark & {
-      background-color: var(--site-c-black);
       transform: translateX(18px);
     }
   }

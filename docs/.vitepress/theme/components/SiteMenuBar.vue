@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import IconToggleButton from './icons/IconToggleButton.vue'
 import Link from './common/Link.vue'
 import { useSidebar } from '~/composables/useSidebar'
 import { useBackTop } from '~/composables/useBackTop'
@@ -15,7 +14,7 @@ const { show, backToTop } = useBackTop()
       class="menu-bar__sidebar-toggle"
       @click="$emit('openMenu')"
     >
-      <IconToggleButton />
+      <i-ri-align-left />
       <span>Menu</span>
     </div>
     <Link class="menu-bar__back-top" :class="{ show }" @click="backToTop"

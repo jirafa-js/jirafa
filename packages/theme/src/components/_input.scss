@@ -11,7 +11,7 @@ $input-height: 32px !default;
 $input-font-size: 14px !default;
 $input-padding-inline: 12px - $input-border-width !default;
 
-$input-bg-color: get-css-var('color', 'bg') !default;
+$input-bg-color: get-css-var('bg-color') !default;
 $input-overlay-opacity-base: 0.04 !default;
 
 $input-border: (

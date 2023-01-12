@@ -18,9 +18,9 @@ $button-sizes: map.merge(
   ),
   $button-sizes
 );
-$button-font-weight: map.get($font-weights, 'regular');
+$button-font-weight: map.get($font-weights, 'regular') !default;
 
-$button-border-radius: $border-radius-root;
+$button-border-radius: $border-radius-root !default;
 $button-border-color: get-css-var('button', 'border-color') !default;
 $button-border-style: solid !default;
 $button-border-width: 1px !default;

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import IconArrowLeft from './icons/IconArrowLeft.vue'
-import IconArrowRight from './icons/IconArrowRight.vue'
+import { JIcon } from 'jirafa'
+import { ArrowLeft, ArrowRight } from '@jirafa/icons'
 import { useDocNav } from '~/composables/useDocNav'
 
 const { next, prev, has } = useDocNav()
@@ -10,14 +10,18 @@ const { next, prev, has } = useDocNav()
   <div v-if="has" class="site-doc-nav">
     <div class="prev">
       <a v-if="prev" class="link" :href="prev.link">
-        <IconArrowLeft />
+        <JIcon>
+          <ArrowRight />
+        </JIcon>
         <span class="text">{{ prev.text }}</span>
       </a>
     </div>
     <div class="next">
       <a v-if="next" class="link" :href="next.link">
         <span class="text">{{ next.text }}</span>
-        <IconArrowRight />
+        <JIcon>
+          <ArrowLeft />
+        </JIcon>
       </a>
     </div>
   </div>

@@ -5,6 +5,10 @@ import { DIR_ROOT } from '@jirafa/cli/dist/shared'
 import Components from 'unplugin-vue-components/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import DefineOptions from 'unplugin-vue-define-options/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import UnoCSS from 'unocss/vite'
+import { presetAttributify, presetIcons, presetUno } from 'unocss'
 import { MdTransform } from './.vitepress/plugins/md-transform'
 
 const alias: Alias[] = [
@@ -48,6 +52,11 @@ export default defineConfig(async ({ mode }) => {
         dirs: ['.vitepress/theme/components/globals'],
         allowOverrides: true,
         include: [/\.(vue|md)$/, /\.vue\?vue/],
+        resolvers: [IconsResolver()],
+      }),
+      Icons({ autoInstall: true }),
+      UnoCSS({
+        presets: [presetUno(), presetAttributify(), presetIcons()],
       }),
       MdTransform(),
     ],

@@ -19,16 +19,7 @@
   @include set-css-var-by-map(color, $colors);
   @include set-css-var-by-map(color, $shades);
 
-  @include set-css-var-by-map(
-    'color',
-    (
-      'bg': (
-        '': map.get($shades, 'white'),
-        'page': get-css-var('color', 'ink-blue', 'lighten-5'),
-        'overlay': map.get($shades, 'white'),
-      ),
-    )
-  );
+  @include set-css-var-by-map('bg-color', $bg-colors);
 
   // Borders
   @include set-css-var-by-map(
@@ -54,7 +45,7 @@
   );
 
   // Texts
-  @include set-css-var-by-map('text-color', $font-colors);
+  @include set-css-var-by-map('text-color', $text-colors);
 
   // Theme
   @include set-theme(

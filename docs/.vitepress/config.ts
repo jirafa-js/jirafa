@@ -13,7 +13,7 @@ const locales = languages.reduce((locales, l) => {
 
 const config: UserConfig<ThemConfig> = {
   title: 'Jirafa UI',
-  description: 'a Vue 3 based component library, powered by Material Design',
+  description: 'a Vue 3 based component library',
   lastUpdated: true,
   head,
   locales,

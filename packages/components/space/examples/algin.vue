@@ -7,11 +7,11 @@ const align = ref<CSSProperties['align-items']>('center')
 
 <template>
   <div>
-    <JRadioGroup v-model="align">
-      <JRadio value="flex-start">start</JRadio>
-      <JRadio value="center">center</JRadio>
-      <JRadio value="flex-end">end</JRadio>
-      <JRadio value="baseline">baseline</JRadio>
+    <JRadioGroup v-model="align" type="button">
+      <JRadio value="flex-start">Start</JRadio>
+      <JRadio value="center">Center</JRadio>
+      <JRadio value="flex-end">End</JRadio>
+      <JRadio value="baseline">Baseline</JRadio>
     </JRadioGroup>
   </div>
   <JSpace :align="align">

@@ -27,7 +27,7 @@
     padding: 0 map-get($spacers, 3);
     font-weight: 500;
     font-size: 14px;
-    background-color: get-css-var(color, bg);
+    background-color: get-css-var('bg-color');
 
     @include is(left) {
       left: map-get($spacers, 5);

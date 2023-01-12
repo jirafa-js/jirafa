@@ -7,8 +7,10 @@ import SiteDemo from './components/SiteDemo.vue'
 import IconsList from './components/globals/IconsList.vue'
 
 import '../../../packages/theme/src/index.scss'
+import '../../../packages/theme/src/dark/base.scss'
 
 import './styles/site.scss'
+// import './styles/base.scss'
 
 const theme: Theme = {
   Layout,

@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "lib": ["WebWorker", "DOM"],
     "jsx": "preserve",
-    "types": [],
+    "types": ["unplugin-icons/types/vue"],
     "paths": {
       "~/*": ["./.vitepress/theme/*"],
       "jirafa": ["../packages/jirafa"]

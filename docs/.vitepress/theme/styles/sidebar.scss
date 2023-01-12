@@ -8,11 +8,16 @@
   padding: 48px 32px 0;
   overflow-y: auto;
   transform: translateX(-100%);
+  background-color: var(--site-c-bg);
   z-index: var(--site-z-index-sidebar);
 
   @include with-transition(transform, opacity, top);
   &.open {
     transform: translate(0);
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 300px;
   }
 
   @include point-to('md') {

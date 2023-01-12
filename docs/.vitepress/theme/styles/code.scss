@@ -28,7 +28,7 @@ code {
   border-radius: 4px;
   padding: 0.15rem 0.5rem;
   color: var(--site-c-text-code);
-  background-color: var(--site-c-bg-mute);
+  background-color: var(--site-c-bg-code);
 
   @include code-font;
   @include with-transition(background-color, color);

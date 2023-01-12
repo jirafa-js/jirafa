@@ -19,10 +19,18 @@
     justify-content: flex-end;
   }
   &-btn {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0 8px;
     cursor: pointer;
     color: var(--site-c-text-2);
+
+    a {
+      color: var(--site-c-text-2);
+
+      &:hover {
+        color: var(--site-c-text-1);
+      }
+    }
 
     &:hover {
       color: var(--site-c-text-1);
@@ -46,14 +54,21 @@
       justify-content: center;
       align-items: center;
       color: var(--site-c-text-2);
+      background-color: var(--site-c-bg);
+      border-top: 1px solid var(--site-c-divider);
+      border-radius: 0 0 8px 8px;
       cursor: pointer;
       opacity: 0;
       visibility: hidden;
+      position: sticky;
+      top: 0;
+      bottom: 0;
+      z-index: var(--site-z-index-doc);
       @include with-transition(opacity);
 
-      > svg {
-        font-size: 22px;
-        margin-right: 4px;
+      > span {
+        margin-left: 8px;
+        font-size: 14px;
       }
 
       &.show {

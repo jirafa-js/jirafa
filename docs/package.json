@@ -15,6 +15,7 @@
     "jirafa": "npm:jirafa@lastest"
   },
   "devDependencies": {
+    "@iconify-json/ri": "^1.1.4",
     "@jirafa/cli": "workspace:^0.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/markdown-it": "^12.2.3",
@@ -29,6 +30,8 @@
     "sass": "^1.53.0",
     "shiki": "^0.10.1",
     "tsx": "^3.8.0",
+    "unocss": "^0.48.3",
+    "unplugin-icons": "^0.15.1",
     "unplugin-vue-components": "^0.21.1",
     "unplugin-vue-define-options": "^0.6.2",
     "vite": "^3.0.0",

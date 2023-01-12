@@ -145,6 +145,8 @@ provide(
     removeField,
     resetFields,
     clearValidate,
+    validateField,
+    scrollToField,
   })
 )
 

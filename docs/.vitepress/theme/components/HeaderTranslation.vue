@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import IconTranslate from './icons/IconTranslate.vue'
 import Link from './common/Link.vue'
 import { useTranslation } from '~/composables/useTranslation'
 
@@ -14,7 +13,7 @@ const open = ref(false)
     @mouseenter="open = true"
     @mouseleave="open = false"
   >
-    <IconTranslate @click="open = !open" />
+    <i-ri-translate-2 @click="open = !open" />
     <!-- TODO need instead by jirafa popup -->
 
     <div class="header-translation-popup">

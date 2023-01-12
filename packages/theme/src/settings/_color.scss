@@ -442,3 +442,32 @@ $colors: map.merge(
   ),
   $colors
 );
+
+$bg-colors: () !default;
+$bg-colors: map.merge(
+  (
+    '': map.get($shades, 'white'),
+    'page': map.get($ink-blue, 'lighten-5'),
+    'overlay': map.get($shades, 'white'),
+  ),
+  $bg-colors
+);
+
+$border-colors: () !default;
+$border-colors: map.merge(
+  (
+    '': #c6ced2,
+  ),
+  $border-colors
+);
+
+$text-colors: () !default;
+$text-colors: map.merge(
+  (
+    primary: #1b252c,
+    regular: #27353f,
+    placeholder: rgba(#27353f, 0.45),
+    disabled: rgba(#27353f, 0.25),
+  ),
+  $text-colors
+);

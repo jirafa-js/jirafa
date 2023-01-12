@@ -50,7 +50,7 @@
     &::before {
       @include absolute(0, true);
       border-radius: inherit;
-      background-color: get-css-var('color-bg');
+      background-color: get-css-var('bg-color');
     }
 
     &::after {
@@ -189,14 +189,14 @@
   &:hover {
     .#{be('radio-button', 'content')} {
       color: get-css-var('text-color-primary');
-      background-color: get-css-var('color-bg');
+      background-color: get-css-var('bg-color');
     }
   }
 
   &.is-checked {
     .#{be('radio-button', 'content')} {
       color: get-css-var('color-primary');
-      background-color: get-css-var('color-bg');
+      background-color: get-css-var('bg-color');
     }
   }
 
@@ -213,7 +213,7 @@
   &.is-disabled.is-checked {
     .#{be('radio-button', 'content')} {
       color: get-css-var('color-primary-lighten-3');
-      background-color: get-css-var('color-bg');
+      background-color: get-css-var('bg-color');
     }
   }
 }
